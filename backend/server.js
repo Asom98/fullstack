@@ -24,3 +24,31 @@ app.get("/", authenticateUser, checkRole(['admin','user']), async (req, res) => 
     res.json(response)
     })
 })
+
+app.post('/register', async (req,res) => { 
+    try {
+        await bcrypt.hash(req.body.password, 10) 
+        .then(hashedPassword => {
+            const newUser = new userModel({username: req.body.name, password: hashedPassword, role: req.body.role})
+            newUser.save()
+            .then(console.log("saved succefully ", newUser))
+        })
+    } catch(error) {
+        console.log(error);
+    }
+})
+
+app.post("/login", async (req, res) => {
+    const user = await userModel.findOne({username: req.body.username})
+    if (user != null) {
+        const isMatch = await bcrypt.compare(req.body.password, user.password)
+        if(isMatch){
+            const accessToken = jwt.sign({username: user.username, role: user.role}, process.env.ACCESS_TOKEN)
+            res.json([{accessToken: accessToken}, user])
+        } else {
+            res.sendStatus(403)
+        }
+    } else {
+        res.sendStatus(404)
+    }
+})
