@@ -1,9 +1,15 @@
 import { Welcom } from "./components/Welcom"
+import { ServicePage } from "./components/Service"
+import './main.css'
+
 
 function App() {
   return (
-    <Welcom />
-  )
+    <div>
+      <Welcom/>
+      <ServicePage />
+    </div>
+  );
 }
 
-export default App
+export default App;

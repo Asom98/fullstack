@@ -1,0 +1,27 @@
+
+[
+    {
+        "_id": "1",
+        "name": "Haircut",
+        "employee_name": "Emma",
+        "details": "Includes consultation, shampoo, cut, and blow-dry",
+        "duration": "60min",
+        "price": "$50"
+    },
+    {
+        "_id": "2",
+        "name": "Manicure",
+        "employee_name": "Sarah",
+        "details": "Includes shaping, cuticle care, hand massage, and polish",
+        "duration": "60min",
+        "price": "$30"
+    },
+    {
+        "_id": "3",
+        "name": "Facial",
+        "employee_name": "Jasmine",
+        "details": "Includes cleansing, exfoliation, mask, and moisturizer",
+        "duration": "60min",
+        "price": "$80"
+    }
+]
