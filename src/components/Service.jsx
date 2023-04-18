@@ -6,9 +6,9 @@ export const ServicePage = () => {
     return (
         <div>
             <div className="d-flex justify-content-center fs-1 fst-italic font-monospace">Service page!</div>
-            <div className="row">
+            <div className="card-deck">
                 {servicesData.map((service) => (
-                    <div key={service._id} className="col-md-4 mt-4">
+                    <div key={service._id} className="card mt-4">
                         <Card>
                             <Card.Body>
                                 <Card.Title>{service.name}</Card.Title>
