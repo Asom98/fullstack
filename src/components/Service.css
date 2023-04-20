@@ -1,0 +1,38 @@
+.custom.card {
+    margin: 1rem;
+}
+  
+.custom.card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 200px;
+    width: 450px;
+    position: relative;
+    
+}
+  
+.custom.card .card-body .card-text {
+    margin-bottom: auto;
+}
+  
+.custom.card .btn-primary {
+    background-color: grey;
+    border-color: grey;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: background-color 0.3s ease;
+}
+
+.custom.card .btn-primary:hover {
+    background-color: rgb(66, 63, 63);
+}
+  
+.custom-card-columns {
+    column-gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+

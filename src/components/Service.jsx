@@ -1,14 +1,15 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import servicesData from "../json/services.json";
+import "./Service.css";
 
 export const ServicePage = () => {
     return (
-        <div>
+        <div className="d-flex flex-column justify-content-center align-items-center">
             <div className="d-flex justify-content-center fs-1 fst-italic font-monospace">Service page!</div>
-            <div className="card-deck">
+            <div className="card-columns mt-4 custom-card-columns">
                 {servicesData.map((service) => (
-                    <div key={service._id} className="card mt-4">
+                    <div key={service._id} className="custom card">
                         <Card>
                             <Card.Body>
                                 <Card.Title>{service.name}</Card.Title>
