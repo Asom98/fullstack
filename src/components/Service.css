@@ -21,8 +21,8 @@
     background-color: grey;
     border-color: grey;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 15px;
+    right: 15px;
     transition: background-color 0.3s ease;
 }
 
