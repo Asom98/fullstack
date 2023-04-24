@@ -1,0 +1,81 @@
+.calendar {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-day {
+  width: calc(100% / 7);
+  text-align: center;
+  font-weight: bold;
+  padding: 1rem 0;
+}
+
+.calendar-time-slot {
+  padding: 0.5rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-gap: 0.5rem;
+}
+
+.calendar-grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-slot-button {
+  width: 100%;
+  height: 70%;
+  background-color: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.calendar-slot-button:hover {
+  background-color: #e4e4e4 !important;
+}
+
+.calendar-slot-button:active {
+  border-color: #d95701 !important;
+}
+
+.calendar-day-title {
+  width: 70px;
+  width: calc(100% / 7);
+  text-align: center;
+  font-weight: bold;
+  padding: 1rem 0;
+}
+
+button:not(:disabled) {
+  background-color: #01b549 !important;
+  color: white;
+}
+
+.btn:disabled {
+  background-color: rgb(15, 103, 68) !important;
+  color: white;
+  cursor: not-allowed;
+}
+
+.calendar-grid>.calendar-grid-item>.calendar-day-title>.calendar-slot-selected{
+  background-color: aqua;
+}

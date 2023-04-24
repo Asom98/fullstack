@@ -107,7 +107,6 @@ export function BookingPage() {
               <div key={timeSlot.time}>
                 <Button
                   className={
-                    "calendar-slot-button" +
                     (timeSlot.selected ? " calendar-slot-selected" : "") +
                     (timeSlot.occupied ? " calendar-slot-occupied" : "")
                   }
