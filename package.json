@@ -12,9 +12,11 @@
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
+    "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.9.0",
-    "react-router-dom": "^6.9.0"
+    "react-router-dom": "^6.9.0",
+    "react-time-picker": "^6.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
