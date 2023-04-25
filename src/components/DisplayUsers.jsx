@@ -9,7 +9,7 @@ export default function MyComponent(props) {
     }
     
     useEffect(() => {
-        fetch(`http://localhost:5000/`, {
+        fetch(`http://localhost:5000/getUserData`, {
             method: "GET",
             headers: {
                 'Authorization': 'Bearer ' + token
