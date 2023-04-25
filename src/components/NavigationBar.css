@@ -1,0 +1,69 @@
+.navbar-custom {
+    height: 150px;
+    background: linear-gradient(to right, #577C57, #BCD1B3);
+}
+  
+.navbar-brand {
+    margin-left: 150px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+  
+.nav-link {
+    margin-left: 50px;
+}
+  
+.navbar-collapse {
+    justify-content: flex-end;
+}
+  
+.navbar-nav {
+    margin-right: 100px;
+}
+
+.navbar-nav .btn-primary {
+    border-radius: 50px;
+    padding: 6px 16px;
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    color: #afaaaad3;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+  
+.navbar-nav .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #577C57;
+}
+
+.navbar-nav .btn-primary:first-child {
+    margin-right: 10px; 
+}
+
+.navbar-nav .btn-primary:last-child {
+    margin-left: 10px; 
+}
+
+.modal-header {
+    background-color: #577C57;
+    color: white;
+    border-bottom: none;
+}
+  
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+  
+.modal-body {
+    padding: 1rem;
+}
+
+  

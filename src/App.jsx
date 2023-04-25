@@ -4,10 +4,14 @@ import "./main.css";
 import { Routes, Route } from "react-router-dom";
 import { Registration } from "./components/Registration";
 import Login from "./components/Login"
+import NavigationBar from "./components/NavigationBar";
+
 
 function App() {
   return (
     <div>
+
+      <NavigationBar />
       <main className="App">
         <Routes>
           <Route path="/" element={<Welcom />} />
