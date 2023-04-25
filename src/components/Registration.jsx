@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { ConfirmationModal } from "./parts/ConfirmationModal";
 
 export function Registration() {
+  const [showModal, setShowModal] = useState(false);
+  const [registrationSentence, setRegistrationSentence] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,6 +28,30 @@ export function Registration() {
     }));
   };
 
+  async function submitRegister() {
+    const packet = {
+      username: formData.name,
+      password: formData.password,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+    };
+
+    const response = await fetch("/register", {
+      method: "POST",
+      body: JSON.stringify(packet),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 201) {
+      setRegistrationSentence("You have succesfuly registered!");
+      setShowModal(true);
+    } else {
+      setRegistrationSentence("This user already exists");
+      setShowModal(true);
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validateForm();
@@ -40,6 +67,7 @@ export function Registration() {
         repeatPassword: "",
         phoneNumber: "",
       });
+      submitRegister();
     }
   };
 
@@ -176,6 +204,7 @@ export function Registration() {
           Register
         </Button>
       </Form>
+      {showModal && <ConfirmationModal sentance={registrationSentence} />}
     </Container>
   );
 }
