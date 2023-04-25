@@ -1,0 +1,22 @@
+.login-form-container input[type="email"],
+.login-form-container input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.login-form-container button[type="submit"]:hover {
+  background-color: #577C57;
+}
+
+.login-form-container button[type="submit"] {
+    display: block;
+    margin: 1rem auto 0;
+    padding: 0.5rem 1rem;
+    background-color: #BCD1B3;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
