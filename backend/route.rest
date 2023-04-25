@@ -1,0 +1,21 @@
+### LOGIN
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "asd",
+    "password": "asd"
+}
+### REGISTER
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "email": "test@email.com",
+    "name": "asd",
+    "password": "asd",
+    "role": "asd"
+}
+### GET USERS
+GET http://localhost:5000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyMDg3NTYyLCJleHAiOjE2ODIwODc1NzJ9.yZFcHDgJ6vbwetACQUo_-w94uC7ksn8RfYS3wIJG58k
