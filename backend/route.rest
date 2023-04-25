@@ -11,10 +11,10 @@ POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "name": "test",
-    "password": "test",
+    "name": "kalla",
+    "password": "kalla",
     "role": "user"
 }
 ### GET USERS
 GET http://localhost:5000/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgxMzAxNDcyfQ.autLB5eqTih6C0Nn33Vfh2Ad-6ysRVE9XBJzNGf49Uo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgxMzg2MTI0fQ.KVsulmYxiCKD6WxilUME3DwLrKoNlpy8XUVSyoTGyX8

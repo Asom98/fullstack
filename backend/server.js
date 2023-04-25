@@ -18,7 +18,7 @@ app.listen(process.env.PORT,
     console.log("Now listening on ", process.env.PORT)
 )
 
-app.get("/", authenticateUser, checkRole(['admin','user']), async (req, res) => {
+app.get("/", authenticateUser, checkRole(['user']), async (req, res) => {
     await userModel.findOne({username: req.user.username})
     .then(response => {
     res.json(response)
@@ -56,7 +56,7 @@ app.post("/login", async (req, res) => {
 function checkRole(role) {
     return function(req, res, next) {
       const userRole = req.user.role
-      console.log(userRole, role);
+      console.log("user:", userRole, "level required:", role);
       if (!role.includes(userRole)) {
         return res.status(403).json({message: 'Forbidden you dont have access to that resource'})
       } 
@@ -65,7 +65,6 @@ function checkRole(role) {
 }
 
 function authenticateUser(req, res, next) {
-    console.log(req);
     const authHeader = req.headers.authorization
     const token = authHeader.split(' ')[1]
     if(token == null) return res.sendStatus(403)
