@@ -9,6 +9,7 @@ function App() {
     <div>
       <Welcom/>
       <ServicePage />
+      <Login/>
     </div>
   );
 }

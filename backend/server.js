@@ -6,13 +6,12 @@ const jwt = require("jsonwebtoken")
 const cors = require("cors")
 require("dotenv").config()
 
-const authMiddleware = require("./middleware/auth")
-
 const adminModel = require('./models/admin')
 const availableTimeModel= require('./models/availableTime')
 const bookingModel = require('./models/booking')
 const serviceModel = require('./models/service')
 const employeeModel = require('./models/employee')
+const authMiddleware = require("./middleware/auth")
 const userModel = require('./models/user')
 
 app.use(
@@ -50,7 +49,7 @@ app.post("/login", async (req, res) => {
     const user = await userModel.findOne({username: req.body.username})
     if (user != null) {
         const isMatch = await bcrypt.compare(req.body.password, user.password)
-        if(isMatch){
+        if(isMatch){ // change to create token in controllers dir 
             const accessToken = jwt.sign({username: user.username, role: user.role}, process.env.ACCESS_TOKEN) // add { expiresIn: '10s' } to add expiration to the token
             res.json([{accessToken: accessToken}, user])
         } else {
