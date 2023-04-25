@@ -47,7 +47,7 @@ app.post("/register", async (req, res) => {
         .then(hashedPassword => {
             const newUser = new userModel({email: req.body.email, phoneNumber: req.body.phoneNumber, username: req.body.username, password: hashedPassword, role: "user"})
             newUser.save()
-            .then(res.json(newUser))
+            .then(res.sendStatus(201))
         })
     } catch(error) {
         console.log(error);
