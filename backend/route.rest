@@ -3,8 +3,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "username": "asd",
-    "password": "asd"
+    "username": "test",
+    "password": "test"
 }
 ### REGISTER
 POST http://localhost:5000/register
@@ -17,5 +17,5 @@ Content-Type: application/json
     "role": "asd"
 }
 ### GET USERS
-GET http://localhost:5000/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyMDg3NTYyLCJleHAiOjE2ODIwODc1NzJ9.yZFcHDgJ6vbwetACQUo_-w94uC7ksn8RfYS3wIJG58k
+GET http://localhost:5000/getUserData
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJyb2xlIjoidXNlciIsImlhdCI6MTY4MjQzMzc5M30.OyDbEINTU9JilR43EkgAOKkrIpKgYQWxsp7cy1NBc78
