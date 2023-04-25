@@ -28,7 +28,7 @@ function NavigationBar() {
         </Nav>
         <Nav className="navbar-nav">
           <Button variant="primary" onClick={handleLoginClick}>Login</Button>
-          <Button variant="primary" as={Link} to="/register">Register</Button>
+          <Button variant="primary" as={Link} to="/registration">Register</Button>
         </Nav>
       </Navbar.Collapse>
       <Modal show={showLoginForm} onHide={handleLoginClose}>
