@@ -76,6 +76,8 @@ export function Registration() {
     const errors = {};
     if (!formData.name) {
       errors.name = "Name is required";
+    } else if (formData.name.trim() === "") {
+      errors.name = "Name shouldn't be spaces";
     }
     if (!formData.email) {
       errors.email = "Email is required";
