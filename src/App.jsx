@@ -3,6 +3,7 @@ import { ServicePage } from "./components/Service";
 import "./main.css";
 import { Routes, Route } from "react-router-dom";
 import { Registration } from "./components/Registration";
+import Login from "./components/Login"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Welcom />} />
           <Route path="services" element={<ServicePage />} />
           <Route path="registration" element={<Registration />} />
+          <Route path="Login" element={<Login />} />
         </Routes>
       </main>
     </div>

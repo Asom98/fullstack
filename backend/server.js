@@ -25,10 +25,10 @@ app.listen(
   console.log("Now listening on ", process.env.PORT)
 );
 
-app.get(
-  "/",
-  authMiddleware.authenticateUser,
-  authMiddleware.checkRole(["admin", "user"]),
+app.get("/", (req,res) => {
+  res.json("WELCOME TO THE SALOON")
+})
+app.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
   async (req, res) => {
     await userModel
       .findOne({ username: req.user.username })
