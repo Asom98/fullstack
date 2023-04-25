@@ -6,7 +6,7 @@ import "./Service.css";
 export const ServicePage = () => {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
-            <div className="d-flex justify-content-center fs-1 fst-italic font-monospace">Service page!</div>
+            <div className="d-flex justify-content-center fs-1 fst-italic font-monospace">Our Services</div>
             <div className="card-columns mt-4 custom-card-columns">
                 {servicesData.map((service) => (
                     <div key={service._id} className="custom card">

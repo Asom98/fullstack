@@ -3,6 +3,7 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./NavigationBar.css";
 
+
 function NavigationBar() {
   return (
     <Navbar bg="light" expand="lg" className="navbar-custom">
@@ -13,7 +14,7 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/">Home</Nav.Link>
           <Nav.Link as={Link} to="/services">Services</Nav.Link>
         </Nav>
-        <Nav>
+        <Nav className="navbar-nav">
           <Button variant="primary" as={Link} to="/login">Login</Button>
           <Button variant="primary" as={Link} to="/register">Register</Button>
         </Nav>
