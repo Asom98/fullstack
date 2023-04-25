@@ -1,13 +1,33 @@
 
 .formCard{
-  width: 700px;
+  max-width: 750px !important;
+  background: linear-gradient(to bottom right, #fe8b43, #d1c027);
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  border-radius: 10px;
+  border: 3px solid #5a3204;
 }
 
 #formPhoneNumber, #formName, #formPassword, #formRepeatPassword, #formEmail{
-  width: 300px;
+  width: 400px;
   margin-bottom: 30px;
+  padding-right: 0px !important;
+  margin-left: 0px !important;
+  border-radius: 10px;
+  border: 2px solid #5a3204;
 }
 
-.form-label {
-  font-weight: bold;
+.btnRow{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.register-btn{
+  background: linear-gradient(to bottom right, #7cb17c, #96d127);
+}
+
+.register-title{
+  margin-bottom: 80px !important;
 }
