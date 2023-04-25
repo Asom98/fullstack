@@ -7,7 +7,7 @@ export function BookingPage() {
 
   const dayTimeSlots = [
     {
-      day: "Sun",
+      day: "Sunday",
       slots: [
         { time: "10:00", occupied: false, selected: false },
         { time: "11:00", occupied: false, selected: false },
@@ -19,7 +19,7 @@ export function BookingPage() {
       ],
     },
     {
-      day: "Mon",
+      day: "Monday",
       slots: [
         { time: "10:00", occupied: false, selected: false },
         { time: "11:00", occupied: false, selected: false },
@@ -31,7 +31,7 @@ export function BookingPage() {
       ],
     },
     {
-      day: "Tue",
+      day: "Tuesday",
       slots: [
         { time: "10:00", occupied: false, selected: false },
         { time: "11:00", occupied: true, selected: false },
@@ -43,7 +43,7 @@ export function BookingPage() {
       ],
     },
     {
-      day: "Wed",
+      day: "Wednesday",
       slots: [
         { time: "10:00", occupied: true, selected: false },
         { time: "11:00", occupied: false, selected: false },
@@ -55,7 +55,7 @@ export function BookingPage() {
       ],
     },
     {
-      day: "Thu",
+      day: "Thursday",
       slots: [
         { time: "10:00", occupied: true, selected: false },
         { time: "11:00", occupied: false, selected: false },
@@ -67,7 +67,7 @@ export function BookingPage() {
       ],
     },
     {
-      day: "Fri",
+      day: "Friday",
       slots: [
         { time: "10:00", occupied: true, selected: false },
         { time: "11:00", occupied: false, selected: false },
@@ -79,7 +79,7 @@ export function BookingPage() {
       ],
     },
     {
-      day: "Sat",
+      day: "Saturday",
       slots: [
         { time: "10:00", occupied: true, selected: false },
         { time: "11:00", occupied: false, selected: false },
@@ -104,11 +104,11 @@ export function BookingPage() {
           <Col key={dayTimeSlot.day} className="calendar-grid-item">
             <div className="calendar-day-title">{dayTimeSlot.day}</div>
             {dayTimeSlot.slots.map((timeSlot) => (
-              <div key={timeSlot.time}>
+              <div key={timeSlot.time} className="time-slot">
                 <Button
                   className={
-                    (timeSlot.selected ? " calendar-slot-selected" : "") +
-                    (timeSlot.occupied ? " calendar-slot-occupied" : "")
+                    (timeSlot.selected ? " selected" : "") +
+                    (timeSlot.occupied ? " occupied" : "")
                   }
                   onClick={() =>
                     console.log(`Clicked ${dayTimeSlot.day}, ${timeSlot.time}`)
