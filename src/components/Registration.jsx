@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
+import "./Registration.css";
 
 export function Registration() {
   const [showModal, setShowModal] = useState(false);
@@ -107,9 +108,9 @@ export function Registration() {
   };
 
   return (
-    <Container className="my-5 py-5 border rounded">
-      <h1 className="text-center mb-4">Registration</h1>
-      <Form onSubmit={handleSubmit}>
+    <Container className="formCard my-5 py-5 border rounded justify-content-center">
+      <h1 className="text-center mb-4 fw-bold">Registration</h1>
+      <Form onSubmit={handleSubmit} className="justify-content-center">
         <Form.Group as={Row} controlId="formName">
           <Form.Label column sm={2}>
             Name:
