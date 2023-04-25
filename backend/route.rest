@@ -3,20 +3,14 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
     "username": "asd",
     "password": "asd"
-=======
-    "username": "David",
-    "password": "Password"
->>>>>>> register
 }
 ### REGISTER
 POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
     "email": "test@email.com",
     "name": "asd",
     "password": "asd",

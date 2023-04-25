@@ -39,7 +39,7 @@ app.post('/register', async (req,res) => {
 
         await bcrypt.hash(req.body.password, 10) 
         .then(hashedPassword => {
-            const newUser = new userModel({email: req.body.email, username: req.body.name, password: hashedPassword, role: req.body.role})
+            const newUser = new userModel({email: req.body.email, phone: req.body.phone, username: req.body.name, password: hashedPassword, role: "user"})
             newUser.save()
             .then(res.json(newUser))
         })
