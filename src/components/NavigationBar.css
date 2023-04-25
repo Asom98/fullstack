@@ -51,4 +51,19 @@
     margin-left: 10px; 
 }
 
+.modal-header {
+    background-color: #BCD1B3;
+    color: white;
+    border-bottom: none;
+}
+  
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+  
+.modal-body {
+    padding: 1rem;
+}
+
   
