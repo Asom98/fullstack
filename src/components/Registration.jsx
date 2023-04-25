@@ -37,7 +37,7 @@ export function Registration() {
       phoneNumber: formData.phoneNumber,
     };
 
-    const response = await fetch("/register", {
+    const response = await fetch("http://localhost:5000/register", {
       method: "POST",
       body: JSON.stringify(packet),
       headers: {
