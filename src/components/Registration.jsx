@@ -27,7 +27,55 @@ export function Registration() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    /*Add checks later*/
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+    } else {
+      // form is valid, submit data to server or do something else
+      console.log("Form data:", formData);
+      setFormErrors({
+        name: "",
+        email: "",
+        password: "",
+        repeatPassword: "",
+        phoneNumber: "",
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name) {
+      errors.name = "Name is required";
+    }
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Email is not valid";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required";
+    } else if (formData.password.length < 10) {
+      errors.password = "Password must be at least 10 characters long";
+    } else if (!/(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      errors.password =
+        "Password must include at least one capital letter and one number";
+    }
+    if (formData.password !== formData.repeatPassword) {
+      errors.repeatPassword = "Passwords do not match";
+      setFormData((prevState) => ({
+        ...prevState,
+        password: "",
+        repeatPassword: "",
+      }));
+    }
+    if (!formData.phoneNumber) {
+      errors.phoneNumber = "Phone number is required";
+    } else if (!/^\+46\d{9}$/.test(formData.phoneNumber)) {
+      errors.phoneNumber =
+        "Phone number is not valid. Please use the format +46XXXXXXXXX";
+    }
+    return errors;
   };
 
   return (
