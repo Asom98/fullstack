@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
 import "./Registration.css";
 
@@ -108,18 +108,15 @@ export function Registration() {
   };
 
   return (
-    <Container className="formCard my-5 py-5 border rounded justify-content-center">
-      <h1 className="text-center mb-4 fw-bold">Registration</h1>
-      <Form onSubmit={handleSubmit} className="justify-content-center">
+    <Container className="formCard my-5 py-5 rounded justify-content-center">
+      <h1 className="register-title text-center fw-bold">Registration</h1>
+      <Form onSubmit={handleSubmit} className="form">
         <Form.Group as={Row} controlId="formName">
-          <Form.Label column sm={2}>
-            Name:
-          </Form.Label>
-          <Col sm={10}>
+          <Col sm={12} className="col-des">
             <Form.Control
               type="text"
               name="name"
-              value={formData.name}
+              placeholder={"Your name"}
               onChange={handleInputChange}
               isInvalid={formErrors.name}
               required
@@ -130,14 +127,11 @@ export function Registration() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId="formEmail">
-          <Form.Label column sm={2}>
-            Email:
-          </Form.Label>
-          <Col sm={10}>
+          <Col sm={12} className="col-des">
             <Form.Control
               type="email"
               name="email"
-              value={formData.email}
+              placeholder={"Email"}
               onChange={handleInputChange}
               isInvalid={formErrors.email}
               required
@@ -148,14 +142,11 @@ export function Registration() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId="formPassword">
-          <Form.Label column sm={2}>
-            Password:
-          </Form.Label>
-          <Col sm={10}>
+          <Col sm={12} className="col-des">
             <Form.Control
               type="password"
               name="password"
-              value={formData.password}
+              placeholder={"Password"}
               onChange={handleInputChange}
               isInvalid={formErrors.password}
               required
@@ -166,14 +157,11 @@ export function Registration() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId="formRepeatPassword">
-          <Form.Label column sm={2}>
-            Repeat Password:
-          </Form.Label>
-          <Col sm={10}>
+          <Col sm={12} className="col-des">
             <Form.Control
               type="password"
               name="repeatPassword"
-              value={formData.repeatPassword}
+              placeholder={"Repeated Password"}
               onChange={handleInputChange}
               isInvalid={formErrors.repeatPassword}
               required
@@ -184,14 +172,11 @@ export function Registration() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId="formPhoneNumber">
-          <Form.Label column sm={2}>
-            Phone Number:
-          </Form.Label>
-          <Col sm={10}>
+          <Col sm={12} className="col-des">
             <Form.Control
               type="tel"
               name="phoneNumber"
-              value={formData.phoneNumber}
+              placeholder={"PhoneNumber"}
               onChange={handleInputChange}
               isInvalid={formErrors.phoneNumber}
               required
@@ -201,9 +186,16 @@ export function Registration() {
             </Form.Control.Feedback>
           </Col>
         </Form.Group>
-        <Button type="submit" className="mt-4">
-          Register
-        </Button>
+        <row class="btnRow ">
+          <column class="btnCol">
+            <button
+              type="submit"
+              className="register-btn rounded fw-bold py-2 px-4 mt-4"
+            >
+              Sign up!
+            </button>
+          </column>
+        </row>
       </Form>
       {showModal && (
         <ConfirmationModal
