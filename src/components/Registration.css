@@ -1,0 +1,13 @@
+
+.formCard{
+  width: 700px;
+}
+
+#formPhoneNumber, #formName, #formPassword, #formRepeatPassword, #formEmail{
+  width: 300px;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-weight: bold;
+}
