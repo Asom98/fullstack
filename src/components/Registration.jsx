@@ -205,7 +205,12 @@ export function Registration() {
           Register
         </Button>
       </Form>
-      {showModal && <ConfirmationModal sentance={registrationSentence} />}
+      {showModal && (
+        <ConfirmationModal
+          sentance={registrationSentence}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </Container>
   );
 }
