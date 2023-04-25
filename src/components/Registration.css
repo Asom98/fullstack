@@ -10,7 +10,7 @@
 }
 
 #formPhoneNumber, #formName, #formPassword, #formRepeatPassword, #formEmail{
-  width: 250px;
+  width: 400px;
   margin-bottom: 30px;
   padding-right: 0px !important;
   margin-left: 0px !important;
