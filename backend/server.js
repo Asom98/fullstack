@@ -34,14 +34,15 @@ app.get("/", authMiddleware.authenticateUser, authMiddleware.checkRole(['admin',
 
 app.post('/register', async (req,res) => { 
     try {
-        const userExists = await userModel.findOne({ username: req.body.name })
-        if (userExists) return res.status(400).send('User already exists');
+        const userExists = await userModel.findOne({ username: req.body.username })
+        if (userExists) return res.status(409).send('User already exists');
 
         await bcrypt.hash(req.body.password, 10) 
         .then(hashedPassword => {
-            const newUser = new userModel({email: req.body.email, phone: req.body.phone, username: req.body.name, password: hashedPassword, role: "user"})
+            console.log(req.body.phoneNumber);
+            const newUser = new userModel({email: req.body.email, phoneNumber: req.body.phoneNumber, username: req.body.username, password: hashedPassword, role: "user"})
             newUser.save()
-            .then(res.json(newUser))
+            .then(res.sendStatus(201))
         })
     } catch(error) {
         console.log(error);

@@ -1,6 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
 
-export function ConfirmationModal({ sentance }) {
+export function ConfirmationModal({ sentance, onClose }) {
   return (
     <Modal className="modal" show={true} onHide={onClose}>
       <Modal.Header closeButton>
