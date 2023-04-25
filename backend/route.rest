@@ -3,14 +3,20 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
+<<<<<<< HEAD
     "username": "asd",
     "password": "asd"
+=======
+    "username": "David",
+    "password": "Password"
+>>>>>>> register
 }
 ### REGISTER
 POST http://localhost:5000/register
 Content-Type: application/json
 
 {
+<<<<<<< HEAD
     "email": "test@email.com",
     "name": "asd",
     "password": "asd",
@@ -19,3 +25,12 @@ Content-Type: application/json
 ### GET USERS
 GET http://localhost:5000/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyMDg3NTYyLCJleHAiOjE2ODIwODc1NzJ9.yZFcHDgJ6vbwetACQUo_-w94uC7ksn8RfYS3wIJG58k
+=======
+    "name": "dingdong",
+    "password": "test",
+    "role": "user"
+}
+### GET USERS
+GET http://localhost:5000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyNDMyODkwfQ.FO8NYkRnTHS6b8tFhPGamKDlQbN0PI96bCL09klnmGQ
+>>>>>>> register
