@@ -7,6 +7,7 @@ import { Registration } from "./components/Registration";
 import {Login} from "./components/LoginForm"
 // import {Login} from "./components/LoginForm"
 import NavigationBar from "./components/NavigationBar";
+import { AdminPage } from "./components/AdminPage";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <main className="App">
         <Routes>
           <Route path="/" element={<Welcom />} />
+          <Route path="admin" element={<AdminPage />} />
           <Route path="services" element={<ServicePage />} />
           <Route path="registration" element={<Registration />} />
           <Route path="login" element={<Login onClose={handleLogout} onLogin={handleLogin} />} />

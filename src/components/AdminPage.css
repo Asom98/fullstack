@@ -1,0 +1,16 @@
+.navbar-custom {
+    height: 150px;
+    background: linear-gradient(to right, #577C57, #BCD1B3);
+}
+
+.navbar-brand {
+    margin-left: 150px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+  

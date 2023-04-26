@@ -29,6 +29,13 @@ app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
 })
 
+app.get("/getUsers", async(req, res)=>{
+  await userModel.find().then((r)=>{
+    res.json(r)
+  })
+})
+
+
 app.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
   async (req, res) => {
     await userModel
@@ -38,6 +45,16 @@ app.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRol
       });
   }
 );
+
+app.delete("/removeUser", async(req, res)=>{
+  const id = req.body.id
+  try{
+    await userModel.findByIdAndDelete(id)
+  }catch(e){
+    res.sendStatus(404)
+  }
+  
+})
 
 app.post("/register", async (req, res) => {
   try {
