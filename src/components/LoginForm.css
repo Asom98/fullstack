@@ -1,22 +1,68 @@
-.login-form-container input[type="username"],
-.login-form-container input[type="password"] {
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-.login-form-container button[type="submit"]:hover {
-  background-color: #577C57;
+  
+label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
-
-.login-form-container button[type="submit"] {
-    display: block;
-    margin: 1rem auto 0;
-    padding: 0.5rem 1rem;
-    background-color: #BCD1B3;
-    color: white;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
+  
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+  
+button[type="submit"] {
+  background-color: #405a40;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+  
+button[type="submit"]:hover {
+  background-color: #304d30;
+}
+  
+.message {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+  
+.success {
+  color: green;
+  background-color: #e6ffe6;
+}
+  
+.error {
+  color: red;
+  background-color: #ffe6e6;
 }
