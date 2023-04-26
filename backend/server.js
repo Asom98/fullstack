@@ -71,7 +71,7 @@ app.post("/registerAdmin", async (req, res) => {
     }
 })
 
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
   const admin = await adminModel.findOne({ username: req.body.username });
   console.log(user)
