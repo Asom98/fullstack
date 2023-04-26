@@ -54,8 +54,28 @@ app.post("/register", async (req, res) => {
     }
 })
 
+app.post("/registerAdmin", async (req, res) => {
+  try {
+    const adminExists = await adminModel.findOne({ username: req.body.username });
+    if (adminExists) return res.status(400).send("Admin already exists");
+
+        await bcrypt.hash(req.body.password, 10) 
+        .then(hashedPassword => {
+            const newAdmin = new adminModel({email: req.body.email, phoneNumber: req.body.phoneNumber, username: req.body.username, password: hashedPassword, role: "admin"})
+            if(role != "admin"){
+              res.send("forbidden!")
+            }else{
+              newAdmin.save().then(res.sendStatus(201))
+            }
+        })
+    } catch(error) {
+        console.log(error);
+    }
+})
+
 app.post("/login", async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
+  const admin = await adminModel.findOne({ username: req.body.username });
   if (user != null) {
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (isMatch) {
@@ -65,8 +85,13 @@ app.post("/login", async (req, res) => {
         process.env.ACCESS_TOKEN
       ); // add { expiresIn: '10s' } to add expiration to the token
       res.json([{ accessToken: accessToken }, user]);
-    } else {
-      res.sendStatus(403);
+    } else if(admin != null){
+
+      const isMatch = await bcrypt.compare(req.body.password, admin.password)
+      if(isMatch){
+        const accessToken = jwt.sign({username: admin.username, role: admin.role}, process.env.ACCESS_TOKEN)
+        res.json([{accessToken: accessToken}, admin])
+      }
     }
   } else {
     res.sendStatus(404);
