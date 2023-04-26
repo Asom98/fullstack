@@ -5,9 +5,8 @@ import "./main.css";
 import { Routes, Route } from "react-router-dom";
 import { Registration } from "./components/Registration";
 import {Login} from "./components/LoginForm"
-// import {Login} from "./components/LoginForm"
 import NavigationBar from "./components/NavigationBar";
-
+import { Booking } from "./components/Booking"
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -32,6 +31,7 @@ function App() {
           <Route path="services" element={<ServicePage />} />
           <Route path="registration" element={<Registration />} />
           <Route path="login" element={<Login onClose={handleLogout} onLogin={handleLogin} />} />
+          <Route path="booking" element={<Booking />} />
         </Routes>
       </main>
     </div>
