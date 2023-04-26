@@ -28,6 +28,7 @@ app.listen(
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
 })
+
 app.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
   async (req, res) => {
     await userModel
@@ -61,12 +62,9 @@ app.post("/registerAdmin", async (req, res) => {
 
         await bcrypt.hash(req.body.password, 10) 
         .then(hashedPassword => {
-            const newAdmin = new adminModel({email: req.body.email, phoneNumber: req.body.phoneNumber, username: req.body.username, password: hashedPassword, role: "admin"})
-            if(role != "admin"){
-              res.send("forbidden!")
-            }else{
-              newAdmin.save().then(res.sendStatus(201))
-            }
+            const newAdmin = new adminModel({email: req.body.email, username: req.body.username, password: hashedPassword, role: "admin"})
+            newAdmin.save().then(res.sendStatus(201))
+            
         })
     } catch(error) {
         console.log(error);
@@ -76,22 +74,26 @@ app.post("/registerAdmin", async (req, res) => {
 app.post("/login", async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
   const admin = await adminModel.findOne({ username: req.body.username });
+  
   if (user != null) {
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (isMatch) {
+      console.log(user.username, ": ", user.role)
       // change to create token in controllers dir
       const accessToken = jwt.sign(
         { username: user.username, role: user.role },
         process.env.ACCESS_TOKEN
       ); // add { expiresIn: '10s' } to add expiration to the token
       res.json([{ accessToken: accessToken }, user]);
-    } else if(admin != null){
-
-      const isMatch = await bcrypt.compare(req.body.password, admin.password)
-      if(isMatch){
-        const accessToken = jwt.sign({username: admin.username, role: admin.role}, process.env.ACCESS_TOKEN)
-        res.json([{accessToken: accessToken}, admin])
-      }
+    }
+  }
+  
+  if(admin != null){
+    console.log(admin.username, ": ", admin.role)
+    const isMatch = await bcrypt.compare(req.body.password, admin.password)
+    if(isMatch){
+      const accessToken = jwt.sign({username: admin.username, role: admin.role}, process.env.ACCESS_TOKEN);
+      res.json([{accessToken: accessToken}, admin]);
     }
   } else {
     res.sendStatus(404);
