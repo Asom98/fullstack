@@ -74,25 +74,28 @@ app.post("/registerAdmin", async (req, res) => {
 app.post("/login", async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
   const admin = await adminModel.findOne({ username: req.body.username });
-  console.log(user)
-  console.log(admin)
+  
   if (user != null) {
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (isMatch) {
+      console.log(user.username, ": ", user.role)
       // change to create token in controllers dir
       const accessToken = jwt.sign(
         { username: user.username, role: user.role },
         process.env.ACCESS_TOKEN
       ); // add { expiresIn: '10s' } to add expiration to the token
       res.json([{ accessToken: accessToken }, user]);
-    } else if(admin != null){
-      const isMatch = await bcrypt.compare(req.body.password, admin.password)
-      if(isMatch){
-        const accessToken = jwt.sign({username: admin.username, role: admin.role}, process.env.ACCESS_TOKEN)
-        res.json([{accessToken: accessToken}, admin])
-      }
-    } else {
-      res.sendStatus(404);
     }
+  }
+  
+  if(admin != null){
+    console.log(admin.username, ": ", admin.role)
+    const isMatch = await bcrypt.compare(req.body.password, admin.password)
+    if(isMatch){
+      const accessToken = jwt.sign({username: admin.username, role: admin.role}, process.env.ACCESS_TOKEN);
+      res.json([{accessToken: accessToken}, admin]);
+    }
+  } else {
+    res.sendStatus(404);
   }
 });
