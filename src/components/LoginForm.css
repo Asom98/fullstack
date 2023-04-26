@@ -1,4 +1,4 @@
-.login-form-container input[type="email"],
+.login-form-container input[type="username"],
 .login-form-container input[type="password"] {
   width: 100%;
   padding: 0.5rem;
