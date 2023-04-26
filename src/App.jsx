@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Welcom } from "./components/Welcom";
 import { ServicePage } from "./components/Service";
 import "./main.css";
@@ -8,6 +9,18 @@ import NavigationBar from "./components/NavigationBar";
 
 
 function App() {
+  const [accessToken, setAccessToken] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (token, user) => {
+    setAccessToken(token);
+    setUser(user);
+  };
+
+  const handleLogout = () => {
+    setAccessToken(null);
+    setUser(null);
+  };
   return (
     <div>
 
@@ -17,7 +30,7 @@ function App() {
           <Route path="/" element={<Welcom />} />
           <Route path="services" element={<ServicePage />} />
           <Route path="registration" element={<Registration />} />
-          <Route path="Login" element={<Login />} />
+          <Route path="login" element={<Login onClose={handleLogout} onLogin={handleLogin} />} />
         </Routes>
       </main>
     </div>
