@@ -16,6 +16,17 @@ Content-Type: application/json
     "password": "asd",
     "role": "asd"
 }
+
+### REGISTER ADMIN
+POST http://localhost:5000/registerAdmin
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com",
+    "name": "admin",
+    "password": "admin",
+    "role": "admin"
+}
 ### GET USERS
 GET http://localhost:5000/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyMDg3NTYyLCJleHAiOjE2ODIwODc1NzJ9.yZFcHDgJ6vbwetACQUo_-w94uC7ksn8RfYS3wIJG58k
