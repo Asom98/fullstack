@@ -72,3 +72,29 @@ app.post("/login", async (req, res) => {
     res.sendStatus(404);
   }
 });
+
+app.get("/getBookings", async (req,res) =>{
+  try {
+      const bookings = await bookingModel.find()
+      res.json(bookings)
+  } catch (error) {
+    res.status(400).send({message: error})
+  }
+})
+
+app.get("/postBooking", (req,res) =>{
+  try {
+    const newBooking = new bookingModel({employee_id: "asd", startTime: "2002-12-09", endTime: "2002-12-09", user_id: "sda", contac_email: "asdasd", status: true})    
+    newBooking.save()
+    .then(result => {
+      res.json("Succesufully added booking")
+    })
+  } catch (error ) {
+    res.status(400).send({message: error})
+  }
+})
+
+app.get("/getAvailableTimes", (req,res) =>{
+  res.json("Hello world")
+  
+})
