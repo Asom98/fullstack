@@ -16,8 +16,7 @@ const userModel = require("./models/user");
 
 app.use(express.json(), cors({ origin: "http://localhost:5173" }));
 
-mongoose
-  .connect(process.env.CONNECTION_URL)
+mongoose.connect(process.env.CONNECTION_URL)
   .then(console.log("Connected to Database"));
 
 app.listen(
@@ -45,7 +44,12 @@ app.post("/register", async (req, res) => {
 
         await bcrypt.hash(req.body.password, 10) 
         .then(hashedPassword => {
-            const newUser = new userModel({email: req.body.email, phoneNumber: req.body.phoneNumber, username: req.body.username, password: hashedPassword, role: "user"})
+            const newUser = new userModel({
+              email: req.body.email, 
+              phoneNumber: req.body.phoneNumber, 
+              username: req.body.username, 
+              password: hashedPassword, 
+              role: "user"})
             newUser.save()
             .then(res.sendStatus(201))
         })
@@ -61,7 +65,12 @@ app.post("/registerAdmin", async (req, res) => {
 
         await bcrypt.hash(req.body.password, 10) 
         .then(hashedPassword => {
-            const newAdmin = new adminModel({email: req.body.email, phoneNumber: req.body.phoneNumber, username: req.body.username, password: hashedPassword, role: "admin"})
+            const newAdmin = new adminModel({
+              email: req.body.email, 
+              phoneNumber: req.body.phoneNumber, 
+              username: req.body.username, 
+              password: hashedPassword, 
+              role: "admin"})
             if(role != "admin"){
               res.send("forbidden!")
             }else{
@@ -89,7 +98,10 @@ app.post("/login", async (req, res) => {
 
       const isMatch = await bcrypt.compare(req.body.password, admin.password)
       if(isMatch){
-        const accessToken = jwt.sign({username: admin.username, role: admin.role}, process.env.ACCESS_TOKEN)
+        const accessToken = jwt.sign({
+          username: admin.username, 
+          role: admin.role}, 
+          process.env.ACCESS_TOKEN)
         res.json([{accessToken: accessToken}, admin])
       }
     }
@@ -107,9 +119,16 @@ app.get("/getBookings", async (req,res) =>{
   }
 })
 
-app.get("/postBooking", (req,res) =>{
+app.post("/postBooking", (req,res) =>{
   try {
-    const newBooking = new bookingModel({employee_id: "asd", startTime: "2002-12-09", endTime: "2002-12-09", user_id: "sda", contac_email: "asdasd", status: true})    
+    const newBooking = new bookingModel({
+      service_id: "asd", 
+      employee_id: "asd", 
+      startTime: "2002-12-09", 
+      endTime: "2002-12-09", 
+      user_id: "sda", 
+      contact_email: "asdasd", 
+      status: true})    
     newBooking.save()
     .then(result => {
       res.json("Succesufully added booking")
@@ -119,7 +138,33 @@ app.get("/postBooking", (req,res) =>{
   }
 })
 
-app.get("/getAvailableTimes", (req,res) =>{
-  res.json("Hello world")
-  
+app.get("/getAvailableTimes", async (req,res) =>{
+  try {
+    const bookings = await bookingModel.find()
+    const availableTimes = await availableTimeModel.find()
+    const misMatcheTimes = availableTimes.filter((times) => // returns where bookings and available times dont match
+      !bookings.some(
+        (availableTime) => availableTime.startTime.getTime() === times.startTime.getTime())
+    );
+    misMatcheTimes.sort((a,b) => a.startTime.getTime() - b.startTime.getTime());
+    res.json(misMatcheTimes)
+  } catch (error) {
+    res.status(400).send(error)
+  }
+})
+
+app.post("/postAvailableTime", (req,res) => {
+  try {
+    const newTime = new availableTimeModel({    
+      serviceId: "asd",
+      startTime: "2002-12-10",
+      endTime: "2002-12-10",
+    })    
+    newTime.save()
+    .then(result => {
+      res.json("Succesufully added time")
+    })
+  } catch (error ) {
+    res.status(400).send({message: error})
+  }
 })

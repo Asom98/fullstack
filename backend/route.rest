@@ -30,3 +30,6 @@ Content-Type: application/json
 ### GET USERS
 GET http://localhost:5000/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyMDg3NTYyLCJleHAiOjE2ODIwODc1NzJ9.yZFcHDgJ6vbwetACQUo_-w94uC7ksn8RfYS3wIJG58k
+### post Time 
+POST http://localhost:5000/postAvailableTime
+Content-Type: application/json
