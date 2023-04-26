@@ -5,6 +5,7 @@ export const Login = ({ onClose, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -28,8 +29,8 @@ export const Login = ({ onClose, onLogin }) => {
 
       if (response.ok) {
         setLoginStatus(true);
-        onLogin(data[0].accessToken, data[1]);
-        onClose();
+        onLogin
+        //onClose();
       } else {
         setLoginStatus(false);
       }
