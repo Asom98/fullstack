@@ -1,13 +1,13 @@
 ### LOGIN
-POST http://localhost:5000/users/login
+POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "username": "Carl",
-    "password": "A123456789"
+    "username": "asd",
+    "password": "asd"
 }
 ### REGISTER
-POST http://localhost:5000/users/register
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 {
     "email": "admin@admin.com",
-    "name": "admin",
+    "username": "admin",
     "password": "admin",
     "role": "admin"
 }
