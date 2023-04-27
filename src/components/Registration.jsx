@@ -188,8 +188,8 @@ export function Registration() {
             </Form.Control.Feedback>
           </Col>
         </Form.Group>
-        <row class="btnRow ">
-          <column class="btnCol">
+        <row className="btnRow ">
+          <column className="btnCol">
             <button
               type="submit"
               className="register-btn rounded fw-bold py-2 px-4 mt-4"

@@ -56,7 +56,7 @@ export const Booking = () => {
             <tbody>
             {data.map((item) => (
                 <tr key={item._id}>
-                    <td>{item.serviceId}</td>
+                    <td>{item.service_id}</td>
                     <td>{item.startTime}</td>
                     <td>{item.endTime}</td>
                     <td><button className="btn btn-primary">Book Time Slot</button></td>
