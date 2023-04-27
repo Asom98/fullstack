@@ -1,13 +1,13 @@
 ### LOGIN
-POST http://localhost:5000/login
+POST http://localhost:5000/users/login
 Content-Type: application/json
 
 {
-    "username": "asd",
-    "password": "asd"
+    "username": "Carl",
+    "password": "A123456789"
 }
 ### REGISTER
-POST http://localhost:5000/register
+POST http://localhost:5000/users/register
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### REGISTER ADMIN
-POST http://localhost:5000/registerAdmin
+POST http://localhost:5000/users/registerAdmin
 Content-Type: application/json
 
 {
@@ -28,8 +28,19 @@ Content-Type: application/json
     "role": "admin"
 }
 ### GET USERS
-GET http://localhost:5000/
+GET http://localhost:5000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRhdmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgyMDg3NTYyLCJleHAiOjE2ODIwODc1NzJ9.yZFcHDgJ6vbwetACQUo_-w94uC7ksn8RfYS3wIJG58k
+
 ### post Time 
-POST http://localhost:5000/postAvailableTime
+POST http://localhost:5000/bookings/postAvailableTime
+Content-Type: application/json
+
+{
+    "service_id": "64492f7eb34eac18c1c5626a",
+    "startTime": "2002-02-02",
+    "endTime": "2002-02-02"
+}
+
+###
+GET http://localhost:5000/bookings/getAvailableTimes
 Content-Type: application/json

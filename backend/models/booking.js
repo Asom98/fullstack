@@ -2,19 +2,19 @@ const mongoose = require("mongoose")
 
 const bookingSchema = mongoose.Schema({
     service_id : {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
     },
     employee_id : {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+    },
+    user_id : {
+        type: mongoose.Schema.Types.ObjectId,
     },
     startTime: {
         type: Date,
     },
     endTime: {
         type: Date,
-    },
-    user_id : {
-        type: String,
     },
     contact_email: {
         type: String,

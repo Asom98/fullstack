@@ -14,7 +14,7 @@ const serviceSchema = mongoose.Schema({
         type: String,
     },
     employee_ids: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
     },
 })
 
