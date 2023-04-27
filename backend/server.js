@@ -27,12 +27,12 @@ app.listen(
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
 })
+
 app.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
   async (req, res) => {
-    await userModel
-      .findOne({ username: req.user.username })
+    await userModel.findOne({ username: req.user.username })
       .then((response) => {
-        res.json(response);
+        res.json(response).sendStatus(200);
       });
   }
 );
@@ -74,7 +74,8 @@ app.post("/registerAdmin", async (req, res) => {
             if(role != "admin"){
               res.send("forbidden!")
             }else{
-              newAdmin.save().then(res.sendStatus(201))
+              newAdmin.save()
+              .then(res.sendStatus(201))
             }
         })
     } catch(error) {
@@ -122,16 +123,16 @@ app.get("/getBookings", async (req,res) =>{
 app.post("/postBooking", (req,res) =>{
   try {
     const newBooking = new bookingModel({
-      service_id: "asd", 
-      employee_id: "asd", 
-      startTime: "2002-12-09", 
-      endTime: "2002-12-09", 
-      user_id: "sda", 
-      contact_email: "asdasd", 
+      service_id: req.body.service_id, 
+      employee_id: req.body.employee_id, 
+      startTime: req.body.startTime, 
+      endTime: req.body.endTime, 
+      user_id: req.body.user_id, 
+      contact_email: req.body.contact_email, 
       status: true})    
     newBooking.save()
     .then(result => {
-      res.json("Succesufully added booking")
+      res.json("Succesufully added booking").sendStatus(201)
     })
   } catch (error ) {
     res.status(400).send({message: error})
@@ -147,7 +148,7 @@ app.get("/getAvailableTimes", async (req,res) =>{
         (availableTime) => availableTime.startTime.getTime() === times.startTime.getTime())
     );
     misMatcheTimes.sort((a,b) => a.startTime.getTime() - b.startTime.getTime());
-    res.json(misMatcheTimes)
+    res.json(misMatcheTimes).sendStatus(200)
   } catch (error) {
     res.status(400).send(error)
   }
@@ -156,13 +157,13 @@ app.get("/getAvailableTimes", async (req,res) =>{
 app.post("/postAvailableTime", (req,res) => {
   try {
     const newTime = new availableTimeModel({    
-      serviceId: "asd",
-      startTime: "2002-12-10",
-      endTime: "2002-12-10",
+      service_id: req.body.service_id,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
     })    
     newTime.save()
     .then(result => {
-      res.json("Succesufully added time")
+      res.json("Succesufully added time").sendStatus(201)
     })
   } catch (error ) {
     res.status(400).send({message: error})

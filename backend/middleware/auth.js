@@ -5,7 +5,7 @@ function checkRole(role) {
       const userRole = req.user.role
       console.log(userRole, role);
       if (!role.includes(userRole)) {
-        return res.status(403).json({message: 'Forbidden you dont have access to that resource'})
+        return res.status(402).json({message: 'Forbidden you dont have access to that resource'})
       } 
       next()
     }

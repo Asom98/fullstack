@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const availableTimeSchema = mongoose.Schema({
-    serviceId: {
+    service_id: {
         type: String,
     },
     startTime: {

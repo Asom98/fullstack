@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "email": "test@email.com",
-    "name": "asd",
+    "username": "asd",
     "password": "asd",
     "role": "asd"
 }
