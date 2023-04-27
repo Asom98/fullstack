@@ -3,21 +3,6 @@ import "./Booking.css"
 
 export const Booking = () => {
     const [data, setData] = useState([])
-    useEffect(() => {
-        async function fetchData() {
-            await fetch(`http://localhost:5000/getAvailableTimes`, {
-                method: "GET",
-            })
-            .then(response => {
-                return response.json()
-            })
-            .then(result => {
-                setData(result)
-            })
-        }
-        fetchData()
-    },[])
-
     async function postData() {
         const Data = {
             service_id: "asd", 
@@ -28,7 +13,7 @@ export const Booking = () => {
             contact_email: "asdasd", 
             status: true
         }
-        await fetch(`http://localhost:5000/getAvailableTimes`, {
+        await fetch(`http://localhost:5000/bookings/postAvailableTime`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,7 +30,7 @@ export const Booking = () => {
 
     useEffect(() => {
         async function fetchData() {
-            await fetch(`http://localhost:5000/getAvailableTimes`, {
+            await fetch(`http://localhost:5000/bookings/getAvailableTimes`, {
                 method: "GET",
             })
             .then(response => {
