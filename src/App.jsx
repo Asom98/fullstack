@@ -31,7 +31,6 @@ function App() {
           <Route path="services" element={<ServicePage />} />
           <Route path="registration" element={<Registration />} />
           <Route path="login" element={<Login onClose={handleLogout} onLogin={handleLogin} />} />
-          <Route path="booking" element={<Booking />} />
         </Routes>
       </main>
     </div>
