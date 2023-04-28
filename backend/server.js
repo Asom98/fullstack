@@ -19,7 +19,6 @@ app.listen(
   process.env.PORT,
   console.log("Now listening on ", process.env.PORT)
 );
-  
 
 app.use('/users', userRoutes);
 app.use('/bookings', bookingRoutes);
