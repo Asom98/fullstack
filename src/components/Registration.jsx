@@ -190,10 +190,7 @@ export function Registration() {
         </Form.Group>
         <row className="btnRow ">
           <column className="btnCol">
-            <button
-              type="submit"
-              className="register-btn rounded fw-bold py-2 px-4 mt-4"
-            >
+            <button type="submit" className="register-btn py-2 px-4 mt-4">
               Sign up!
             </button>
           </column>

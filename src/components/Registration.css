@@ -1,12 +1,19 @@
 
 .formCard{
   max-width: 750px !important;
-  background: linear-gradient(to bottom right, #fe8b43, #d1c027);
+  background-image: url('./backgrounds/RegisterForm2.jpg');
+  /*background-size: cover;
+  background-attachment: fixed;*/
   display: flex;
   flex-direction: column;
   align-items: center !important;
   border-radius: 10px;
-  border: 3px solid #5a3204;
+  border: 2px solid #5a3204;
+}
+.form{
+  border:none;
+  box-shadow: none;
+  background: none;
 }
 
 #formPhoneNumber, #formName, #formPassword, #formRepeatPassword, #formEmail{
@@ -25,7 +32,11 @@
 }
 
 .register-btn{
-  background: linear-gradient(to bottom right, #7cb17c, #96d127);
+  background: linear-gradient(to right, #839d83, #BCD1B3);
+  color: black !important;
+  font-weight: bolder !important;
+  border-radius: 8px !important;
+  border: 2px solid #5a3204 !important;
 }
 
 .register-title{
