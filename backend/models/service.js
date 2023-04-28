@@ -7,6 +7,17 @@ const serviceSchema = mongoose.Schema({
     name : {
         type: String,
     },
+    duration: {
+        type: Number,
+    },
+    business_hours: {
+        open: { 
+            type: Date
+        },
+        close: { 
+            type: Date
+        }
+    },
     description : {
         type: String,
     },
@@ -18,5 +29,5 @@ const serviceSchema = mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('Service', serviceSchema)
+module.exports = mongoose.model('Services', serviceSchema)
 

@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import "./Booking.css"
 
 export const Booking = () => {
-    const [data, setData] = useState([])
+    const [timeSlots, setTimeSlots] = useState([])
+    const [service, setService] = useState([])
+    const [employees, setEmployees] = useState([])
+
     async function postData() {
         const Data = {
             service_id: "asd", 
@@ -13,7 +16,7 @@ export const Booking = () => {
             contact_email: "asdasd", 
             status: true
         }
-        await fetch(`http://localhost:5000/bookings/postAvailableTime`, {
+        await fetch(`http://localhost:5000/bookings/postBooking`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,27 +27,46 @@ export const Booking = () => {
             return response.json()
         })
         .then(result => {
-            setData(result)
+            setTimeSlots(result)
         })
     }
 
     useEffect(() => {
-        async function fetchData() {
-            await fetch(`http://localhost:5000/bookings/getAvailableTimes`, {
+        async function fetchTimeSlots() {
+            await fetch(`http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7`, {
                 method: "GET",
             })
             .then(response => {
                 return response.json()
             })
             .then(result => {
-                setData(result)
+                setTimeSlots(result.timeSlots)
+                setService(result.service)
             })
         }
-        fetchData()
+        fetchTimeSlots()
+
+        async function fetchEmployees() {
+            const employeeIds = ["644a83d1f0a732d4a429ab87", "644a83d1f0a732d4a429ab88"];
+            await fetch(`http://localhost:5000/employees/getEmployees/${employeeIds.join(',')}`, {
+                method: "GET",
+            })
+            .then(response => {
+                return response.json()
+            })
+            .then(result => {
+                setEmployees(result)
+            })
+        }
+        fetchEmployees()
     },[])
 
     return (
         <div>
+            <h1>{service.name}</h1>
+            <h1>{service.duration} minutes</h1>
+            <h1>employees: </h1>
+            {employees.map(employee => <h1 key={employee._id}>{employee.name}</h1>)}
         <table>
             <thead>
                 <tr>
@@ -54,11 +76,11 @@ export const Booking = () => {
                 </tr>
             </thead>
             <tbody>
-            {data.map((item) => (
-                <tr key={item._id}>
-                    <td>{item.service_id}</td>
-                    <td>{item.startTime}</td>
-                    <td>{item.endTime}</td>
+            {timeSlots.map((item) => (
+                <tr key={item.start}>
+                    <td>{service._id}</td>
+                    <td>{item.start}</td>
+                    <td>{item.end}</td>
                     <td><button className="btn btn-primary">Book Time Slot</button></td>
                 </tr>
             ))}

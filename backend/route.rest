@@ -44,3 +44,19 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/bookings/getAvailableTimes
 Content-Type: application/json
+
+###
+GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7
+Content-Type: application/json
+
+### 
+POST http://localhost:5000/bookings/postService
+Content-Type: application/json
+
+###
+GET http://localhost:5000/employees/getEmployees
+Content-Type: application/json
+
+{
+    "employees": ["644a83d1f0a732d4a429ab87", "644a83d1f0a732d4a429ab88"]
+}
