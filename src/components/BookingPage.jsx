@@ -1,127 +1,128 @@
 import React from "react";
 import "./css/Booking.css";
-import { Button, Row, Col, Container } from "react-bootstrap";
+import { Button, Row, Col, Container, Table } from "react-bootstrap";
 
 export function BookingPage() {
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   const dayTimeSlots = [
     {
       day: "Sunday",
       slots: [
-        { time: "10:00", occupied: false, selected: false },
-        { time: "11:00", occupied: false, selected: false },
-        { time: "12:00", occupied: false, selected: false },
-        { time: "13:00", occupied: true, selected: false },
-        { time: "14:00", occupied: true, selected: false },
-        { time: "15:00", occupied: false, selected: false },
-        { time: "16:00", occupied: false, selected: false },
+        { time: "10:00", occupied: false },
+        { time: "11:00", occupied: false },
+        { time: "12:00", occupied: false },
+        { time: "13:00", occupied: true },
+        { time: "14:00", occupied: true },
+        { time: "15:00", occupied: false },
+        { time: "16:00", occupied: false },
       ],
     },
     {
       day: "Monday",
       slots: [
-        { time: "10:00", occupied: false, selected: false },
-        { time: "11:00", occupied: false, selected: false },
-        { time: "12:00", occupied: true, selected: false },
-        { time: "13:00", occupied: false, selected: false },
-        { time: "14:00", occupied: true, selected: false },
-        { time: "15:00", occupied: false, selected: false },
-        { time: "16:00", occupied: false, selected: false },
+        { time: "10:00", occupied: false },
+        { time: "11:00", occupied: false },
+        { time: "12:00", occupied: true },
+        { time: "13:00", occupied: false },
+        { time: "14:00", occupied: true },
+        { time: "15:00", occupied: false },
+        { time: "16:00", occupied: false },
       ],
     },
     {
       day: "Tuesday",
       slots: [
-        { time: "10:00", occupied: false, selected: false },
-        { time: "11:00", occupied: true, selected: false },
-        { time: "12:00", occupied: false, selected: false },
-        { time: "13:00", occupied: false, selected: false },
-        { time: "14:00", occupied: false, selected: false },
-        { time: "15:00", occupied: true, selected: false },
-        { time: "16:00", occupied: false, selected: false },
+        { time: "10:00", occupied: false },
+        { time: "11:00", occupied: true },
+        { time: "12:00", occupied: false },
+        { time: "13:00", occupied: false },
+        { time: "14:00", occupied: false },
+        { time: "15:00", occupied: true },
+        { time: "16:00", occupied: false },
       ],
     },
     {
       day: "Wednesday",
       slots: [
-        { time: "10:00", occupied: true, selected: false },
-        { time: "11:00", occupied: false, selected: false },
-        { time: "12:00", occupied: true, selected: false },
-        { time: "13:00", occupied: false, selected: false },
-        { time: "14:00", occupied: false, selected: false },
-        { time: "15:00", occupied: false, selected: false },
-        { time: "16:00", occupied: true, selected: false },
+        { time: "10:00", occupied: true },
+        { time: "11:00", occupied: false },
+        { time: "12:00", occupied: true },
+        { time: "13:00", occupied: false },
+        { time: "14:00", occupied: false },
+        { time: "15:00", occupied: false },
+        { time: "16:00", occupied: true },
       ],
     },
     {
       day: "Thursday",
       slots: [
-        { time: "10:00", occupied: true, selected: false },
-        { time: "11:00", occupied: false, selected: false },
-        { time: "12:00", occupied: true, selected: false },
-        { time: "13:00", occupied: false, selected: false },
-        { time: "14:00", occupied: false, selected: false },
-        { time: "15:00", occupied: false, selected: false },
-        { time: "16:00", occupied: true, selected: false },
+        { time: "10:00", occupied: true },
+        { time: "11:00", occupied: false },
+        { time: "12:00", occupied: true },
+        { time: "13:00", occupied: false },
+        { time: "14:00", occupied: false },
+        { time: "15:00", occupied: false },
+        { time: "16:00", occupied: true },
       ],
     },
     {
       day: "Friday",
       slots: [
-        { time: "10:00", occupied: true, selected: false },
-        { time: "11:00", occupied: false, selected: false },
-        { time: "12:00", occupied: true, selected: false },
-        { time: "13:00", occupied: false, selected: false },
-        { time: "14:00", occupied: false, selected: false },
-        { time: "15:00", occupied: false, selected: false },
-        { time: "16:00", occupied: true, selected: false },
+        { time: "10:00", occupied: true },
+        { time: "11:00", occupied: false },
+        { time: "12:00", occupied: true },
+        { time: "13:00", occupied: false },
+        { time: "14:00", occupied: false },
+        { time: "15:00", occupied: false },
+        { time: "16:00", occupied: true },
       ],
     },
     {
       day: "Saturday",
       slots: [
-        { time: "10:00", occupied: true, selected: false },
-        { time: "11:00", occupied: false, selected: false },
-        { time: "12:00", occupied: false, selected: false },
-        { time: "13:00", occupied: false, selected: false },
-        { time: "14:00", occupied: false, selected: false },
-        { time: "15:00", occupied: false, selected: false },
-        { time: "16:00", occupied: true, selected: false },
+        { time: "10:00", occupied: true },
+        { time: "11:00", occupied: false },
+        { time: "12:00", occupied: false },
+        { time: "13:00", occupied: false },
+        { time: "14:00", occupied: false },
+        { time: "15:00", occupied: false },
+        { time: "16:00", occupied: true },
       ],
     },
   ];
 
-  return (
-    <Container className="calendar">
-      <Row className="calendar-title">
-        <Col>
-          <h2>April 2023</h2>
-        </Col>
-      </Row>
-      {dayTimeSlots.map((dayTimeSlot) => (
-        <Row className="calendar-grid">
-          <Col key={dayTimeSlot.day} className="calendar-grid-item">
-            <div className="calendar-day-title">{dayTimeSlot.day}</div>
-            {dayTimeSlot.slots.map((timeSlot) => (
-              <div key={timeSlot.time} className="time-slot">
-                <Button
-                  className={
-                    (timeSlot.selected ? " selected" : "") +
-                    (timeSlot.occupied ? " occupied" : "")
-                  }
-                  onClick={() =>
-                    console.log(`Clicked ${dayTimeSlot.day}, ${timeSlot.time}`)
-                  }
-                  disabled={timeSlot.occupied}
-                >
-                  {timeSlot.time}
-                </Button>
-              </div>
-            ))}
-          </Col>
-        </Row>
+  const dayHeaders = dayTimeSlots.map((item) => (
+    <th key={item.day}>{item.day}</th>
+  ));
+
+  const timeSlots = dayTimeSlots[0].slots.map((item, index) => (
+    <tr key={index} className="justify-content-center">
+      {dayTimeSlots.map((day, dayIndex) => (
+        <td key={dayIndex} className="justify-content-center">
+          <Button
+            className={
+              (day.slots[index].occupied ? "occupied" : "") +
+              " justify-content-center"
+            }
+            onClick={() =>
+              console.log(
+                `Clicked ${day.slots[index].day}, ${day.slots[index].time}`
+              )
+            }
+            disabled={day.slots[index].occupied}
+          >
+            {day.slots[index].time}
+          </Button>
+        </td>
       ))}
-    </Container>
+    </tr>
+  ));
+
+  return (
+    <Table striped bordered hover className="justify-content-center">
+      <thead>
+        <tr>{dayHeaders}</tr>
+      </thead>
+      <tbody className="justify-content-center">{timeSlots}</tbody>
+    </Table>
   );
 }
