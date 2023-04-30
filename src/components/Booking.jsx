@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import "./Booking.css"
 
 export const Booking = () => {
+
     const [timeSlots, setTimeSlots] = useState([])
     const [service, setService] = useState([])
     const [employees, setEmployees] = useState([])
 
-    async function postData() {
+    async function postData(start, end) {
         const Data = {
-            service_id: "asd", 
-            employee_id: "asd", 
-            startTime: "2002-12-09", 
-            endTime: "2002-12-09", 
-            user_id: "sda", 
-            contact_email: "asdasd", 
+            service_id: service._id, 
+            employee_id: "644a83d1f0a732d4a429ab87", 
+            startTime: start, 
+            endTime: end, 
+            user_id: "64482117371250416b683ec6", 
+            contact_email: "asd@asd.com", 
             status: true
         }
         await fetch(`http://localhost:5000/bookings/postBooking`, {
@@ -22,12 +23,6 @@ export const Booking = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(Data)
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then(result => {
-            setTimeSlots(result)
         })
     }
 
@@ -63,6 +58,7 @@ export const Booking = () => {
 
     return (
         <div>
+            <h1>Hello world</h1>
             <h1>{service.name}</h1>
             <h1>{service.duration} minutes</h1>
             <h1>employees: </h1>
@@ -77,12 +73,14 @@ export const Booking = () => {
             </thead>
             <tbody>
             {timeSlots.map((item) => (
-                <tr key={item.start}>
-                    <td>{service._id}</td>
-                    <td>{item.start}</td>
-                    <td>{item.end}</td>
-                    <td><button className="btn btn-primary">Book Time Slot</button></td>
-                </tr>
+                item.isAvailable ? (
+                    <tr key={item.start}>
+                        <td>{service._id}</td>
+                        <td>{item.start}</td>
+                        <td>{item.end}</td>
+                        <td><button className="btn btn-primary" onClick={() => postData(item.start, item.end)}>Book Time Slot</button></td>
+                    </tr>
+                ) : null
             ))}
             </tbody>
         </table>
