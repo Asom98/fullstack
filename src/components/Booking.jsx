@@ -24,6 +24,7 @@ export const Booking = () => {
             },
             body: JSON.stringify(Data)
         })
+        .then(console.log("hello world"))
     }
 
     useEffect(() => {

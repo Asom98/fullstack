@@ -42,10 +42,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/bookings/getAvailableTimes
-Content-Type: application/json
-
-###
 GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7
 Content-Type: application/json
 
@@ -55,4 +51,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/employees/getEmployees/644a83d1f0a732d4a429ab87,644a83d1f0a732d4a429ab88
+Content-Type: application/json
+
+### 
+GET http://localhost:5000/bookings/getAmount
 Content-Type: application/json

@@ -13,23 +13,31 @@ router.get("/getBookings", async (req,res) =>{
     }
 })
   
-router.post("/postBooking", (req,res) =>{
-    try {
-      const newBooking = new bookingModel({
-        service_id: req.body.service_id, 
-        employee_id: req.body.employee_id, 
-        startTime: req.body.startTime, 
-        endTime: req.body.endTime, 
-        user_id: req.body.user_id, 
-        contact_email: req.body.contact_email, 
-        status: true})    
-      newBooking.save()
-      .then(result => {
-        res.json("Succesufully added booking")
-      })
-    } catch (error ) {
-      // res.status(400).send({message: error})
+router.post("/postBooking", async (req,res) =>{
+  try {
+    const bookings = await bookingModel.find().sort({ count: -1 }).limit(1);
+    let bookingCount = 0;
+    if (bookings.length > 0) {
+      bookingCount = bookings[0].count;
     }
+    // increment booking count by 1
+    bookingCount += 1;
+  
+    const newBooking = new bookingModel({
+      service_id: req.body.service_id,
+      employee_id: req.body.employee_id,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
+      user_id: req.body.user_id,
+      contact_email: req.body.contact_email,
+      status: true,
+      count: bookingCount,
+    });
+    await newBooking.save();
+  
+  } catch (error) {
+    // handle error
+  }
 })
   
 router.get("/getAvailableTimeSlots/:service_id", async (req, res) => {
@@ -70,4 +78,33 @@ router.get("/getAvailableTimeSlots/:service_id", async (req, res) => {
     res.sendStatus(500).send("Internal Server Error");
   }
 })
+
+router.get("/getAmount/:service_id", async (req, res) => {
+  // get the amount of bookings for the choosen service
+
+  const bookings = await bookingModel.find({service_id: req.params.service_id}).sort({count: -1}).limit(1) // sets it into descending order and with a limit of 1
+  
+  let bookingCount = 0;
+  if (bookings.length > 0) {
+    bookingCount = bookings[0].count;
+  }
+  // increment booking count by 1
+  res.json(bookingCount)
+})
+
+router.get("/getAmount", async (req, res) => {
+  // get the booking amount for all services
+  
+  const bookings = await bookingModel.find().sort({count: -1}).limit(1) // sets it into descending order and with a limit of 1
+  
+  let bookingCount = 0;
+  if (bookings.length > 0) {
+    bookingCount = bookings[0].count;
+  }
+  // increment booking count by 1
+  res.json(bookingCount)
+})
+
+
+
 module.exports = router

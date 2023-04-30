@@ -22,6 +22,9 @@ const bookingSchema = mongoose.Schema({
     status :{
         type: Boolean,
     },
+    count: {
+        type: Number
+    }
 })
 
 module.exports = mongoose.model('Booking', bookingSchema)
