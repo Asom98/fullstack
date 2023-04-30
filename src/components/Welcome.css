@@ -1,0 +1,30 @@
+
+.main-page {
+    background-image: url('/src/components/Images/sour-moha-k47viB7Dt8I-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.frame {
+  width: 500px;
+  height: 500px;
+  border: 2px solid white;
+  padding: 50px;
+  background-color: rgba(0, 0, 0, 0.50);
+  color: white;
+  border-radius: 30px;
+}
+
+.frame p {
+  margin: 15px;
+  color: rgba(255, 255, 255, 0.867);
+  font-size: 19px;
+  font-style: italic;
+}
+
+.carousel {
+  margin: 100px auto;
+  width: 800px;
+  height: 700px;
+}
