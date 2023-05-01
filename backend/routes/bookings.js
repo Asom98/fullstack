@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require("mongoose")
+
 
 const serviceModel = require("../models/service")
 const bookingModel = require("../models/booking");
@@ -12,7 +14,39 @@ router.get("/getBookings", async (req,res) =>{
       res.status(400).send({message: error})
     }
 })
-  
+
+router.get("/getBookings/:service_id", async (req,res) =>{
+  const service_id = new mongoose.Types.ObjectId(req.params.service_id);  // convert to ObjectId
+  try {
+      const bookings = await bookingModel.find({service_id: service_id});
+      res.json(bookings);
+  } catch (error) {
+    res.status(400).send({message: error});
+  }
+});
+
+router.delete("/deleteBooking", async (req ,res) => {
+  try {
+    await bookingModel.findByIdAndDelete(req.body._id)
+    .then(res.sendStatus(200)
+    )
+  } catch (err) {
+    console.log(error);
+    res.sendStatus(500).send("Internal Server Error");
+  }
+})
+
+router.put("/updateBooking", async(req, res)=>{
+  const id = req.body.id
+  const data = req.body
+  try{
+      await userModel.findByIdAndUpdate(id, data).then(res.sendStatus(200))
+  }catch(e){
+      res.sendStatus(404)
+  }
+})
+
+
 router.post("/postBooking", async (req,res) =>{
   try {
     const bookings = await bookingModel.find().sort({ count: -1 }).limit(1);
