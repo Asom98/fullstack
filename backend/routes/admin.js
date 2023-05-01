@@ -12,6 +12,12 @@ router.get("/getUsers", async(req, res)=>{
     })
 })
 
+router.get("/getAdmins", async(req,res) => {
+    await adminModel.find()
+    .then(result => {
+        res.json(result)
+    })
+})
 router.get("/getUsersById", async(req, res)=>{
     id = req.body.id
     await userModel.findById(id).then((r)=>{
