@@ -8,7 +8,7 @@ import {
   Card,
   Accordion,
 } from "react-bootstrap";
-import "./Admin.css";
+import "./css/Admin.css";
 import { Registration } from "./Registration";
 import { ViewMembersAccordion } from "./parts/ViewMembersAccordion";
 

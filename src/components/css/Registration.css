@@ -1,7 +1,7 @@
 
 .formCard{
   max-width: 750px !important;
-  background-image: url('./backgrounds/RegisterForm2.jpg');
+  background-image: url('../backgrounds/RegisterForm2.jpg');
   /*background-size: cover;
   background-attachment: fixed;*/
   display: flex;

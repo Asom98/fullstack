@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
-import "./Registration.css";
+import "./css/Registration.css";
 
 export function Registration() {
   const [showModal, setShowModal] = useState(false);
