@@ -97,3 +97,13 @@ Content-Type: application/json
 {
     "id": "644faace1687a1953d050732"
 }
+
+
+###
+PUT http://localhost:5000/admin/updateUser
+Content-Type: application/json
+
+{
+    "id": "6448086b584cfe43e7d99972",
+    "username": "knäs"
+}

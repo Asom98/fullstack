@@ -3,10 +3,12 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+const mailer = require("./mailer/mailer")
 
 const userRoutes = require("./routes/users")
 const bookingRoutes = require("./routes/bookings")
-const adminRoutes = require("./routes/admin")
+const adminRoutes = require("./routes/admin");
+const mailerTest = require("./mailer/mailer");
 
 app.use(
   express.json(), 
@@ -27,4 +29,5 @@ app.use('/admin', adminRoutes);
 
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
+  mailerTest()
 })
