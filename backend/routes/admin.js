@@ -18,6 +18,10 @@ router.get("/getAdmins", async(req,res) => {
         res.json(result)
     })
 })
+
+router.delete("deleteAdmin", async (req, res) => {
+
+})
 router.get("/getUsersById", async(req, res)=>{
     id = req.body.id
     await userModel.findById(id).then((r)=>{
@@ -90,6 +94,27 @@ router.delete("/removeUser", async(req, res)=>{
     const id = req.body.id
     try{
       await userModel.findByIdAndDelete(id).then(res.sendStatus(200))
+    }catch(e){
+      res.sendStatus(404)
+    }
+})
+
+router.put("/updateAdmin", async(req, res)=>{
+    const id = req.body._id
+    const data = req.body
+    try{
+        await adminModel.findByIdAndUpdate(id, data)
+        .then(res.sendStatus(200))
+    }catch(e){
+        res.sendStatus(404)
+    }
+})
+
+router.delete("removeAdmin", async (req, res) => {
+    const id = req.body._id
+    try{
+      await adminModel.findByIdAndDelete(id)
+      .then(res.sendStatus(200))
     }catch(e){
       res.sendStatus(404)
     }
