@@ -107,11 +107,11 @@ Content-Type: application/json
 }
 
 ### 
-GET http://localhost:5000/bookings/getAmount
+GET http://localhost:5000/bookings/getBookings
 Content-Type: application/json
 
 ### 
-GET http://localhost:5000/bookings/getBookings/644f879c4177ab6c5fce6dff
+GET http://localhost:5000/bookings/getBookings/644c378a049948fffb0a19d7
 Content-Type: application/json
 
 ###

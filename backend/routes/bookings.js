@@ -26,10 +26,10 @@ router.get("/getBookings/:service_id", async (req,res) =>{
 });
 
 router.delete("/deleteBooking", async (req ,res) => {
+  console.log(req.body._id);
   try {
     await bookingModel.findByIdAndDelete(req.body._id)
-    .then(res.sendStatus(200)
-    )
+    .then(res.sendStatus(200))
   } catch (err) {
     console.log(error);
     res.sendStatus(500).send("Internal Server Error");
