@@ -82,41 +82,52 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
     }
   
     const date = new Date(req.params.date);
-  
+    const currentDate = new Date();
+    
+    if (date < currentDate) {
+      return res.status(400).send("Requested date is before the current date");
+    }
+
     const totalTime = service.business_hours.close - service.business_hours.open;
+
     const preparationTime = 15;
     const totalTimeInMinutes = totalTime / 60000;
     const totalSlots = Math.ceil(
       totalTimeInMinutes / (service.duration + preparationTime)
-    );
-  
+      );
+
     const timeSlots = [];
     for (let i = 0; i < totalSlots; i++) {
       const start = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        service.business_hours.open.getHours(),
-        service.business_hours.open.getMinutes() +
-          i * (service.duration + preparationTime)
+        Date.UTC(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          service.business_hours.open.getUTCHours(),
+          service.business_hours.open.getUTCMinutes() +
+            i * (service.duration + preparationTime)
+        )
       );
+
       const end = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        service.business_hours.open.getHours(),
-        service.business_hours.open.getMinutes() +
-          i * (service.duration + preparationTime) +
-          service.duration
+        Date.UTC(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          service.business_hours.open.getUTCHours(),
+          service.business_hours.open.getUTCMinutes() +
+            i * (service.duration + preparationTime) +
+            service.duration
+        )
       );
-  
+        
       const bookings = await bookingModel.find({
         startTime: { $lte: end }, // lesser than 
         endTime: { $gte: start }, // greater than 
         service_id: service._id,
       });
       const isAvailable = bookings.length === 0;
-  
+      
       timeSlots.push({ start, end, isAvailable });
     }
   
