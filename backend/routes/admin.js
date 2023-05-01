@@ -3,10 +3,18 @@ const router = express.Router()
 const bcrypt = require("bcrypt");
 
 const userModel = require("../models/user");
+const adminModel = require("../models/admin")
 
 
 router.get("/getUsers", async(req, res)=>{
     await userModel.find().then((r)=>{
+      res.json(r)
+    })
+})
+
+router.get("/getUsersById", async(req, res)=>{
+    id = req.body.id
+    await userModel.findById(id).then((r)=>{
       res.json(r)
     })
 })
@@ -35,6 +43,34 @@ router.post("/addUser", async (req, res) => {
     }
 })
 
+router.post("/addAdmin", async (req, res) => {
+    const role = req.body.role
+    try {
+        const adminExists = await adminModel.findOne({
+            username: req.body.username
+        });
+        if (adminExists) return res.status(400).send("Admin already exists");
+
+        await bcrypt.hash(req.body.password, 10)
+            .then(hashedPassword => {
+                const newAdmin = new adminModel({
+                    email: req.body.email,
+                    username: req.body.username,
+                    password: hashedPassword,
+                    role: "admin"
+                })
+                if (role != "admin") {
+                    res.send("forbidden!")
+                } else {
+                    newAdmin.save()
+                        .then(res.sendStatus(201))
+                }
+            })
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 router.put("/updateUser", async(req, res)=>{
     const id = req.body.id
     const data = req.body
@@ -44,7 +80,6 @@ router.put("/updateUser", async(req, res)=>{
         res.sendStatus(404)
     }
 })
-
 
 router.delete("/removeUser", async(req, res)=>{
     const id = req.body.id
