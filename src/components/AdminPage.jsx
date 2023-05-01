@@ -19,15 +19,19 @@ export function AdminPage() {
       <Accordion defaultActiveKey={null}>
         <ViewMembersAccordion />
         <Accordion.Item eventKey="1">
-          <Accordion.Header>Add member</Accordion.Header>
-          <Accordion.Body>
-            <Registration isAdmin={false} />
-          </Accordion.Body>
+          <Accordion.Header>Handle Bookings</Accordion.Header>
+          <Accordion.Body></Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
           <Accordion.Header>Add Admin</Accordion.Header>
           <Accordion.Body>
             <Registration isAdmin={true} />
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="3">
+          <Accordion.Header>Add member</Accordion.Header>
+          <Accordion.Body>
+            <Registration isAdmin={false} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
