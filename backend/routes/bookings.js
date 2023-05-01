@@ -105,6 +105,4 @@ router.get("/getAmount", async (req, res) => {
   res.json(bookingCount)
 })
 
-
-
 module.exports = router

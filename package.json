@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "all": "concurrently \"vite\" \"cd backend && npm run dev\"",
+    "dev": "concurrently \"vite\" \"cd backend && npm run dev\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install-All": "concurrently \"npm i\" \"cd backend && npm i\""
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
