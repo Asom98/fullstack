@@ -50,10 +50,10 @@ POST http://localhost:5000/services/createService
 Content-Type: application/json
 
 {
-    "name": "Hair coloring",
-    "description": "Transform your look with our professional hair coloring service. Our expert colorists use high-quality dyes and techniques to create a personalized color that complements your style and skin tone.",
-    "price": "$120",
-    "duration": "90-180min"
+    "name": "Haircut and Styling",
+    "description": "Get a fresh new look to suit your face shape and personal style with our professional haircut and styling service that caters to both men and women. Our skilled stylists will work with you to create a cut and style that complements your unique features, whether you want a subtle update or a dramatic change.",
+    "price": "$45 - $80",
+    "duration": "45 - 60min"
 }
 
 

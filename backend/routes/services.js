@@ -13,8 +13,7 @@ router.get("/getServices", async (req, res) => {
   }
 });
 
-// Helper function - use with route.rest file to avoid having to add manually in cloud dbw
-// currently causing error but still adds to db
+// use with route.rest file to avoid having to add manually in cloud db
 router.post("/createService", (req, res) => {
   try {
     const newService = new serviceModel({
@@ -26,7 +25,7 @@ router.post("/createService", (req, res) => {
     })
     newService.save()
       .then(result => {
-        res.json("Succesufully added service").sendStatus(201)
+        res.status(201).send({ message: "Service created successfully" })
       })
   } catch (error) {
     res.status(400).send({ message: error })
