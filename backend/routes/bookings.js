@@ -40,12 +40,14 @@ router.post("/postBooking", async (req,res) =>{
   }
 })
   
-router.get("/getAvailableTimeSlots/:service_id", async (req, res) => {
+router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
   try {
     const service = await serviceModel.findOne({ _id: req.params.service_id });
     if (service == null) {
       return res.status(404).send("Not Found");
     }
+  
+    const date = new Date(req.params.date);
   
     const totalTime = service.business_hours.close - service.business_hours.open;
     const preparationTime = 15;
@@ -57,10 +59,22 @@ router.get("/getAvailableTimeSlots/:service_id", async (req, res) => {
     const timeSlots = [];
     for (let i = 0; i < totalSlots; i++) {
       const start = new Date(
-        service.business_hours.open.getTime() +
-          i * (service.duration + preparationTime) * 60000
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        service.business_hours.open.getHours(),
+        service.business_hours.open.getMinutes() +
+          i * (service.duration + preparationTime)
       );
-      const end = new Date(start.getTime() + service.duration * 60000);
+      const end = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        service.business_hours.open.getHours(),
+        service.business_hours.open.getMinutes() +
+          i * (service.duration + preparationTime) +
+          service.duration
+      );
   
       const bookings = await bookingModel.find({
         startTime: { $lte: end }, // lesser than 
@@ -77,7 +91,7 @@ router.get("/getAvailableTimeSlots/:service_id", async (req, res) => {
     console.log(error);
     res.sendStatus(500).send("Internal Server Error");
   }
-})
+});
 
 router.get("/getAmount/:service_id", async (req, res) => {
   // get the amount of bookings for the choosen service

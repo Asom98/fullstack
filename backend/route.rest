@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7
+GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/2023-05-23T09:00:00.000Z
 Content-Type: application/json
 
 ### 
