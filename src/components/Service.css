@@ -1,3 +1,10 @@
+.container {
+    background-image: url("/src/components/Images/ren-ran-bBiuSdck8tU-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 .custom.card {
     margin: 1rem;
 }
@@ -10,6 +17,8 @@
     height: 200px;
     width: 450px;
     position: relative;
+    background-color: rgba(17, 84, 0, 0.659);
+    color: white;
     
 }
   
@@ -18,8 +27,8 @@
 }
   
 .custom.card .btn-primary {
-    background-color: grey;
-    border-color: grey;
+    background-color:rgb(66, 63, 63);
+    border-color: rgb(66, 63, 63);
     position: absolute;
     bottom: 15px;
     right: 15px;
@@ -27,7 +36,7 @@
 }
 
 .custom.card .btn-primary:hover {
-    background-color: rgb(66, 63, 63);
+    background-color: rgb(50, 46, 46);
 }
   
 .custom-card-columns {
@@ -35,4 +44,7 @@
     margin-bottom: 3rem;
 }
 
-
+.employee-text {
+    color: rgb(50, 46, 46);
+    font-style:italic;
+}

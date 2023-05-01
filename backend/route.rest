@@ -53,6 +53,42 @@ Content-Type: application/json
 GET http://localhost:5000/employees/getEmployees/644a83d1f0a732d4a429ab87,644a83d1f0a732d4a429ab88
 Content-Type: application/json
 
+### GET ALL THE USERS
+GET http://localhost:5000/admin/getUsers
+Content-Type: application/json
+
+
+### ADD A NEW USER FROM THE ADMIN ROUTES
+POST http://localhost:5000/admin/addUser
+Content-Type: application/json
+
+{
+    "username": "hej",
+    "email": "hej@gmail.com",
+    "phoneNumber" : "+4668656656",
+    "password": "hejhej"
+}
+
+### UPDATE USER BY ID
+PUT http://localhost:5000/admin/updateUser
+Content-Type: application/json
+
+{
+    "id": "644faace1687a1953d050732",
+    "username": "hej1",
+    "email": "hej1@gmail.com",
+    "phoneNumber" : "+466865665611",
+    "password": "hejhej1"
+}
+
+### REMOVE USER BY ID
+DELETE http://localhost:5000/admin/removeUser
+Content-Type: application/json
+
+{
+    "id": "644faace1687a1953d050732"
+}
+
 ### 
 GET http://localhost:5000/bookings/getAmount
 Content-Type: application/json

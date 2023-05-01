@@ -7,6 +7,7 @@ require("dotenv").config();
 const userRoutes = require("./routes/users")
 const bookingRoutes = require("./routes/bookings")
 const employeeRoutes = require("./routes/employees")
+const adminRoutes = require("./routes/admin")
 
 app.use(
   express.json(), 
@@ -24,6 +25,7 @@ app.listen(
 app.use('/users', userRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/employees', employeeRoutes);
+app.use('/admin', adminRoutes);
 
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
