@@ -40,6 +40,7 @@ router.post("/addUser", async (req, res) => {
             })
     } catch (error) {
         console.log(error)
+        res.sendStatus(400)
     }
 })
 
@@ -64,6 +65,7 @@ router.post("/addAdmin", async (req, res) => {
             })
     } catch (error) {
         console.log(error);
+        res.sendStatus(400)
     }
 })
 
