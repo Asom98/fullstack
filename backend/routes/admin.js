@@ -71,7 +71,7 @@ router.put("/updateUser", async(req, res)=>{
     const id = req.body.id
     const data = req.body
     try{
-        await userModel.findByIdAndUpdate(id, data)
+        await userModel.findByIdAndUpdate(id, data).then(res.sendStatus(200))
     }catch(e){
         res.sendStatus(404)
     }
@@ -80,7 +80,7 @@ router.put("/updateUser", async(req, res)=>{
 router.delete("/removeUser", async(req, res)=>{
     const id = req.body.id
     try{
-      await userModel.findByIdAndDelete(id)
+      await userModel.findByIdAndDelete(id).then(res.sendStatus(200))
     }catch(e){
       res.sendStatus(404)
     }
