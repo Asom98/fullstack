@@ -118,7 +118,7 @@ export function Registration() {
             <Form.Control
               type="text"
               name="name"
-              placeholder={"Your name"}
+              placeholder={"Name"}
               onChange={handleInputChange}
               isInvalid={formErrors.name}
               required
