@@ -7,8 +7,8 @@
 }
 
 .frame {
-  width: 500px;
-  height: 500px;
+  width: cover;
+  height: 300px;
   border: 2px solid white;
   padding: 50px;
   background-color: rgba(0, 0, 0, 0.50);
@@ -20,6 +20,13 @@
   margin: 15px;
   color: rgba(255, 255, 255, 0.867);
   font-size: 19px;
+  font-style: italic;
+}
+
+.frame .welcome-text {
+  margin: 15px;
+  color: rgba(255, 255, 255, 0.867);
+  font-size: 28px; 
   font-style: italic;
 }
 
