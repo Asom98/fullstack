@@ -57,6 +57,13 @@ Content-Type: application/json
 GET http://localhost:5000/admin/getUsers
 Content-Type: application/json
 
+### GET USER BY ID
+GET http://localhost:5000/admin/getUsersById
+Content-Type: application/json
+
+{
+    "id" :"64480789d2ce669f59d12fc4"
+}
 
 ### ADD A NEW USER FROM THE ADMIN ROUTES
 POST http://localhost:5000/admin/addUser
@@ -67,6 +74,16 @@ Content-Type: application/json
     "email": "hej@gmail.com",
     "phoneNumber" : "+4668656656",
     "password": "hejhej"
+}
+
+### ADD A NEW ADMIN FROM THE ADMIN ROUTES
+POST http://localhost:5000/admin/addAdmin
+Content-Type: application/json
+
+{
+    "email": "admin1@admin.com",
+    "username": "admin1",
+    "password": "admin1"
 }
 
 ### UPDATE USER BY ID
