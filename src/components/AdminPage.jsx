@@ -16,12 +16,18 @@ export function AdminPage() {
   return (
     <Container>
       <h3>Admin Page!</h3>
-      <Accordion defaultActiveKey="0">
+      <Accordion defaultActiveKey={null}>
         <ViewMembersAccordion />
         <Accordion.Item eventKey="1">
           <Accordion.Header>Add member</Accordion.Header>
           <Accordion.Body>
-            <Registration />
+            <Registration isAdmin={false} />
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Add Admin</Accordion.Header>
+          <Accordion.Body>
+            <Registration isAdmin={true} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

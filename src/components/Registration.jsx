@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
 import "./css/Registration.css";
 
-export function Registration() {
+export function Registration({ isAdmin }) {
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
   const [formData, setFormData] = useState({
@@ -36,20 +36,23 @@ export function Registration() {
       email: formData.email,
       phoneNumber: formData.phoneNumber,
     };
-
-    const response = await fetch("http://localhost:5000/users/register", {
-      method: "POST",
-      body: JSON.stringify(packet),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 201) {
-      setRegistrationSentence("You have succesfuly registered!");
-      setShowModal(true);
+    if (isAdmin) {
+      return;
     } else {
-      setRegistrationSentence("This user already exists");
-      setShowModal(true);
+      const response = await fetch("http://localhost:5000/users/register", {
+        method: "POST",
+        body: JSON.stringify(packet),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 201) {
+        setRegistrationSentence("You have succesfuly registered!");
+        setShowModal(true);
+      } else {
+        setRegistrationSentence("This user already exists");
+        setShowModal(true);
+      }
     }
   }
 
@@ -110,7 +113,11 @@ export function Registration() {
   };
 
   return (
-    <Container className="formCard my-5 py-5 rounded justify-content-center">
+    <Container
+      className={`formCard my-5 py-5 rounded justify-content-center ${
+        isAdmin ? "formCard-admin" : "formCard-user"
+      }`}
+    >
       <h1 className="register-title text-center fw-bold">Registration</h1>
       <Form onSubmit={handleSubmit} className="form">
         <Form.Group as={Row} controlId="formName">

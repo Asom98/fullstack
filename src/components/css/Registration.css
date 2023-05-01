@@ -1,7 +1,6 @@
 
 .formCard{
   max-width: 750px !important;
-  background-image: url('../backgrounds/RegisterForm2.jpg');
   /*background-size: cover;
   background-attachment: fixed;*/
   display: flex;
@@ -10,6 +9,15 @@
   border-radius: 10px;
   border: 2px solid #5a3204;
 }
+
+.formCard-admin {
+  background-image: url("../backgrounds/RegisterForm1.jpg");
+}
+
+.formCard-user {
+  background-image: url("../backgrounds/RegisterForm2.jpg");
+}
+
 .form{
   border:none;
   box-shadow: none;
