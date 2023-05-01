@@ -110,7 +110,7 @@ router.put("/updateAdmin", async(req, res)=>{
     }
 })
 
-router.delete("removeAdmin", async (req, res) => {
+router.delete("/removeAdmin", async (req, res) => {
     const id = req.body.id
     try{
       await adminModel.findByIdAndDelete(id)

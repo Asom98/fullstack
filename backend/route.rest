@@ -117,3 +117,7 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/bookings/deleteBookings
 Content-Type: application/json
+
+###
+GET http://localhost:5000/admin/getAdmins
+Content-Type: application/json
