@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 
 const adminSchema = mongoose.Schema({
+    username: {
+        type: String,
+    },
     email: {
         type: String,
     },
-    username: {
+    phoneNumber: {
         type: String,
     },
     password: {

@@ -58,10 +58,11 @@ router.post("/addAdmin", async (req, res) => {
                     email: req.body.email,
                     username: req.body.username,
                     password: hashedPassword,
+                    phoneNumber: req.body.phoneNumber,
                     role: "admin"
                 })
                 newAdmin.save()
-                        .then(res.sendStatus(201))
+                .then(res.sendStatus(201))
             })
     } catch (error) {
         console.log(error);
