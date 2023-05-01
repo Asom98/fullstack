@@ -100,7 +100,7 @@ router.delete("/removeUser", async(req, res)=>{
 })
 
 router.put("/updateAdmin", async(req, res)=>{
-    const id = req.body._id
+    const id = req.body.id
     const data = req.body
     try{
         await adminModel.findByIdAndUpdate(id, data)
@@ -111,7 +111,7 @@ router.put("/updateAdmin", async(req, res)=>{
 })
 
 router.delete("removeAdmin", async (req, res) => {
-    const id = req.body._id
+    const id = req.body.id
     try{
       await adminModel.findByIdAndDelete(id)
       .then(res.sendStatus(200))
