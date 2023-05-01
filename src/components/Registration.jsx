@@ -37,7 +37,20 @@ export function Registration({ isAdmin }) {
       phoneNumber: formData.phoneNumber,
     };
     if (isAdmin) {
-      return;
+      const response = await fetch("http://localhost:5000/admin/addAdmin", {
+        method: "POST",
+        body: JSON.stringify(packet),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 201) {
+        setRegistrationSentence("You have succesfuly registered an admin!");
+        setShowModal(true);
+      } else {
+        setRegistrationSentence("This admin already exists");
+        setShowModal(true);
+      }
     } else {
       const response = await fetch("http://localhost:5000/users/register", {
         method: "POST",

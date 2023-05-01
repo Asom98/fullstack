@@ -11,31 +11,19 @@ import {
 
 import { ConfirmationModal } from "./ConfirmationModal";
 
-export function ViewMembersAccordion() {
-  const [memberList, setMemberList] = useState([]);
+export function ViewBookingsAccordion() {
+  const [bookingList, setBookingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
 
   useEffect(() => {
     (async () => {
-      let users = await (
-        await fetch(`http://localhost:5000/admin/getUsers`)
+      let bookings = await (
+        await fetch(`http://localhost:5000/bookings/getBookings`)
       ).json();
-      setMemberList(users);
+      setBookingList(bookings);
     })();
   }, []);
-
-  const [editedName, setEditedName] = useState("");
-  const [editedEmail, setEditedEmail] = useState("");
-  const [editedPhone, setEditedPhone] = useState("");
-
-  const handleUpdate = (index, memberId) => {
-    setMemberList((prevMemberList) => {
-      const updatedMemberList = [...prevMemberList];
-      updatedMemberList[index].isEditable = true;
-      return updatedMemberList;
-    });
-  };
 
   const handleSave = (index, member) => {
     setMemberList((prevMemberList) => {
@@ -103,89 +91,84 @@ export function ViewMembersAccordion() {
     });
   };
 
-  const handleDelete = (index, id) => {
+  const handleDelete = (_id) => {
     (async () => {
-      const packet = { id };
-      let response = await fetch(`http://localhost:5000/admin/removeUser`, {
-        method: "DELETE",
-        body: JSON.stringify(packet),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const packet = { _id };
+      let response = await fetch(
+        `http://localhost:5000/bookings/deleteBooking`,
+        {
+          method: "DELETE",
+          body: JSON.stringify(packet),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
-        setMemberList((prevMemberList) => {
-          const updatedMemberList = prevMemberList.filter(
-            (member) => member._id !== id
+        setBookingList((prevBookingList) => {
+          const updatedBookingList = prevBookingList.filter(
+            (booking) => booking._id !== _id
           );
-          return updatedMemberList;
+          return updatedBookingList;
         });
       } else {
-        setRegistrationSentence("Can't delete user");
+        setRegistrationSentence("Can't delete booking");
         setShowModal(true);
       }
     })();
   };
 
+  /*{
+    "_id": "644fc306d2e036b3637de91a",
+    "service_id": "644c378a049948fffb0a19d7",
+    "employee_id": "644a83d1f0a732d4a429ab87",
+    "user_id": "64482117371250416b683ec6",
+    "startTime": "2023-12-12T08:00:00.000Z",
+    "endTime": "2023-12-12T09:00:00.000Z",
+    "contact_email": "asd@asd.com",
+    "status": true,
+    "count": 1,
+    "__v": 0
+  }*/
+
+  const placeService = (id) => {
+    console.log(id);
+    (async () => {
+      let service = await (
+        await fetch(`http://localhost:5000/bookings/getBookings/${id}`)
+      ).json();
+      console.log(service.name);
+      return service.name;
+    })();
+  };
+
   return (
-    <Accordion.Item eventKey="0">
-      <Accordion.Header>View members</Accordion.Header>
+    <Accordion.Item eventKey="1">
+      <Accordion.Header>Handle bookings</Accordion.Header>
       <Accordion.Body>
         <Container
-          className="members"
+          className="bookings"
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
-          {memberList.map((member, index) => (
-            <Row className="member-row mb-4" key={index}>
+          {bookingList.map((booking, index) => (
+            <Row className="booking-row mb-4" key={index}>
+              <Col>{booking.service_id}</Col>
+              <Col>{booking._id}</Col>
+              <Col>{booking.count}</Col>
               <Col>
-                {member.isEditable ? (
-                  <Form.Control
-                    name="name"
-                    value={member.username}
-                    onChange={(event) => handleChange(event, index)}
-                  />
-                ) : (
-                  member.username
-                )}
+                {new Intl.DateTimeFormat("en-UK", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                }).format(new Date(booking.startTime))}
               </Col>
               <Col>
-                {member.isEditable ? (
-                  <Form.Control
-                    name="email"
-                    value={member.email}
-                    onChange={(event) => handleChange(event, index)}
-                  />
-                ) : (
-                  member.email
-                )}
-              </Col>
-              <Col>
-                {member.isEditable ? (
-                  <Form.Control
-                    name="phoneNumber"
-                    value={member.phoneNumber}
-                    onChange={(event) => handleChange(event, index)}
-                  />
-                ) : (
-                  member.phoneNumber
-                )}
-              </Col>
-              <Col>{member.count}</Col>
-              <Col>
-                <Button onClick={() => handleDelete(index, member._id)}>
-                  Delete Member
+                <Button onClick={() => handleDelete(booking._id)}>
+                  Cancel booking
                 </Button>
-              </Col>
-              <Col>
-                {member.isEditable ? (
-                  <Button onClick={() => handleSave(index, member)}>
-                    Save
-                  </Button>
-                ) : (
-                  <Button onClick={() => handleUpdate(index, member._id)}>
-                    Edit
-                  </Button>
-                )}
               </Col>
             </Row>
           ))}
