@@ -41,6 +41,22 @@ Content-Type: application/json
     "endTime": "2002-02-02"
 }
 
+### get services
+GET http://localhost:5000/services/getServices
+Content-Type: application/json
+
+### create service
+POST http://localhost:5000/services/createService
+Content-Type: application/json
+
+{
+    "name": "Hair coloring",
+    "description": "Transform your look with our professional hair coloring service. Our expert colorists use high-quality dyes and techniques to create a personalized color that complements your style and skin tone.",
+    "price": "$120",
+    "duration": "90-180min"
+}
+
+
 ###
 GET http://localhost:5000/bookings/getAvailableTimes
 Content-Type: application/json

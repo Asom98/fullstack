@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const userRoutes = require("./routes/users")
-const bookingRoutes = require("./routes/bookings")
+const userRoutes = require("./routes/users");
+const bookingRoutes = require("./routes/bookings");
+const serviceRoutes = require("./routes/services");
 
 app.use(
   express.json(), 
@@ -22,6 +23,7 @@ app.listen(
 
 app.use('/users', userRoutes);
 app.use('/bookings', bookingRoutes);
+app.use('/services', serviceRoutes);
 
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")

@@ -13,6 +13,9 @@ const serviceSchema = mongoose.Schema({
     price : {
         type: String,
     },
+    duration: {
+        type: String,
+    },
     employee_ids: {
         type: [mongoose.Schema.Types.ObjectId],
     },
