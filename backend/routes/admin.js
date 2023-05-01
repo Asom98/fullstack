@@ -59,12 +59,8 @@ router.post("/addAdmin", async (req, res) => {
                     password: hashedPassword,
                     role: "admin"
                 })
-                if (role != "admin") {
-                    res.send("forbidden!")
-                } else {
-                    newAdmin.save()
+                newAdmin.save()
                         .then(res.sendStatus(201))
-                }
             })
     } catch (error) {
         console.log(error);
