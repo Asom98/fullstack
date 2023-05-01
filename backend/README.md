@@ -1,27 +1,37 @@
-# Saloon Api Documentation 
+# Saloon Api Documentation
 
 ## Overview
-Welcoem to the Saloon API documentation! This API provides access to a veriety of tools nad services that you can use to enchance you application with our API, some things that you can do is: 
-* Retrive information about Users
-* Retrive information about Times
-* Retrive information about Bookings
-* Retrive information about Services
-* Manage and update information such as name and date
+
+Welcoem to the Saloon API documentation! This API provides access to a veriety of tools nad services that you can use to enchance you application with our API, some things that you can do is:
+
+- Retrive information about Users
+- Retrive information about Times
+- Retrive information about Bookings
+- Retrive information about Services
+- Manage and update information such as name and date
 
 You can make requests to our endpoints using HTTP methods such as GET, POST, PUT, and DELETE. Our API supports JSON for requests and responses.
 
 ## Endpoints
-Our API provides the endpoints: 
+
+Our API provides the endpoints:
+
 ### /
+
 METHOD GET
 Responses
+
 ### /getUserData
+
 METHOD GET
+
 ### /register
+
 METHOD POST
 Creates a user with the Role being set to User
 
-Request Body 
+Request Body
+
 ```
 {
     username: String
@@ -32,10 +42,13 @@ Request Body
 ```
 
 Responses
+
 ### /registerAdmin
+
 METHOD POST
 Creates a user with the Role being set to Admin
-Request Body 
+Request Body
+
 ```
 {
     username: String
@@ -46,10 +59,13 @@ Request Body
 ```
 
 Responses
+
 ### /login
+
 METHOD POST
 
-Request Body 
+Request Body
+
 ```
 {
     username: String
@@ -58,15 +74,19 @@ Request Body
 ```
 
 Responses
+
 ### /getBookings
+
 METHOD GET
 
 Responses
 
 ### /postBooking
+
 METHOD POST
 
-Request Body 
+Request Body
+
 ```
 {
     service_id : String
@@ -82,19 +102,81 @@ Request Body
 Responses
 
 ### /getAvailableTimes
+
 METHOD GET
 
 Responses
 
 ### /postAvailableTime
+
 METHOD POST
 
-Request Body 
+Request Body
+
 ```
 {
     serviceId: String
     startTime: Date
     endTime: Date
+}
+```
+
+Responses
+
+### /admin/getUsers
+
+METHOD GET
+Returns all the website members as json
+
+Responses
+
+### /admin/addUser
+
+METHOD POST
+Add a new member
+
+Request Body
+
+```
+{
+    username: String
+    email: String
+    phoneNumber: String
+    password: String
+}
+```
+
+Responses
+
+### /admin/updateUser
+
+METHOD PUT
+Update member information by id
+
+Request Body
+
+```
+{
+    id : String
+    username: String
+    email: String
+    phoneNumber : String
+    password: String
+}
+```
+
+Responses
+
+### /admin/removeUser
+
+METHOD DELETE
+Remove member by id
+
+Request Body
+
+```
+{
+    id : String
 }
 ```
 
@@ -108,8 +190,8 @@ Responses
 
 ## code Exampels
 
-## testing 
+## testing
 
-## Contact information 
+## Contact information
 
 https://commonmark.org/help/
