@@ -156,14 +156,15 @@ export function ViewBookingsAccordion() {
               <Col>{booking._id}</Col>
               <Col>{booking.count}</Col>
               <Col>
-                {new Intl.DateTimeFormat("en-UK", {
+                {  new Date(booking.startTime).toLocaleString("en-UK", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                   hour: "numeric",
                   minute: "numeric",
-                }).format(new Date(booking.startTime))}
+                  timeZone: "UTC"
+              })}
               </Col>
               <Col>
                 <Button onClick={() => handleDelete(booking._id)}>
