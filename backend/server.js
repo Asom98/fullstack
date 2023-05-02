@@ -29,5 +29,5 @@ app.use('/admin', adminRoutes);
 
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
-  mailerTest()
+  //mailerTest()
 })
