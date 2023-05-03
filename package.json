@@ -7,10 +7,9 @@
     "dev": "concurrently \"vite\" \"cd backend && npm run dev\"",
     "build": "vite build",
     "preview": "vite preview",
-    "install-All": "npm run clean && npm run build:css && npm run build:js && npm run build:html && npm run build:jsx"
+    "install-All": "concurrently \"npm i\" \"cd backend && npm i\""
   },
   "dependencies": {
-    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "concurrently": "^8.0.1",
     "react": "^18.2.0",
@@ -19,7 +18,7 @@
     "react-dom": "^18.2.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router": "^6.9.0",
-    "react-router-dom": "^6.11.0"
+    "react-router-dom": "^6.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
