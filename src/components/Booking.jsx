@@ -24,7 +24,7 @@ export const Booking = () => {
             contact_email: "asd@asd.com", 
             status: true
         }
-        await fetch(`http://localhost:3000/bookings/postBooking`, {
+        await fetch(`http://localhost:5000/bookings/postBooking`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
