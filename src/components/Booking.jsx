@@ -4,12 +4,16 @@ import "./css/Booking.css"
 import "react-calendar/dist/Calendar.css";
 
 export const Booking = () => {
+    const currentDate = new Date()
+    const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+    const minDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay() + 1)
+    const maxDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDay())
 
     const [timeSlots, setTimeSlots] = useState([])
     const [service, setService] = useState([])
     const [employees, setEmployees] = useState([])
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
+    const [selectedDate, setSelectedDate] = useState(tomorrow);
+    
     async function postData(start, end) {
         const Data = {
             service_id: service._id, 
@@ -27,7 +31,21 @@ export const Booking = () => {
             },
             body: JSON.stringify(Data)
         })
-        .then(console.log("hello world"))
+        .then(async (result) => {
+            if (result.ok) {
+                const updatedTimeSlots = timeSlots.map(timeSlot => {
+                    if (timeSlot.start === start && timeSlot.end === end) {
+                      return {...timeSlot, isAvailable: false}
+                    } else {
+                      return timeSlot;
+                    }
+                  });
+                setTimeSlots(updatedTimeSlots)
+            } else {
+                const error = await response.json();
+                console.error(error);
+            }
+        })
     }
 
     useEffect(() => {
@@ -82,17 +100,24 @@ export const Booking = () => {
           setSelectedDate(date);
         }
     };
+
+
     return (
         <div>
 
             <Calendar
             onChange={setSelectedDate}
             value={selectedDate}
+            minDate={minDate}
+            maxDate={maxDate}
             tileDisabled={isDateDisabled}
             onClickDay={handleDateClick}
             tileClassName={getTileClassName}
             formatShortWeekday={(locale, value) => new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(value)}
             />
+            <div>
+            <p>{currentDate.toLocaleString()}</p>
+            </div>
         <table>
             <thead>
                 <tr>
@@ -104,17 +129,23 @@ export const Booking = () => {
             <tbody>
             {timeSlots.length > 0 ? (
                  timeSlots.map((item) => (
-                    
                     item.isAvailable ? (
-                        <tr key={item.start}>
+                        <tr className="isAvailable" key={item.start}>
                             <td>{service.name}</td>
                             <td>{item.start}</td>
                             <td>{item.end}</td>
                             <td><button className="btn btn-primary" onClick={() => postData(item.start, item.end)} >Book Time Slot</button></td>
                         </tr>
-                    ) : null
+                    ) :                         
+                    <tr className="notAvailable" key={item.start}>
+                    <td>{service.name}</td>
+                    <td>{item.start}</td>
+                    <td>{item.end}</td>
+                    <td><h1>booked</h1></td>
+                    </tr>
                 ))
-            ) : <p>No available times slots</p>} 
+            ) : <tr><td><p>No available times slots</p></td></tr>
+            } 
             </tbody>
         </table>
       </div>

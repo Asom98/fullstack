@@ -26,7 +26,6 @@ router.get("/getBookings/:service_id", async (req,res) =>{
 });
 
 router.delete("/deleteBooking", async (req ,res) => {
-  console.log(req.body._id);
   try {
     await bookingModel.findByIdAndDelete(req.body._id)
     .then(res.sendStatus(200))
@@ -68,6 +67,7 @@ router.post("/postBooking", async (req,res) =>{
       count: bookingCount,
     });
     await newBooking.save();
+    res.sendStatus(200)
   
   } catch (error) {
     // handle error

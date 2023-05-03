@@ -2,6 +2,10 @@ table {
     width: 100%;
 }
 
-button[isAvailable="false"] {
-    color: black !important;
+.notAvailable {
+    background-color: grey;
+}
+
+.isAvailable {
+    background-color: white;
 }
