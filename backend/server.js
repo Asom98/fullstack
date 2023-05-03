@@ -8,7 +8,7 @@ const mailer = require("./mailer/mailer")
 const userRoutes = require("./routes/users")
 const bookingRoutes = require("./routes/bookings")
 const adminRoutes = require("./routes/admin");
-const mailerTest = require("./mailer/mailer");
+const mailerTest = require("./routes/mailer");
 
 app.use(
   express.json(), 
@@ -26,6 +26,7 @@ app.listen(
 app.use('/users', userRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/admin', adminRoutes);
+app.use('mailer', mailerTest)
 
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
