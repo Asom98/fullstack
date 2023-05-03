@@ -27,10 +27,12 @@ router.get("/getServiceById/:id", async (req, res) => {
 router.post("/createService", (req, res) => {
   try {
     const newService = new serviceModel({
+      img: req.body.img,
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
       duration: req.body.duration,
+      business_hours: req.body.business_hours,
       employee_ids: req.body.employee_ids
     })
     newService.save()

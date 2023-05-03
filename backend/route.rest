@@ -50,10 +50,13 @@ POST http://localhost:5000/services/createService
 Content-Type: application/json
 
 {
+    "img": "",
     "name": "Haircut and Styling",
     "description": "Get a fresh new look to suit your face shape and personal style with our professional haircut and styling service that caters to both men and women. Our skilled stylists will work with you to create a cut and style that complements your unique features, whether you want a subtle update or a dramatic change.",
     "price": "$45 - $80",
-    "duration": "45 - 60min"
+    "duration": "45 - 60min",
+    "business_hours": "",
+    "employee_ids": ["644f879c4177ab6c5fce6dff"]
 }
 
 ### get service by id
