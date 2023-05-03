@@ -5,8 +5,10 @@ const nodemailer = require("nodemailer");
 const bookingModel = require("../models/booking")
 const userModel = require("../models/user");
 const serviceModel = require("../models/service")
+const employeeModel = require("../models/employee")
 
 router.post("/confirmBooking", async(req, res)=>{
+    bookingId = req.body.bookingId
     let config = {
         service: "gmail",
         auth:{
@@ -16,10 +18,11 @@ router.post("/confirmBooking", async(req, res)=>{
     }
     
     let transporter = nodemailer.createTransport(config)
-    bookingId = req.body.bookingId
     const currBooking = await bookingModel.findById(bookingId)
     const currUser = await userModel.findById(currBooking.user_id)
     const currService = await serviceModel.findById(currBooking.service_id)
+    const currEmployee = await employeeModel.findById(currBooking.employee_id)
+    
 
     let message  = {
         from: process.env.EMAIL,
@@ -27,7 +30,9 @@ router.post("/confirmBooking", async(req, res)=>{
         subject: "Booking confirmation!",
         text: `Hello ${currUser.username} here comes your booking confirmation.
         
-        Date: 
+        Date: ${currBooking.startTime}.
+        Service: ${currService.name}.
+        Service provider: ${currEmployee.name}.
 
         `
     }

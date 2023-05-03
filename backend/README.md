@@ -182,6 +182,21 @@ Request Body
 
 Responses
 
+### /mailer/confirmBooking
+
+METHOD POST
+confirm booking by id and send mail
+
+Request Body
+
+```
+{
+    bookingId : String
+}
+```
+
+Responses
+
 ## Parameters
 
 ## Responses
