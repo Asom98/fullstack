@@ -8,6 +8,7 @@ import { Login } from "./LoginForm";
 function NavigationBar() {
 
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLoginClick = () => {
     setShowLoginForm(true);
@@ -15,6 +16,12 @@ function NavigationBar() {
 
   const handleLoginClose = () => {
     setShowLoginForm(false);
+  };
+
+  const handleImgClick = () => {
+    if (!loggedIn) {
+      setShowLoginForm(true);
+    }
   };
 
   return (
@@ -27,7 +34,7 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/services">Services</Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
-          <Button variant="primary" onClick={handleLoginClick}>Login</Button>
+          <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="" onClick={handleImgClick} />
           <Button variant="primary" as={Link} to="/registration">Register</Button>
         </Nav>
       </Navbar.Collapse>
