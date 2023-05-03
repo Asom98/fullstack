@@ -30,5 +30,4 @@ app.use('/mailer', mailerRoutes)
 
 app.get("/", (req,res) => {
   res.json("WELCOME TO THE SALOON")
-  //mailerTest()
 })

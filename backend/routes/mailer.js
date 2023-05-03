@@ -16,13 +16,15 @@ router.post("/confirmBooking", async(req, res)=>{
             pass: process.env.EPASS
         }
     }
-    
     let transporter = nodemailer.createTransport(config)
-    const currBooking = await bookingModel.findById(bookingId)
-    const currUser = await userModel.findById(currBooking.user_id)
-    const currService = await serviceModel.findById(currBooking.service_id)
-    const currEmployee = await employeeModel.findById(currBooking.employee_id)
-    
+    try{
+        const currBooking = await bookingModel.findById(bookingId)
+        const currUser = await userModel.findById(currBooking.user_id)
+        const currService = await serviceModel.findById(currBooking.service_id)
+        const currEmployee = await employeeModel.findById(currBooking.employee_id)
+    }catch(e){
+        console.log(e)
+    }
 
     let message  = {
         from: process.env.EMAIL,
@@ -34,26 +36,19 @@ router.post("/confirmBooking", async(req, res)=>{
         Service: ${currService.name}.
         Service provider: ${currEmployee.name}.
 
+        Thank you for choosing us, see you at the appointment.
+        Have a good day.
+
         `
+    }
+
+    try{
+        transporter.sendMail(message)
+        res.sendStatus(200)
+    }catch(e){
+        res.sendStatus(400)
     }
 
 })
 
-function mailerTest(){
-
-   
-    
-    
-
-    try{
-        transporter.sendMail(message)
-        console.log("Mail sent!!")
-    }catch(e){
-        console.log(e)
-    }
-
-}
-
 module.exports = router
-
-//module.exports = mailerTest
