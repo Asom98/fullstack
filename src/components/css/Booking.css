@@ -1,11 +1,51 @@
-table {
+.time-body {
     width: 100%;
 }
 
 .notAvailable {
-    background-color: grey;
+    color: rgb(186, 46, 46);
+    background-color: rgba(218, 201, 145, 0.8);
 }
 
 .isAvailable {
-    background-color: white;
+    background-color: rgba(255, 241, 194, 0.8);
 }
+
+.isAvailable, .notAvailable{
+    display:flex;
+    align-items: center !important;
+    border-radius: 10px;
+    border: 2px solid #5a3204;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.time-table {
+    display: flex;
+    align-items: center !important;
+    margin-top: 100px;
+}
+
+.booking-div{
+    display: flex;
+    align-items: center !important;
+    background-image: url("../backgrounds/Time-booking.png") !important;
+}
+
+.calendar{
+    margin-right: 60px;
+    background-color: rgba(255, 241, 194, 0.9) !important;
+}
+
+.row-section{
+    margin: 20px;
+}
+
+.timeBooking-btn{
+    background: linear-gradient(to right, #839d83, #BCD1B3);
+    color: black !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    border: 2px solid #5a3204 !important;
+}
+

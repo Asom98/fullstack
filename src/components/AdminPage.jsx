@@ -16,24 +16,38 @@ import { ViewAdminsAccordion } from "./parts/ViewAdminsAccordion";
 
 export function AdminPage() {
   return (
-    <Container>
+    <Container className={"admin-full"}>
       <h3>Admin Page!</h3>
       <Accordion defaultActiveKey={null}>
-        <ViewMembersAccordion />
-        <ViewAdminsAccordion />
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Handle Admin</Accordion.Header>
+          <Accordion.Body className={"accordion-section"}>
+            <Accordion defaultActiveKey={null}>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Add Admins</Accordion.Header>
+                <Accordion.Body>
+                  <Registration isAdmin={true} />
+                </Accordion.Body>
+              </Accordion.Item>
+              <ViewAdminsAccordion />
+            </Accordion>
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Handle Members</Accordion.Header>
+          <Accordion.Body>
+            <Accordion defaultActiveKey={null}>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Add Members</Accordion.Header>
+                <Accordion.Body>
+                  <Registration isAdmin={false} />
+                </Accordion.Body>
+              </Accordion.Item>
+              <ViewMembersAccordion />
+            </Accordion>
+          </Accordion.Body>
+        </Accordion.Item>
         <ViewBookingsAccordion />
-        <Accordion.Item eventKey="3">
-          <Accordion.Header>Add Admin</Accordion.Header>
-          <Accordion.Body>
-            <Registration isAdmin={true} />
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="4">
-          <Accordion.Header>Add member</Accordion.Header>
-          <Accordion.Body>
-            <Registration isAdmin={false} />
-          </Accordion.Body>
-        </Accordion.Item>
       </Accordion>
     </Container>
   );

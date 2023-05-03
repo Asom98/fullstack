@@ -8,7 +8,7 @@ import {
   Card,
   Accordion,
 } from "react-bootstrap";
-
+import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 export function ViewBookingsAccordion() {
@@ -135,7 +135,7 @@ export function ViewBookingsAccordion() {
     console.log(id);
     (async () => {
       let service = await (
-        await fetch(`http://localhost:5000/bookings/getBookings/${id}`)
+        await fetch(`http://localhost:5000/getServiceById/${id}`)
       ).json();
       console.log(service.name);
       return service.name;
@@ -152,19 +152,19 @@ export function ViewBookingsAccordion() {
         >
           {bookingList.map((booking, index) => (
             <Row className="booking-row mb-4" key={index}>
-              <Col>{booking.service_id}</Col>
+              <Col>{placeService(booking.service_id)}</Col>
               <Col>{booking._id}</Col>
               <Col>{booking.count}</Col>
               <Col>
-                {  new Date(booking.startTime).toLocaleString("en-UK", {
+                {new Date(booking.startTime).toLocaleString("en-UK", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                   hour: "numeric",
                   minute: "numeric",
-                  timeZone: "UTC"
-              })}
+                  timeZone: "UTC",
+                })}
               </Col>
               <Col>
                 <Button onClick={() => handleDelete(booking._id)}>

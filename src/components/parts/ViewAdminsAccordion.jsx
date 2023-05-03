@@ -8,7 +8,7 @@ import {
   Card,
   Accordion,
 } from "react-bootstrap";
-
+import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 export function ViewAdminsAccordion() {
@@ -103,7 +103,7 @@ export function ViewAdminsAccordion() {
     });
   };
 
-  const handleDelete = (index, id) => {
+  const handleDelete = (id) => {
     (async () => {
       const packet = { id };
       let response = await fetch(`http://localhost:5000/admin/removeAdmin`, {
@@ -135,6 +135,13 @@ export function ViewAdminsAccordion() {
           className="admins"
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
+          <Row className="admin-row mb-4">
+            <Col>Name</Col>
+            <Col>Email</Col>
+            <Col>Phone Number</Col>
+            <Col></Col>
+            <Col>Controls</Col>
+          </Row>
           {adminList.map((admin, index) => (
             <Row className="admin-row mb-4" key={index}>
               <Col>
@@ -172,7 +179,7 @@ export function ViewAdminsAccordion() {
               </Col>
               <Col>{admin.count}</Col>
               <Col>
-                <Button onClick={() => handleDelete(index, admin._id)}>
+                <Button onClick={() => handleDelete(admin._id)}>
                   Delete admin
                 </Button>
               </Col>
