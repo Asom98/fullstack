@@ -143,7 +143,7 @@ export function ViewBookingsAccordion() {
   };
 
   return (
-    <Accordion.Item eventKey="1">
+    <Accordion.Item eventKey="2">
       <Accordion.Header>Handle bookings</Accordion.Header>
       <Accordion.Body>
         <Container

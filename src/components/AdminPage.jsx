@@ -12,6 +12,7 @@ import "./css/Admin.css";
 import { Registration } from "./Registration";
 import { ViewMembersAccordion } from "./parts/ViewMembersAccordion";
 import { ViewBookingsAccordion } from "./parts/ViewBookingsAccordion";
+import { ViewAdminsAccordion } from "./parts/ViewAdminsAccordion";
 
 export function AdminPage() {
   return (
@@ -19,14 +20,15 @@ export function AdminPage() {
       <h3>Admin Page!</h3>
       <Accordion defaultActiveKey={null}>
         <ViewMembersAccordion />
+        <ViewAdminsAccordion />
         <ViewBookingsAccordion />
-        <Accordion.Item eventKey="2">
+        <Accordion.Item eventKey="3">
           <Accordion.Header>Add Admin</Accordion.Header>
           <Accordion.Body>
             <Registration isAdmin={true} />
           </Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey="3">
+        <Accordion.Item eventKey="4">
           <Accordion.Header>Add member</Accordion.Header>
           <Accordion.Body>
             <Registration isAdmin={false} />

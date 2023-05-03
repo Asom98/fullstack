@@ -7,7 +7,7 @@
     "dev": "concurrently \"vite\" \"cd backend && npm run dev\"",
     "build": "vite build",
     "preview": "vite preview",
-    "install-All": "concurrently \"npm i\" \"cd backend && npm i\""
+    "install-All": "npm run clean && npm run build:css && npm run build:js && npm run build:html && npm run build:jsx"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
