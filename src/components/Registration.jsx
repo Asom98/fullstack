@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
 import "./css/Registration.css";
+import useAnalyticsEventTracker from './useAnalyticsEventTracker'
 
 export function Registration({ isAdmin }) {
   const [showModal, setShowModal] = useState(false);
@@ -68,6 +69,8 @@ export function Registration({ isAdmin }) {
       }
     }
   }
+
+  const gaEventTracker = useAnalyticsEventTracker('submit');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -210,7 +213,7 @@ export function Registration({ isAdmin }) {
         </Form.Group>
         <row className="btnRow ">
           <column className="btnCol">
-            <button type="submit" className="register-btn py-2 px-4 mt-4">
+            <button type="submit" className="register-btn py-2 px-4 mt-4" onClick={()=>gaEventTracker(("submit"))}>
               Sign up!
             </button>
           </column>

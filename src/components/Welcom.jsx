@@ -1,8 +1,14 @@
-import React from 'react'
+import {React, useEffect} from 'react'
 import "./Welcome.css";
 import CarouselComp from './Carousel';
+import ReactGA from 'react-ga';
 
 export const Welcom = () => {
+  useEffect(()=>{
+    ReactGA.pageview(window.location.pathname)
+
+  }, [])
+
   return (
     <div className="main-page">
       <div className="frame">

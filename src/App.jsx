@@ -8,6 +8,12 @@ import { Login } from "./components/LoginForm";
 import NavigationBar from "./components/NavigationBar";
 import { Booking } from "./components/Booking";
 import { AdminPage } from "./components/AdminPage";
+const path = require('path')
+require('dotenv').config({path: 'backend/.env'})
+import ReactGA from 'react-ga';
+
+const TRACKING_ID = process.env.TRACKING_ID;
+ReactGA.initialize(TRACKING_ID);
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);

@@ -12,10 +12,12 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "concurrently": "^8.0.1",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-calendar": "^4.2.1",
     "react-dom": "^18.2.0",
+    "react-ga": "^3.3.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router": "^6.9.0",
     "react-router-dom": "^6.10.0"

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./LoginForm.css";
+import useAnalyticsEventTracker from './useAnalyticsEventTracker'
 
 export const Login = ({ onClose, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+
+  const gaEventTracker = useAnalyticsEventTracker('submit');
   
 
   const handleUsernameChange = (event) => {
@@ -63,7 +66,7 @@ export const Login = ({ onClose, onLogin }) => {
             onChange={handlePasswordChange}
             required
             />
-            <button type="submit">Log In</button>
+            <button type="submit" onClick={()=>gaEventTracker(("submit"))}>Log In</button>
         </form>
         {loginStatus !== null && (
             <p className={`message ${loginStatus ? "success" : "error"}`}>

@@ -2,8 +2,10 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import servicesData from "../json/services.json";
 import "./Service.css";
+import useAnalyticsEventTracker from './useAnalyticsEventTracker'
 
 export const ServicePage = () => {
+  const gaEventTracker = useAnalyticsEventTracker('button');
   return (
     <div className=" service-container d-flex flex-column justify-content-center align-items-center">
       <div className="d-flex justify-content-center fs-1 fst-italic font-monospace text-white mt-5">
@@ -20,7 +22,7 @@ export const ServicePage = () => {
                 </Card.Subtitle>
                 <Card.Text>{service.details}</Card.Text>
                 <Card.Text>Price: {service.price}</Card.Text>
-                <Button>Book Now</Button>
+                <Button onClick={()=>gaEventTracker(("button"))}>Book Now</Button>
               </Card.Body>
             </Card>
           </div>
