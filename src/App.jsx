@@ -4,24 +4,14 @@ import { ServicePage } from "./components/Service";
 import "./main.css";
 import { Routes, Route } from "react-router-dom";
 import { Registration } from "./components/Registration";
-import { Login } from "./components/LoginForm";
+import {Login} from "./components/LoginForm";
 import NavigationBar from "./components/NavigationBar";
 import { Booking } from "./components/Booking";
 import { AdminPage } from "./components/AdminPage";
+import User from "./components/User";
 
 function App() {
-  const [accessToken, setAccessToken] = useState(null);
-  const [user, setUser] = useState(null);
 
-  const handleLogin = (token, user) => {
-    setAccessToken(token);
-    setUser(user);
-  };
-
-  const handleLogout = () => {
-    setAccessToken(null);
-    setUser(null);
-  };
   return (
     <div>
       <NavigationBar />
@@ -32,10 +22,11 @@ function App() {
           <Route path="registration" element={<Registration />} />
           <Route
             path="login"
-            element={<Login onClose={handleLogout} onLogin={handleLogin} />}
+            element={<Login/>}
           />
           <Route path="booking" element={<Booking />} />
           <Route path="admin" element={<AdminPage />} />
+          <Route path="user" element={<User />} />
         </Routes>
       </main>
     </div>

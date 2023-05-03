@@ -1,11 +1,11 @@
 import Carousel from 'react-bootstrap/Carousel';
-import './carousel.css';
+import './css/carousel.css';
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function CarouselComp() {
   return (
-    <Carousel fade interval={3000}>
+    <Carousel slide interval={2000}>
       <Carousel.Item>
         <img
           className="d-block w-100"

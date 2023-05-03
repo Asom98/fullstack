@@ -1,0 +1,11 @@
+table {
+    width: 100%;
+}
+
+.notAvailable {
+    background-color: grey;
+}
+
+.isAvailable {
+    background-color: white;
+}

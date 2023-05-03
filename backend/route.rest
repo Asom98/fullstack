@@ -1,10 +1,10 @@
 ### LOGIN
-POST http://localhost:5000/login
+POST http://localhost:5000/users/login
 Content-Type: application/json
 
 {
-    "username": "asd",
-    "password": "asd"
+    "username": "Jim",
+    "password": "A123456789"
 }
 ### REGISTER
 POST http://localhost:5000/register
@@ -16,6 +16,10 @@ Content-Type: application/json
     "password": "asd",
     "role": "asd"
 }
+### 
+GET http://localhost:5000/users/getUserData
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkppbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjgzMDM5MjY4fQ.ROYxIv0N92T4L2AuCAI1TXviBNGEJZX6LkSRxiBQfrE
 
 ### REGISTER ADMIN
 POST http://localhost:5000/users/registerAdmin
@@ -40,6 +44,29 @@ Content-Type: application/json
     "startTime": "2002-02-02",
     "endTime": "2002-02-02"
 }
+
+### get services
+GET http://localhost:5000/services/getServices
+Content-Type: application/json
+
+### create service
+POST http://localhost:5000/services/createService
+Content-Type: application/json
+
+{
+    "img": "",
+    "name": "Haircut and Styling",
+    "description": "Get a fresh new look to suit your face shape and personal style with our professional haircut and styling service that caters to both men and women. Our skilled stylists will work with you to create a cut and style that complements your unique features, whether you want a subtle update or a dramatic change.",
+    "price": "$45 - $80",
+    "duration": "45 - 60min",
+    "business_hours": "",
+    "employee_ids": ["644f879c4177ab6c5fce6dff"]
+}
+
+### get service by id
+GET http://localhost:5000/services/getServiceById/644f879c4177ab6c5fce6dff
+Content-Type: application/json
+
 
 ###
 GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/2023-05-23T09:00:00.000Z
@@ -104,6 +131,16 @@ Content-Type: application/json
 
 {
     "id": "644faace1687a1953d050732"
+}
+
+
+###
+PUT http://localhost:5000/admin/updateUser
+Content-Type: application/json
+
+{
+    "id": "6448086b584cfe43e7d99972",
+    "username": "knäs"
 }
 
 ### 
