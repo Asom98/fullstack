@@ -14,7 +14,7 @@ router.get("/getServices", async (req, res) => {
 });
 
 // Get service by id
-router.get("/getServiceById/:id", async (req, res) => {
+router.get("/getServiceById/:_id", async (req, res) => {
   try {
     const service = await serviceModel.findById(req.params._id)
     res.json(service)
