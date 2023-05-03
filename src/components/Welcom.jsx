@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Welcome.css";
+import "./css/Welcome.css";
 import CarouselComp from './Carousel';
 
 export const Welcom = () => {

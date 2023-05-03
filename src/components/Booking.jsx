@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Calendar from 'react-calendar';
-import "./Booking.css"
+import "./css/Booking.css"
 import "react-calendar/dist/Calendar.css";
 
 export const Booking = () => {
@@ -20,7 +20,7 @@ export const Booking = () => {
             contact_email: "asd@asd.com", 
             status: true
         }
-        await fetch(`http://localhost:5000/bookings/postBooking`, {
+        await fetch(`http://localhost:3000/bookings/postBooking`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

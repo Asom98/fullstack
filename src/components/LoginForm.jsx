@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "./LoginForm.css";
+import "./css/LoginForm.css";
+import { useNavigate } from "react-router-dom";
 
-export const Login = ({ onClose, onLogin }) => {
+export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  const navigate = useNavigate();
   
 
   const handleUsernameChange = (event) => {
@@ -19,7 +21,7 @@ export const Login = ({ onClose, onLogin }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/users/login", {
+      const response = await fetch("http://localhost:3000/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -29,8 +31,13 @@ export const Login = ({ onClose, onLogin }) => {
 
       if (response.ok) {
         setLoginStatus(true);
-        onLogin
-        //onClose();
+
+        if(data[1].role === "admin"){
+          navigate("/admin");
+        }else if (data[1].role === "user"){
+          navigate("/user")
+        }
+        
       } else {
         setLoginStatus(false);
       }

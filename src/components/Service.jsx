@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import servicesData from "../json/services.json";
-import "./Service.css";
+import "./css/Service.css";
 
 export const ServicePage = () => {
   return (
