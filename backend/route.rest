@@ -45,6 +45,29 @@ Content-Type: application/json
     "endTime": "2002-02-02"
 }
 
+### get services
+GET http://localhost:5000/services/getServices
+Content-Type: application/json
+
+### create service
+POST http://localhost:5000/services/createService
+Content-Type: application/json
+
+{
+    "img": "",
+    "name": "Haircut and Styling",
+    "description": "Get a fresh new look to suit your face shape and personal style with our professional haircut and styling service that caters to both men and women. Our skilled stylists will work with you to create a cut and style that complements your unique features, whether you want a subtle update or a dramatic change.",
+    "price": "$45 - $80",
+    "duration": "45 - 60min",
+    "business_hours": "",
+    "employee_ids": ["644f879c4177ab6c5fce6dff"]
+}
+
+### get service by id
+GET http://localhost:5000/services/getServiceById/644f879c4177ab6c5fce6dff
+Content-Type: application/json
+
+
 ###
 GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/2023-05-23T09:00:00.000Z
 Content-Type: application/json
