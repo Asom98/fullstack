@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./css/LoginForm.css";
 import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
@@ -32,11 +32,16 @@ export const Login = () => {
       if (response.ok) {
         setLoginStatus(true);
 
+        console.log(data[1].role);
+
         if(data[1].role === "admin"){
           navigate("/admin");
         }else if (data[1].role === "user"){
           navigate("/user")
         }
+        props.onLoginSuccess();
+
+        localStorage.setItem("user", JSON.stringify(data[1]));
         
       } else {
         setLoginStatus(false);

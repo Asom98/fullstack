@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
 
@@ -9,18 +9,29 @@ function NavigationBar() {
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    setShowLoginForm(true);
+    if (!loggedIn) {
+      setShowLoginForm(true);
+    }
   };
 
   const handleLoginClose = () => {
     setShowLoginForm(false);
   };
 
-  const handleImgClick = () => {
-    if (!loggedIn) {
-      setShowLoginForm(true);
+  const handleLoginSuccess = () => {
+    setLoggedIn(true);
+    setShowLoginForm(false);
+  };
+
+  const handleUserIconClick = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.role === "admin") {
+      navigate("/admin");
+    } else if (user && user.role === "user") {
+      navigate("/user");
     }
   };
 
@@ -34,8 +45,11 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/services">Services</Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
-          <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="" onClick={handleImgClick} />
-          <Button variant="primary" as={Link} to="/registration">Register</Button>
+        {loggedIn ? (
+        <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
+        ) : (
+        <Button variant="primary" onClick={handleLoginClick}>Login</Button>)}
+        <Button variant="primary" as={Link} to="/registration">Register</Button>
         </Nav>
       </Navbar.Collapse>
       <Modal show={showLoginForm} onHide={handleLoginClose}>
@@ -43,7 +57,7 @@ function NavigationBar() {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Login />
+          <Login onLoginSuccess={handleLoginSuccess}/>
         </Modal.Body>
       </Modal>
     </Navbar>
