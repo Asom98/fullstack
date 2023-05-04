@@ -39,38 +39,6 @@ export function ViewBookingsAccordion() {
     })();
   }, []);
 
-    let email = member.email;
-    let phoneNumber = member.phoneNumber;
-    let username = member.username;
-    const id = member._id;
-    if (editedName && editedName !== member.username) {
-      username = editedName;
-    }
-    if (editedEmail && editedEmail !== member.email) {
-      email = editedEmail;
-    }
-    if (editedPhone && editedPhone !== member.phoneNumber) {
-      phoneNumber = editedPhone;
-    }
-
-    (async () => {
-      const packet = { id, username, email, phoneNumber };
-      console.log(editedName, editedEmail, editedPhone);
-      let response = await fetch(`http://localhost:5000/admin/updateUser`, {
-        method: "PUT",
-        body: JSON.stringify(packet),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-      } else {
-        setRegistrationSentence("Can't update");
-        setShowModal(true);
-      }
-    })();
-  };
-
   const handleDelete = (_id) => {
     (async () => {
       const packet = { _id };
