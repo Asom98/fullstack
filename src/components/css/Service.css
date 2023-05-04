@@ -14,7 +14,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height: 200px;
+    height: 220px;
     width: 450px;
     position: relative;
     background-color: rgba(17, 84, 0, 0.659);
@@ -47,4 +47,14 @@
 .employee-text {
     color: rgb(50, 46, 46);
     font-style:italic;
+}
+
+.card-text {
+    max-height: 100px;
+    overflow-y: auto;
+    margin: 10px;
+}
+
+.card-serviceName {
+    color: rgb(50, 46, 46);
 }
