@@ -84,12 +84,9 @@ export const Booking = () => {
     fetchTimeSlots();
 
     async function fetchEmployees() {
-      const employeeIds = [
-        "644a83d1f0a732d4a429ab87",
-        "644a83d1f0a732d4a429ab88",
-      ];
+      const employee_ids = service.employee_ids
       await fetch(
-        `http://localhost:5000/employees/getEmployees/${employeeIds.join(",")}`,
+        `http://localhost:5000/employees/getEmployees/${employee_ids.join(",")}`,
         {
           method: "GET",
         }
