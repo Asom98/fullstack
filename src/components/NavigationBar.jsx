@@ -46,10 +46,12 @@ function NavigationBar() {
         </Nav>
         <Nav className="navbar-nav">
         {!loggedIn ? (
-        <Button variant="primary" onClick={handleLoginClick}>Login</Button>
+          <div>
+            <Button variant="primary" onClick={handleLoginClick}>Login</Button>
+            <Button variant="primary" as={Link} to="/registration">Register</Button>
+          </div>
         ) : (
         <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />)}
-        <Button variant="primary" as={Link} to="/registration">Register</Button>
         </Nav>
       </Navbar.Collapse>
       <Modal show={showLoginForm} onHide={handleLoginClose}>
