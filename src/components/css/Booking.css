@@ -4,11 +4,14 @@
 
 .notAvailable {
     color: rgb(186, 46, 46);
-    background-color: rgba(218, 201, 145, 0.8);
+    font-weight: bold !important;
+    background-color: rgba(218, 201, 145, 0.9);
 }
 
 .isAvailable {
-    background-color: rgba(255, 241, 194, 0.8);
+    color: black !important;
+    font-weight: bold !important;
+    background-color: rgba(255, 241, 194, 0.9);
 }
 
 .isAvailable, .notAvailable{
