@@ -137,7 +137,7 @@ export function ViewBookingsAccordion() {
       let service = await (
         await fetch(`http://localhost:5000/services/getServiceById/${id}`)
       ).json();
-      console.log(service.name);
+      console.log("name", service.name);
       return service.name;
     })();
   };
