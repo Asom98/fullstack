@@ -32,6 +32,7 @@ export const Booking = () => {
       contact_email: "asd@asd.com",
       status: true,
     };
+
     await fetch(`http://localhost:5000/bookings/postBooking`, {
       method: "POST",
       headers: {
@@ -118,7 +119,7 @@ export const Booking = () => {
   };
 
   return (
-    <div class="booking-div justify-content-center">
+    <div className="booking-div justify-content-center">
       <Calendar
         className={"calendar"}
         onChange={setSelectedDate}

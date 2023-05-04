@@ -16,7 +16,7 @@ router.get("/getServices", async (req, res) => {
 // Get service by id
 router.get("/getServiceById/:id", async (req, res) => {
   try {
-    const service = await serviceModel.findById(req.params._id)
+    const service = await serviceModel.findById(req.params.id)
     res.json(service)
   } catch (error) {
     res.status(400).send({ message: error })
