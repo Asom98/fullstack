@@ -144,7 +144,7 @@ export function ViewAdminsAccordion() {
           </Row>
           {adminList.map((admin, index) => (
             <Row className="admin-row mb-4" key={index}>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="name"
@@ -155,7 +155,7 @@ export function ViewAdminsAccordion() {
                   admin.username
                 )}
               </Col>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="email"
@@ -166,7 +166,7 @@ export function ViewAdminsAccordion() {
                   admin.email
                 )}
               </Col>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="phoneNumber"
@@ -177,17 +177,28 @@ export function ViewAdminsAccordion() {
                   admin.phoneNumber
                 )}
               </Col>
-              <Col>{admin.count}</Col>
-              <Col>
-                <Button onClick={() => handleDelete(admin._id)}>
+
+              <Col className="info-section">
+                <Button
+                  className="colored-btn"
+                  onClick={() => handleDelete(admin._id)}
+                >
                   Delete admin
                 </Button>
               </Col>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
-                  <Button onClick={() => handleSave(index, admin)}>Save</Button>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleSave(index, admin)}
+                  >
+                    Save
+                  </Button>
                 ) : (
-                  <Button onClick={() => handleUpdate(index, admin._id)}>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleUpdate(index, admin._id)}
+                  >
                     Edit
                   </Button>
                 )}

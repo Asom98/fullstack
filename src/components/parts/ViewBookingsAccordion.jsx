@@ -167,7 +167,10 @@ export function ViewBookingsAccordion() {
                 })}
               </Col>
               <Col>
-                <Button onClick={() => handleDelete(booking._id)}>
+                <Button
+                  className="colored-btn"
+                  onClick={() => handleDelete(booking._id)}
+                >
                   Cancel booking
                 </Button>
               </Col>
