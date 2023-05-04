@@ -1,5 +1,6 @@
 .time-body {
     width: 100%;
+    
 }
 
 .notAvailable {
@@ -23,6 +24,14 @@
     margin-top: 10px;
 }
 
+.disabled, .react-calendar__navigation__prev-button, .react-calendar__navigation__prev2-button{
+    background-color: rgb(183, 174, 128) !important;
+}
+
+.react-calendar__tile--active{
+    background-color: rgb(234, 142, 13) !important;
+}
+
 .time-table {
     display: flex;
     align-items: center !important;
@@ -30,6 +39,8 @@
 }
 
 .booking-div{
+    margin-left: 100px;
+    margin-right: 100px;
     display: flex;
     align-items: center !important;
     background-image: url("../backgrounds/Time-booking.png") !important;
@@ -40,9 +51,18 @@
     background-color: rgba(255, 241, 194, 0.9) !important;
 }
 
+.service-name{
+    padding: 20px;
+    background-color: rgba(255, 241, 194, 0.9) !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+}
+
 .row-section{
     margin: 20px;
 }
+
+
 
 .timeBooking-btn{
     background: linear-gradient(to right, #839d83, #BCD1B3);

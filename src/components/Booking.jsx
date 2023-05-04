@@ -136,11 +136,11 @@ export const Booking = () => {
         <div></div>
         <thead></thead>
         <tbody class="table-body">
+          <td class="service-name">{service.name}</td>
           {timeSlots.length > 0 ? (
             timeSlots.map((item) =>
               item.isAvailable ? (
                 <tr className="isAvailable" key={item.start}>
-                  <td class="row-section">{service.name}</td>
                   <td class="row-section">
                     {new Date(item.start).toLocaleString("en-UK", {
                       weekday: "long",
@@ -169,7 +169,6 @@ export const Booking = () => {
                 </tr>
               ) : (
                 <tr className="notAvailable" key={item.start}>
-                  <td class="row-section">{service.name}</td>
                   <td class="row-section">
                     {new Date(item.start).toLocaleString("en-UK", {
                       weekday: "long",
