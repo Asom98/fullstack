@@ -2,9 +2,11 @@ import React, {useState, useEffect} from "react";
 import { Card, Button } from "react-bootstrap";
 import "./css/Service.css";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export const ServicePage = () => {
   const [servicesData, setServicesData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -17,6 +19,11 @@ export const ServicePage = () => {
     };
     fetchServices();
   }, []);
+
+  const handleBookClick = (service) => {
+    navigate('/booking', { state: { service } });
+    console.log(service)
+  }
 
   return (
     <div className=" service-container d-flex flex-column justify-content-center align-items-center">
@@ -32,7 +39,7 @@ export const ServicePage = () => {
                 <Card.Text className="card-description">{service.description}</Card.Text>
                 <Card.Text>Duration: {service.duration}min</Card.Text>
                 <Card.Text>Price: {service.price}</Card.Text>
-                <Button>Book Now</Button>
+                <Button onClick={() => handleBookClick(service)}>Book Now</Button>
               </Card.Body>
             </Card>
           </div>
