@@ -1,9 +1,30 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Card, Button } from "react-bootstrap";
-import servicesData from "../json/services.json";
 import "./css/Service.css";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export const ServicePage = () => {
+  const [servicesData, setServicesData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/services/getServices");
+        setServicesData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  const handleBookClick = (service) => {
+    navigate('/booking', { state: { service } });
+    console.log(service)
+  }
+
   return (
     <div className=" service-container d-flex flex-column justify-content-center align-items-center">
       <div className="d-flex justify-content-center fs-1 fst-italic font-monospace text-white mt-5">
@@ -14,13 +35,11 @@ export const ServicePage = () => {
           <div key={service._id} className="custom card">
             <Card>
               <Card.Body>
-                <Card.Title>{service.name}</Card.Title>
-                <Card.Subtitle className="employee-text">
-                  {service.employee_name}
-                </Card.Subtitle>
-                <Card.Text>{service.details}</Card.Text>
+                <Card.Title className="card-serviceName">{service.name}</Card.Title>
+                <Card.Text className="card-description">{service.description}</Card.Text>
+                <Card.Text>Duration: {service.duration}min</Card.Text>
                 <Card.Text>Price: {service.price}</Card.Text>
-                <Button>Book Now</Button>
+                <Button onClick={() => handleBookClick(service)}>Book Now</Button>
               </Card.Body>
             </Card>
           </div>
