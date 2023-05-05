@@ -8,7 +8,7 @@ import {
   Card,
   Accordion,
 } from "react-bootstrap";
-
+import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 export function ViewAdminsAccordion() {
@@ -103,7 +103,7 @@ export function ViewAdminsAccordion() {
     });
   };
 
-  const handleDelete = (index, id) => {
+  const handleDelete = (id) => {
     (async () => {
       const packet = { id };
       let response = await fetch(`http://localhost:5000/admin/removeAdmin`, {
@@ -135,9 +135,16 @@ export function ViewAdminsAccordion() {
           className="admins"
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
+          <Row className="admin-row mb-4">
+            <Col>Name</Col>
+            <Col>Email</Col>
+            <Col>Phone Number</Col>
+            <Col></Col>
+            <Col>Controls</Col>
+          </Row>
           {adminList.map((admin, index) => (
             <Row className="admin-row mb-4" key={index}>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="name"
@@ -148,7 +155,7 @@ export function ViewAdminsAccordion() {
                   admin.username
                 )}
               </Col>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="email"
@@ -159,7 +166,7 @@ export function ViewAdminsAccordion() {
                   admin.email
                 )}
               </Col>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="phoneNumber"
@@ -170,17 +177,28 @@ export function ViewAdminsAccordion() {
                   admin.phoneNumber
                 )}
               </Col>
-              <Col>{admin.count}</Col>
-              <Col>
-                <Button onClick={() => handleDelete(index, admin._id)}>
+
+              <Col className="info-section">
+                <Button
+                  className="colored-btn"
+                  onClick={() => handleDelete(admin._id)}
+                >
                   Delete admin
                 </Button>
               </Col>
-              <Col>
+              <Col className="info-section">
                 {admin.isEditable ? (
-                  <Button onClick={() => handleSave(index, admin)}>Save</Button>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleSave(index, admin)}
+                  >
+                    Save
+                  </Button>
                 ) : (
-                  <Button onClick={() => handleUpdate(index, admin._id)}>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleUpdate(index, admin._id)}
+                  >
                     Edit
                   </Button>
                 )}

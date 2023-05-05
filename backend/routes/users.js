@@ -8,7 +8,6 @@ const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
 
-
 router.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
   async (req, res) => {
     await userModel.findOne({ username: req.user.username })
@@ -67,7 +66,18 @@ router.post("/registerAdmin", async (req, res) => {
 router.post("/login", async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
   const admin = await adminModel.findOne({ username: req.body.username });
-  if (user != null) {
+  console.log(admin);
+  if(admin != null){
+    const isMatch = await bcrypt.compare(req.body.password, admin.password)
+    if(isMatch){
+      const accessToken = jwt.sign({
+        username: admin.username, 
+        role: admin.role}, 
+        process.env.ACCESS_TOKEN)
+      res.json([{accessToken: accessToken}, admin])
+    }
+  } else if (user != null) {
+    console.log(admin);
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (isMatch) {
       // change to create token in controllers dir
@@ -76,16 +86,6 @@ router.post("/login", async (req, res) => {
         process.env.ACCESS_TOKEN
       ); // add { expiresIn: '10s' } to add expiration to the token
       res.json([{ accessToken: accessToken }, user]);
-    } else if(admin != null){
-
-      const isMatch = await bcrypt.compare(req.body.password, admin.password)
-      if(isMatch){
-        const accessToken = jwt.sign({
-          username: admin.username, 
-          role: admin.role}, 
-          process.env.ACCESS_TOKEN)
-        res.json([{accessToken: accessToken}, admin])
-      }
     }
   } else {
     res.sendStatus(404);

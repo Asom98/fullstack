@@ -3,7 +3,7 @@ POST http://localhost:5000/users/login
 Content-Type: application/json
 
 {
-    "username": "Jim",
+    "username": "admin",
     "password": "A123456789"
 }
 ### REGISTER
@@ -157,4 +157,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/admin/getAdmins
+Content-Type: application/json
+
+###
+GET http://localhost:5000/services/getServiceById/64492f7eb34eac18c1c5626c
 Content-Type: application/json

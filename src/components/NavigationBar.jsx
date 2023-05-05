@@ -6,7 +6,7 @@ import { Login } from "./LoginForm";
 
 
 function NavigationBar() {
-
+  
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -45,11 +45,13 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/services">Services</Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
-        {loggedIn ? (
-        <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
+        {!loggedIn ? (
+          <div>
+            <Button variant="primary" onClick={handleLoginClick}>Login</Button>
+            <Button variant="primary" as={Link} to="/registration">Register</Button>
+          </div>
         ) : (
-        <Button variant="primary" onClick={handleLoginClick}>Login</Button>)}
-        <Button variant="primary" as={Link} to="/registration">Register</Button>
+        <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />)}
         </Nav>
       </Navbar.Collapse>
       <Modal show={showLoginForm} onHide={handleLoginClose}>

@@ -8,88 +8,36 @@ import {
   Card,
   Accordion,
 } from "react-bootstrap";
-
+import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 export function ViewBookingsAccordion() {
   const [bookingList, setBookingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
+  const [serviceNames, setServiceNames] = useState([]);
 
   useEffect(() => {
     (async () => {
-      let bookings = await (
+      const bookings = await (
         await fetch(`http://localhost:5000/bookings/getBookings`)
       ).json();
+
+      const tempServiceList = await Promise.all(
+        bookings.map(async (booking) => {
+          const service = await (
+            await fetch(
+              `http://localhost:5000/services/getServiceById/${booking.service_id}`
+            )
+          ).json();
+          return service.name;
+        })
+      );
+
       setBookingList(bookings);
+      setServiceNames(tempServiceList);
     })();
   }, []);
-
-  const handleSave = (index, member) => {
-    setMemberList((prevMemberList) => {
-      const updatedMemberList = [...prevMemberList];
-      const updatedMember = {
-        ...updatedMemberList[index],
-        isEditable: false,
-      };
-      updatedMemberList[index] = updatedMember;
-      return updatedMemberList;
-    });
-
-    let email = member.email;
-    let phoneNumber = member.phoneNumber;
-    let username = member.username;
-    const id = member._id;
-    if (editedName && editedName !== member.username) {
-      username = editedName;
-    }
-    if (editedEmail && editedEmail !== member.email) {
-      email = editedEmail;
-    }
-    if (editedPhone && editedPhone !== member.phoneNumber) {
-      phoneNumber = editedPhone;
-    }
-
-    (async () => {
-      const packet = { id, username, email, phoneNumber };
-      console.log(editedName, editedEmail, editedPhone);
-      let response = await fetch(`http://localhost:5000/admin/updateUser`, {
-        method: "PUT",
-        body: JSON.stringify(packet),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-      } else {
-        setRegistrationSentence("Can't update");
-        setShowModal(true);
-      }
-    })();
-  };
-
-  const handleChange = (event, index) => {
-    const { name, value } = event.target;
-    setMemberList((prevMemberList) => {
-      const updatedMemberList = [...prevMemberList];
-      const updatedMember = {
-        ...updatedMemberList[index],
-        [name]: value,
-      };
-      if (name === "name") {
-        setEditedName(value);
-        updatedMember.username = value;
-      } else if (name === "email") {
-        setEditedEmail(value);
-        updatedMember.email = value;
-      } else if (name === "phoneNumber") {
-        setEditedPhone(value);
-        updatedMember.phoneNumber = value;
-      }
-      updatedMemberList[index] = updatedMember;
-      return updatedMemberList;
-    });
-  };
 
   const handleDelete = (_id) => {
     (async () => {
@@ -131,17 +79,6 @@ export function ViewBookingsAccordion() {
     "__v": 0
   }*/
 
-  const placeService = (id) => {
-    console.log(id);
-    (async () => {
-      let service = await (
-        await fetch(`http://localhost:5000/bookings/getBookings/${id}`)
-      ).json();
-      console.log(service.name);
-      return service.name;
-    })();
-  };
-
   return (
     <Accordion.Item eventKey="2">
       <Accordion.Header>Handle bookings</Accordion.Header>
@@ -152,22 +89,23 @@ export function ViewBookingsAccordion() {
         >
           {bookingList.map((booking, index) => (
             <Row className="booking-row mb-4" key={index}>
-              <Col>{booking.service_id}</Col>
-              <Col>{booking._id}</Col>
-              <Col>{booking.count}</Col>
+              <Col>{serviceNames[index]}</Col>
               <Col>
-                {  new Date(booking.startTime).toLocaleString("en-UK", {
+                {new Date(booking.startTime).toLocaleString("en-UK", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                   hour: "numeric",
                   minute: "numeric",
-                  timeZone: "UTC"
-              })}
+                  timeZone: "UTC",
+                })}
               </Col>
               <Col>
-                <Button onClick={() => handleDelete(booking._id)}>
+                <Button
+                  className="colored-btn"
+                  onClick={() => handleDelete(booking._id)}
+                >
                   Cancel booking
                 </Button>
               </Col>

@@ -8,7 +8,7 @@ import {
   Card,
   Accordion,
 } from "react-bootstrap";
-
+import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 export function ViewMembersAccordion() {
@@ -128,16 +128,22 @@ export function ViewMembersAccordion() {
   };
 
   return (
-    <Accordion.Item eventKey="0">
+    <Accordion.Item eventKey="1">
       <Accordion.Header>View members</Accordion.Header>
       <Accordion.Body>
         <Container
           className="members"
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
+          <Row className="member-row mb-4">
+            <Col>Name</Col>
+            <Col>Email</Col>
+            <Col>Phone Number</Col>
+            <Col>Controls</Col>
+          </Row>
           {memberList.map((member, index) => (
             <Row className="member-row mb-4" key={index}>
-              <Col>
+              <Col className="info-section">
                 {member.isEditable ? (
                   <Form.Control
                     name="name"
@@ -148,7 +154,7 @@ export function ViewMembersAccordion() {
                   member.username
                 )}
               </Col>
-              <Col>
+              <Col className="info-section">
                 {member.isEditable ? (
                   <Form.Control
                     name="email"
@@ -159,7 +165,8 @@ export function ViewMembersAccordion() {
                   member.email
                 )}
               </Col>
-              <Col>
+              <Col></Col>
+              <Col className="info-section">
                 {member.isEditable ? (
                   <Form.Control
                     name="phoneNumber"
@@ -170,19 +177,27 @@ export function ViewMembersAccordion() {
                   member.phoneNumber
                 )}
               </Col>
-              <Col>{member.count}</Col>
-              <Col>
-                <Button onClick={() => handleDelete(index, member._id)}>
+              <Col className="info-section">
+                <Button
+                  className="colored-btn"
+                  onClick={() => handleDelete(index, member._id)}
+                >
                   Delete Member
                 </Button>
               </Col>
-              <Col>
+              <Col className="info-section">
                 {member.isEditable ? (
-                  <Button onClick={() => handleSave(index, member)}>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleSave(index, member)}
+                  >
                     Save
                   </Button>
                 ) : (
-                  <Button onClick={() => handleUpdate(index, member._id)}>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleUpdate(index, member._id)}
+                  >
                     Edit
                   </Button>
                 )}
