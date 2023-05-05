@@ -4,13 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./css/User.css"
 
 function User() {
-  const navigate = useNavigate();
-
-  const handleLogoutClick = () => {
-    localStorage.removeItem("user");
-    navigate("/");
-    window.location.reload();
-  };
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [email, setEmail] = useState(user.email);
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
@@ -95,9 +89,6 @@ function User() {
               </span>
             )}
           </Card.Subtitle>
-          <div className="logout-button">
-            <Button variant="danger" onClick={handleLogoutClick}> Logout </Button>
-          </div>
         </Card.Body>
       </Card>
     </div>

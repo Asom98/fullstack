@@ -27,12 +27,20 @@ function NavigationBar() {
   };
 
   const handleUserIconClick = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.role === "admin") {
-      navigate("/admin");
-    } else if (user && user.role === "user") {
-      navigate("/user");
+    if (loggedIn) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user && user.role === "admin") {
+        navigate("/admin");
+      } else if (user && user.role === "user") {
+        navigate("/user");
+      }
     }
+  };
+
+  const handleLogoutClick = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    setLoggedIn(false);
   };
 
   return (
@@ -51,7 +59,11 @@ function NavigationBar() {
             <Button variant="primary" as={Link} to="/registration">Register</Button>
           </div>
         ) : (
-        <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />)}
+          <div>
+            <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
+            <Button variant="primary" onClick={handleLogoutClick}>Logout</Button>
+          </div>
+        )}
         </Nav>
       </Navbar.Collapse>
       <Modal show={showLoginForm} onHide={handleLoginClose}>
