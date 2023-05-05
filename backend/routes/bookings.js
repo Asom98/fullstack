@@ -25,6 +25,10 @@ router.get("/getBookings/:service_id", async (req,res) =>{
   }
 });
 
+// get bookings by user_id 
+
+// delete booking but check time and return 
+
 router.delete("/deleteBooking", async (req ,res) => {
   try {
     await bookingModel.findByIdAndDelete(req.body._id)
