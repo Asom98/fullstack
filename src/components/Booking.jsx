@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
 
-export const Booking = () => {
+export function Booking() {
   const currentDate = new Date();
   const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
   const minDate = new Date(
@@ -33,7 +33,7 @@ export const Booking = () => {
       status: true,
     };
 
-    await fetch(`http://localhost:5000/bookings/postBooking`, {
+    await fetch(`http://localhost:3000/bookings/postBooking`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export const Booking = () => {
     async function fetchTimeSlots() {
       try {
         const response = await fetch(
-          `http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/${selectedDate}`,
+          `http://localhost:3000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/${selectedDate}`,
           {
             method: "GET",
           }
@@ -84,9 +84,11 @@ export const Booking = () => {
     fetchTimeSlots();
 
     async function fetchEmployees() {
-      const employee_ids = service.employee_ids
+      const employee_ids = service.employee_ids;
       await fetch(
-        `http://localhost:5000/employees/getEmployees/${employee_ids.join(",")}`,
+        `http://localhost:3000/employees/getEmployees/${employee_ids.join(
+          ","
+        )}`,
         {
           method: "GET",
         }
@@ -201,4 +203,4 @@ export const Booking = () => {
       </table>
     </div>
   );
-};
+}

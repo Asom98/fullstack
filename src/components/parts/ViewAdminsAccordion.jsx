@@ -19,7 +19,7 @@ export function ViewAdminsAccordion() {
   useEffect(() => {
     (async () => {
       let admins = await (
-        await fetch(`http://localhost:5000/admin/getAdmins`)
+        await fetch(`http://localhost:3000/admin/getAdmins`)
       ).json();
       setAdminList(admins);
     })();
@@ -65,7 +65,7 @@ export function ViewAdminsAccordion() {
     (async () => {
       const packet = { id, username, email, phoneNumber };
       console.log(editedName, editedEmail, editedPhone);
-      let response = await fetch(`http://localhost:5000/admin/updateAdmin`, {
+      let response = await fetch(`http://localhost:3000/admin/updateAdmin`, {
         method: "PUT",
         body: JSON.stringify(packet),
         headers: {
@@ -106,7 +106,7 @@ export function ViewAdminsAccordion() {
   const handleDelete = (id) => {
     (async () => {
       const packet = { id };
-      let response = await fetch(`http://localhost:5000/admin/removeAdmin`, {
+      let response = await fetch(`http://localhost:3000/admin/removeAdmin`, {
         method: "DELETE",
         body: JSON.stringify(packet),
         headers: {

@@ -10,6 +10,7 @@
     "install-All": "concurrently \"npm i\" \"cd backend && npm i\""
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "concurrently": "^8.0.1",
     "react": "^18.2.0",

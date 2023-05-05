@@ -20,14 +20,14 @@ export function ViewBookingsAccordion() {
   useEffect(() => {
     (async () => {
       const bookings = await (
-        await fetch(`http://localhost:5000/bookings/getBookings`)
+        await fetch(`http://localhost:3000/bookings/getBookings`)
       ).json();
 
       const tempServiceList = await Promise.all(
         bookings.map(async (booking) => {
           const service = await (
             await fetch(
-              `http://localhost:5000/services/getServiceById/${booking.service_id}`
+              `http://localhost:3000/services/getServiceById/${booking.service_id}`
             )
           ).json();
           return service.name;
@@ -43,7 +43,7 @@ export function ViewBookingsAccordion() {
     (async () => {
       const packet = { _id };
       let response = await fetch(
-        `http://localhost:5000/bookings/deleteBooking`,
+        `http://localhost:3000/bookings/deleteBooking`,
         {
           method: "DELETE",
           body: JSON.stringify(packet),

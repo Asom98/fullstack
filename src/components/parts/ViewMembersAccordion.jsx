@@ -65,7 +65,7 @@ export function ViewMembersAccordion() {
     (async () => {
       const packet = { id, username, email, phoneNumber };
       console.log(editedName, editedEmail, editedPhone);
-      let response = await fetch(`http://localhost:5000/admin/updateUser`, {
+      let response = await fetch(`http://localhost:3000/admin/updateUser`, {
         method: "PUT",
         body: JSON.stringify(packet),
         headers: {
@@ -106,7 +106,7 @@ export function ViewMembersAccordion() {
   const handleDelete = (index, id) => {
     (async () => {
       const packet = { id };
-      let response = await fetch(`http://localhost:5000/admin/removeUser`, {
+      let response = await fetch(`http://localhost:3000/admin/removeUser`, {
         method: "DELETE",
         body: JSON.stringify(packet),
         headers: {
