@@ -19,7 +19,7 @@ export function ViewMembersAccordion() {
   useEffect(() => {
     (async () => {
       let users = await (
-        await fetch(`http://localhost:5000/admin/getUsers`)
+        await fetch(`http://localhost:3000/admin/getUsers`)
       ).json();
       setMemberList(users);
     })();
