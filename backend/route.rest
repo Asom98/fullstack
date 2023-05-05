@@ -144,7 +144,7 @@ Content-Type: application/json
 }
 
 ### 
-GET http://localhost:5000/bookings/getBookings
+GET http://localhost:3000/bookings/getBookings
 Content-Type: application/json
 
 ### 
@@ -160,5 +160,5 @@ GET http://localhost:5000/admin/getAdmins
 Content-Type: application/json
 
 ###
-GET http://localhost:5000/services/getServiceById/64492f7eb34eac18c1c5626c
+GET http://localhost:3000/services/getServiceById/644c378a049948fffb0a19d7
 Content-Type: application/json
