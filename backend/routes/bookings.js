@@ -27,6 +27,15 @@ router.get("/getBookings/:service_id", async (req,res) =>{
 
 // get bookings by user_id 
 
+router.get("/getBookingsByUserId/:user_id", async (req,res) => {
+  const user_id = new mongoose.Types.ObjectId(req.params.user_id)
+  try {
+    const bookings = await bookingModel.find({user_id: user_id})
+    res.json(bookings)
+  } catch (error) {
+    
+  }
+}) 
 // delete booking but check time and return 
 
 router.delete("/deleteBooking", async (req ,res) => {
