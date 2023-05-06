@@ -1,6 +1,8 @@
 .navbar-custom {
     height: 150px;
     background: linear-gradient(to right, #577C57, #BCD1B3);
+    display: flex;
+    justify-content: space-between;
 }
   
 .navbar-brand {
@@ -76,4 +78,37 @@
 .user-icon:hover {
     filter: brightness(0) invert(1);
 }
-  
+
+@media (max-width: 900px) {
+
+    .navbar-custom {
+      height: auto;
+      flex-direction: column;
+      align-items: end;
+    }
+    
+    .navbar-brand {
+      margin: 10px 0;
+    }
+    
+    .nav-link {
+      margin: 10px 0;
+    }
+    
+    .navbar-collapse {
+      justify-content: center;
+    }
+    
+    .navbar-nav {
+      margin: 10px 0;
+    }
+    
+    .navbar-nav .btn-primary {
+      margin: 10px 0;
+    }
+    
+    .user-icon {
+      margin: 10px 0;
+    }
+}
+
