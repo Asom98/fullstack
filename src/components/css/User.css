@@ -7,14 +7,14 @@
     background-image: url("/src/components/Images/lina-verovaya-N4njM45mXFM-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 100px;
+    padding: 50px;
 
 }
   
 .container-fluid .card {
-    width: 90%;
+    width: 95%;
     padding: 20px;
-    background-color: rgba(201, 203, 201, 0.7);
+    background-color: rgba(201, 203, 201, 0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;

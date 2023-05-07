@@ -14,7 +14,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height: 220px;
+    height: 250px;
     width: 450px;
     position: relative;
     background-color: rgba(17, 84, 0, 0.659);
@@ -57,4 +57,14 @@
 
 .card-serviceName {
     color: rgb(50, 46, 46);
+}
+
+.custom.card .card-body .card-text.price {
+    color: rgb(50, 46, 46);
+    font-weight: bold;
+}
+
+.custom.card .card-body .card-text.duration {
+    color: rgb(50, 46, 46);
+    font-weight: bold;
 }

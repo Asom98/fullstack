@@ -4,7 +4,7 @@ export function ConfirmationModal({ sentance, onClose }) {
   return (
     <Modal className="modal" show={true} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Registration status</Modal.Title>
+        <Modal.Title>Confirmation Status</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>{sentance}</p>
