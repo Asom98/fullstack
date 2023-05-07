@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-import { Button,Card } from "react-bootstrap";
+import { Button,Card, Container, Table } from "react-bootstrap";
 import "./css/User.css"
 
 function User() {
@@ -90,62 +90,104 @@ function User() {
     console.log(bookings)
   }, []);
 
+  const handleDeleteBooking = async (bookingId) => {
+    console.log('handleDeleteBooking called with bookingId:', bookingId);
+    const packet = { bookingId };
+    const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
+      method: "DELETE",
+      body: JSON.stringify(packet),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    if (response.ok) {
+      const updatedBookings = bookings.filter((booking) => booking._id !== bookingId);
+      console.log('updatedBookings:', updatedBookings);
+      setBookings(updatedBookings);
+      console.log(bookings)
+      console.log('bookings:', bookings);
+    } else {
+      console.log("Could not delete booking")
+    }
+  };
 
   return (
-    <div className="displayUser">
-      <h1 className="welcome-text">Welcome, {user.username}!</h1>
+    <div className="container-fluid">
       <Card>
         <Card.Body>
-
-          <Card.Subtitle className="mb-2 text-muted text-center">
-            Email:{" "} {editEmailMode ? (
-            <span>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-              <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}>Save</Button>
-              <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
-            </span>
-
+          <div className="welcome-text">
+            <h1>Welcome, {user.username}!</h1>
+          </div>
+          <div className="user-details">
+            <Table>
+              <tbody>
+                <tr>
+                  <td>Email:</td>
+                  <td>
+                    {editEmailMode ? (
+                      <span>
+                        <input className="email-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}> Save </Button>
+                        <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
+                      </span>
+                    ) : (
+                      <span>
+                        {user.email}{" "}
+                        <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone Number:</td>
+                  <td>
+                    {editPhoneNumberMode ? (
+                      <span>
+                        <input className="phoneNumber-input" type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                        <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}> Save </Button>
+                        <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}> Cancel </Button>
+                      </span>
+                    ) : (
+                      <span>
+                        {user.phoneNumber}{" "}
+                        <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}> Edit </Button>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
+          <div className="bookings">
+            <h3>Your Bookings:</h3>
+            {bookings.length > 0 ? (
+              <Table className="bookings-table" bordered hover>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bookings.map((booking) => (
+                    <tr key={booking._id}>
+                      <td>{booking.service ? booking.service.name : "unknown"}</td>
+                      <td>{booking.bookingDate}</td>
+                      <td>{booking.bookingTime}</td>
+                      <td>
+                        <Button variant="danger" onClick={()=> handleDeleteBooking(booking._id)}>Delete</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
-
-              <span>
-                {user.email}{" "}
-                <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
-              </span>
+              <p>You have no bookings.</p>
             )}
-
-            Phone Number:{" "}
-            {editPhoneNumberMode ? (
-              <span>
-                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
-                <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}>Save</Button>
-                <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}>Cancel</Button>
-              </span>
-
-            ) : (
-
-              <span>
-                {user.phoneNumber}{" "}
-                <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}>Edit</Button>
-              </span>
-            )}
-          </Card.Subtitle>
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Body>
-          <Card.Title>My Bookings</Card.Title>
-          {bookings.length > 0 ? (
-          <ul>{bookings.map((booking) => (
-            <li key={booking._id}>
-            Service: {booking.service ? booking.service.name : "unknown"} <br />
-            Date: {booking.bookingDate} <br />
-            Time: {booking.bookingTime} <br />
-          </li>))}
-          </ul>
-          ) : (
-          <p>You have no bookings yet.</p>
-          )}
+          </div>
         </Card.Body>
       </Card>
     </div>
