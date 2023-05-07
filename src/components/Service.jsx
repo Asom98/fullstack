@@ -22,7 +22,7 @@ export const ServicePage = () => {
 
   const handleBookClick = (service) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    navigate('/booking', { state: { service }, search: `?user_id=${user._id}`});
+    navigate(`/booking/${service._id}`, { state: { service }, search: `?user_id=${user._id}`});
     console.log(service)
   }
 
