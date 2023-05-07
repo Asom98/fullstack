@@ -121,7 +121,7 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
     const preparationTime = 15;
     const totalTimeInMinutes = totalTime / 60000;
     const totalSlots = Math.ceil(
-      totalTimeInMinutes / (45 + preparationTime)
+      totalTimeInMinutes / (service.duration + preparationTime)
       );
 
     const timeSlots = [];
@@ -133,7 +133,7 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
           date.getDate(),
           service.business_hours.open.getUTCHours(),
           service.business_hours.open.getUTCMinutes() +
-            i * (45 + preparationTime)
+            i * (service.duration + preparationTime)
         )
       );
 
@@ -144,8 +144,8 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
           date.getDate(),
           service.business_hours.open.getUTCHours(),
           service.business_hours.open.getUTCMinutes() +
-            i * (45 + preparationTime) +
-            45
+            i * (service.duration + preparationTime) +
+            service.duration
         )
       );
         
