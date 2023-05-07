@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
+import { useParams } from "react-router";
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
 
@@ -17,6 +18,8 @@ export function Booking() {
     currentDate.getDay()
   );
 
+  const {_id} = useParams();
+  console.log(_id);
   const [timeSlots, setTimeSlots] = useState([]);
   const [service, setService] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -29,7 +32,6 @@ export function Booking() {
       startTime: start,
       endTime: end,
       user_id: "64482117371250416b683ec6",
-      contact_email: "asd@asd.com",
       status: true,
     };
 
@@ -60,7 +62,7 @@ export function Booking() {
     async function fetchTimeSlots() {
       try {
         const response = await fetch(
-          `http://localhost:3000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/${selectedDate}`,
+          `http://localhost:3000/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
           {
             method: "GET",
           }
