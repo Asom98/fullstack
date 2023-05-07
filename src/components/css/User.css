@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.container .card {
+    width: 600px;
+    height: 200px;
+}
+
+.card-subtitle {
+    display: flex;
+    flex-direction: column;
+}

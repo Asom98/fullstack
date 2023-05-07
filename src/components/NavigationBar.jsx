@@ -34,7 +34,13 @@ function NavigationBar() {
   };
 
   return (
-    <Navbar bg="light" expand="lg" className="navbar-custom">
+    <Navbar
+      bg="light"
+      expand="md"
+      sticky="top"
+      className="navbar-custom"
+      collapseOnSelectexpand="lg"
+    >
       <Navbar.Brand>Company name</Navbar.Brand>
       <Navbar.Toggle aria-controls="my-navbar" />
       <Navbar.Collapse id="my-navbar">
@@ -44,9 +50,6 @@ function NavigationBar() {
           </Nav.Link>
           <Nav.Link as={Link} to="/services">
             Services
-          </Nav.Link>
-          <Nav.Link as={Link} to="/about">
-            About
           </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">

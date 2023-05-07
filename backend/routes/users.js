@@ -17,6 +17,8 @@ router.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.check
   }
 );
 
+// increase user counter for booking 
+
 router.post("/register", async (req, res) => {
   try {
     const userExists = await userModel.findOne({ username: req.body.username });
