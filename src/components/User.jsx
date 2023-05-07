@@ -93,7 +93,7 @@ function User() {
 
 
   return (
-    <div className="container">
+    <div className="displayUser">
       <h1 className="welcome-text">Welcome, {user.username}!</h1>
       <Card>
         <Card.Body>
