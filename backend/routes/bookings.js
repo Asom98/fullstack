@@ -40,11 +40,19 @@ router.get("/getBookingsByUserId/:user_id", async (req,res) => {
 
 router.delete("/deleteBooking", async (req ,res) => {
   try {
-    await bookingModel.findByIdAndDelete(req.body._id)
-    .then(res.sendStatus(200))
+    const twentyFourHoursAgo = new Date();
+    twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
+
+    const booking = await bookingModel.findById(req.body._id)
+
+    if (booking.startTime < twentyFourHoursAgo) {
+      return res.sendStatus(400)
+    } else {
+      await bookingModel.findByIdAndDelete(req.body._id)
+      return res.sendStatus(200)
+    }
   } catch (err) {
-    console.log(error);
-    res.sendStatus(500).send("Internal Server Error");
+    console.log(err);
   }
 })
 
@@ -68,20 +76,28 @@ router.post("/postBooking", async (req,res) =>{
     }
     // increment booking count by 1
     bookingCount += 1;
-  
-    const newBooking = new bookingModel({
+    bookingModel.findOne({      
       service_id: req.body.service_id,
       employee_id: req.body.employee_id,
-      startTime: req.body.startTime,
-      endTime: req.body.endTime,
-      user_id: req.body.user_id,
-      contact_email: req.body.contact_email,
-      status: true,
-      count: bookingCount,
-    });
-    await newBooking.save();
-    res.sendStatus(200)
-  
+      startTime: req.body.startTime
+    })
+    .then(async (response) => {
+      if (response == null) {
+        const newBooking = new bookingModel({
+          service_id: req.body.service_id,
+          employee_id: req.body.employee_id,
+          startTime: req.body.startTime,
+          endTime: req.body.endTime,
+          user_id: req.body.user_id,
+          status: true,
+          count: bookingCount,
+        });
+        await newBooking.save();
+        res.sendStatus(200)
+      } else {
+        res.sendStatus(400)
+      }
+    })
   } catch (error) {
     // handle error
   }
@@ -106,7 +122,7 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
     const preparationTime = 15;
     const totalTimeInMinutes = totalTime / 60000;
     const totalSlots = Math.ceil(
-      totalTimeInMinutes / (service.duration + preparationTime)
+      totalTimeInMinutes / (45 + preparationTime)
       );
 
     const timeSlots = [];
@@ -118,7 +134,7 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
           date.getDate(),
           service.business_hours.open.getUTCHours(),
           service.business_hours.open.getUTCMinutes() +
-            i * (service.duration + preparationTime)
+            i * (45 + preparationTime)
         )
       );
 
@@ -129,8 +145,8 @@ router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
           date.getDate(),
           service.business_hours.open.getUTCHours(),
           service.business_hours.open.getUTCMinutes() +
-            i * (service.duration + preparationTime) +
-            service.duration
+            i * (45 + preparationTime) +
+            45
         )
       );
         

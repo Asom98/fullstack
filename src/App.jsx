@@ -22,7 +22,7 @@ function App() {
             element={<Registration isAdmin={false} />}
           />
           <Route path="login" element={<Login />} />
-          <Route path="booking" element={<Booking />} />
+          <Route path="booking/:_id" element={<Booking />} />
           <Route path="admin" element={<AdminPage />} />
           <Route path="user" element={<User />} />
         </Routes>
