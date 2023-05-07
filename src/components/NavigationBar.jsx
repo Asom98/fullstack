@@ -33,6 +33,12 @@ function NavigationBar() {
     }
   };
 
+  const handleLogoutClick = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    setLoggedIn(false);
+   };
+
   return (
     <Navbar
       bg="light"
@@ -66,12 +72,10 @@ function NavigationBar() {
               </Button>
             </div>
           ) : (
-            <img
-              className="user-icon"
-              src="./src/components/Images/icons8-male-user-48.png"
-              alt="User Icon"
-              onClick={handleUserIconClick}
-            />
+            <div className="d-flex justify-content-center">
+             <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
+             <Button variant="primary" className="ml-3" onClick={handleLogoutClick}>Logout</Button>
+           </div>
           )}
         </Nav>
       </Navbar.Collapse>

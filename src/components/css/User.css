@@ -3,7 +3,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: rgb(0, 0, 0);
+    background-image: url("/src/components/Images/lina-verovaya-N4njM45mXFM-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px;
 }
 
 .container .card {
@@ -14,4 +18,14 @@
 .card-subtitle {
     display: flex;
     flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+input[type="email"],
+input[type="text"] {
+  width: 300px;
 }
