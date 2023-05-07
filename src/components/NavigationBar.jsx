@@ -51,6 +51,9 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/services">
             Services
           </Nav.Link>
+          <Nav.Link as={Link} to="/about">
+            About
+          </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
           {!loggedIn ? (
