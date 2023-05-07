@@ -12,7 +12,7 @@ function User() {
   const [bookings, setBookings] = useState([]);
 
   const handleUpdateEmailClick = async () => {
-    const response = await fetch("", {
+    const response = await fetch("http://localhost:3000/admin/updateUser", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
