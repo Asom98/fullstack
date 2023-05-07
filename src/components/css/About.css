@@ -1,0 +1,30 @@
+.developer-pic{
+  background-image: url("../backgrounds/Admin_beauty_salon.png") !important;
+  height: 200px;
+}
+
+.about-container{
+  background-image: url("../backgrounds/About_Page_Background.png") !important;
+  padding-top: 50px !important;
+
+}
+
+.about-in-container{
+  background-color: rgba(132, 156, 109, 0.8);
+  padding-top: 50px !important;
+  margin: 30px;
+}
+
+.developer-row{
+  background-color: rgb(249, 217, 175, 0.9);
+  margin: 30px !important;
+  font-weight: bold !important;
+  border-radius: 8px !important;
+  border: 2px solid #5a3204 !important;
+}
+
+.team-title{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}

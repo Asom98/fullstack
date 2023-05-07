@@ -8,6 +8,7 @@ import NavigationBar from "./components/NavigationBar";
 import { Booking } from "./components/Booking";
 import { AdminPage } from "./components/AdminPage";
 import User from "./components/User";
+import { AboutPage } from "./components/AboutPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="booking" element={<Booking />} />
           <Route path="admin" element={<AdminPage />} />
           <Route path="user" element={<User />} />
+          <Route path="about" element={<AboutPage />} />
         </Routes>
       </main>
     </div>
