@@ -1,8 +1,15 @@
 import React, {useState,useEffect} from "react";
-import { Button,Card, Container, Table } from "react-bootstrap";
+import { Button,Card, Table, Modal } from "react-bootstrap";
 import "./css/User.css"
+import { ConfirmationModal } from "./parts/ConfirmationModal";
 
 function User() {
+
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [bookingToDelete, setBookingToDelete] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [registrationSentence, setRegistrationSentence] = useState("");
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [email, setEmail] = useState(user.email);
@@ -90,26 +97,36 @@ function User() {
     console.log(bookings)
   }, []);
 
-  const handleDeleteBooking = async (bookingId) => {
-    console.log('handleDeleteBooking called with bookingId:', bookingId);
-    const packet = { bookingId };
-    const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
-      method: "DELETE",
-      body: JSON.stringify(packet),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const handleDeleteBooking = async (_id) => {
+    setBookingToDelete(_id);
+    setShowConfirmationModal(true);
+  };
 
-    if (response.ok) {
-      const updatedBookings = bookings.filter((booking) => booking._id !== bookingId);
-      console.log('updatedBookings:', updatedBookings);
-      setBookings(updatedBookings);
-      console.log(bookings)
-      console.log('bookings:', bookings);
-    } else {
-      console.log("Could not delete booking")
+  const handleConfirmDeleteBooking = async () => {
+    if (bookingToDelete) {
+      const packet = { _id: bookingToDelete };
+      const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
+        method: "DELETE",
+        body: JSON.stringify(packet),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const updatedBookings = bookings.filter((booking) => booking._id !== bookingToDelete);
+        setBookings(updatedBookings);
+      } else {
+        setRegistrationSentence("I'm sorry, you are unable to delete your booking within 24 hours of the scheduled time. Please contact the salon via phone to make any necessary changes. Thank you for your understanding.");
+        setShowModal(true);
+      }
     }
+    setShowConfirmationModal(false);
+  };
+
+  const handleCancelDeleteBooking = () => {
+    setBookingToDelete(null);
+    setShowConfirmationModal(false);
   };
 
   return (
@@ -186,6 +203,19 @@ function User() {
               </Table>
             ) : (
               <p>You have no bookings.</p>
+            )}
+            <Modal className="cancelBooking-modal" show={showConfirmationModal} onHide={handleCancelDeleteBooking}>
+              <Modal.Header closeButton>
+                <Modal.Title>Confirm Delete Booking</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Are you sure you want to cancel this booking?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCancelDeleteBooking}>No</Button>
+                <Button variant="danger" onClick={handleConfirmDeleteBooking}>Yes</Button>
+              </Modal.Footer>
+            </Modal>
+            {showModal && (
+            <ConfirmationModal className="confirmationModal" sentance={registrationSentence} onClose={() => setShowModal(false)}/>
             )}
           </div>
         </Card.Body>
