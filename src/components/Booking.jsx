@@ -69,7 +69,7 @@ export function Booking() {
         const token = localStorage.getItem("token")
 
         if (token == null) {
-          navigate("/login")
+          navigate("/")
         }
 
         const response = await fetch(
@@ -83,7 +83,7 @@ export function Booking() {
 
           if (response.status === 403) {
           console.log("you do not have access to that resource");
-          navigate(`/login`);
+          navigate(`/`);
           return;
         }
 

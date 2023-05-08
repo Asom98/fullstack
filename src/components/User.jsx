@@ -104,7 +104,7 @@ function User() {
     }
 
     if (response.status === 403) {
-      navigate("/login")
+      navigate("/")
     }
   };
   
@@ -112,7 +112,7 @@ function User() {
     const token = localStorage.getItem("token")
 
     if (token == null) {
-      navigate("/login")
+      navigate("/")
     };
 
     handleUserBookings(token);
@@ -149,14 +149,14 @@ function User() {
 
   return (
     <div className="container">
-      <h1 className="welcome-text">Welcome, {user.username}!</h1>
+      <h1 className="welcome-text">Welcome, {userInfo.username}!</h1>
       <Card>
         <Card.Body>
 
           <Card.Subtitle className="mb-2 text-muted text-center">
             Email:{" "} {editEmailMode ? (
             <span>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <input type="email" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
               <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}>Save</Button>
               <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
             </span>
@@ -164,7 +164,7 @@ function User() {
             ) : (
 
               <span>
-                {user.email}{" "}
+                {userInfo.email}{" "}
                 <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
               </span>
             )}
@@ -172,7 +172,7 @@ function User() {
             Phone Number:{" "}
             {editPhoneNumberMode ? (
               <span>
-                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                <input type="email" value={userInfo.phoneNumber} onChange={(e) => setUserInfo({ ...userInfo, phoneNumber: e.target.value })} />
                 <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}>Save</Button>
                 <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}>Cancel</Button>
               </span>
@@ -180,7 +180,7 @@ function User() {
             ) : (
 
               <span>
-                {user.phoneNumber}{" "}
+                {userInfo.phoneNumber}{" "}
                 <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}>Edit</Button>
               </span>
             )}
