@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { useParams } from "react-router";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Card,
+  Accordion,
+} from "react-bootstrap";
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
 
@@ -18,7 +27,7 @@ export function Booking() {
     currentDate.getDay()
   );
 
-  const {_id} = useParams();
+  const { _id } = useParams();
   console.log(_id);
   const [timeSlots, setTimeSlots] = useState([]);
   const [service, setService] = useState([]);
@@ -121,88 +130,101 @@ export function Booking() {
 
   return (
     <div className="booking-div justify-content-center">
-      <Calendar
-        className={"calendar"}
-        onChange={setSelectedDate}
-        value={selectedDate}
-        minDate={minDate}
-        maxDate={maxDate}
-        tileDisabled={isDateDisabled}
-        onClickDay={handleDateClick}
-        tileClassName={getTileClassName}
-        formatShortWeekday={(locale, value) =>
-          new Intl.DateTimeFormat(locale, { weekday: "short" }).format(value)
-        }
-      />
-      <table class="time-table">
-        <div></div>
-        <thead></thead>
-        <tbody class="table-body">
-          <td class="service-name">{service.name}</td>
-          {timeSlots.length > 0 ? (
-            timeSlots.map((item) =>
-              item.isAvailable ? (
-                <tr className="isAvailable" key={item.start}>
-                  <td class="row-section">
-                    {new Date(item.start).toLocaleString("en-UK", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                      timeZone: "UTC",
-                    })}{" "}
-                    -
-                    {new Date(item.end).toLocaleString("en-UK", {
-                      hour: "numeric",
-                      minute: "numeric",
-                      timeZone: "UTC",
-                    })}
-                  </td>
-                  <td class="row-section">
-                    <button
-                      className="timeBooking-btn btn-primary"
-                      onClick={() => postData(item.start, item.end)}
-                    >
-                      Book Time Slot
-                    </button>
-                  </td>
-                </tr>
-              ) : (
-                <tr className="notAvailable" key={item.start}>
-                  <td class="row-section">
-                    {new Date(item.start).toLocaleString("en-UK", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                      timeZone: "UTC",
-                    })}{" "}
-                    -
-                    {new Date(item.end).toLocaleString("en-UK", {
-                      hour: "numeric",
-                      minute: "numeric",
-                      timeZone: "UTC",
-                    })}
-                  </td>
-                  <td class="row-section">
-                    <h2>booked</h2>
-                  </td>
-                </tr>
+      <row class="service-name">
+        <column xs={12} md={4}>
+          <h3 class="service-name-text text-center">{service.name}</h3>
+        </column>
+      </row>
+      <row class="section-row justify-content-center">
+        <column>
+          <Calendar
+            className={"calendar"}
+            onChange={setSelectedDate}
+            value={selectedDate}
+            minDate={minDate}
+            maxDate={maxDate}
+            tileDisabled={isDateDisabled}
+            onClickDay={handleDateClick}
+            tileClassName={getTileClassName}
+            formatShortWeekday={(locale, value) =>
+              new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
+                value
               )
-            )
-          ) : (
-            <tr>
-              <td>
-                <p>No available times slots</p>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            }
+          />
+        </column>
+      </row>
+      <row className="section-row justify-content-center">
+        <column>
+          <table class="time-table">
+            <thead></thead>
+            <tbody class="table-body justify-content-center">
+              {timeSlots.length > 0 ? (
+                timeSlots.map((item) =>
+                  item.isAvailable ? (
+                    <tr className="isAvailable" key={item.start}>
+                      <td class="row-section">
+                        {new Date(item.start).toLocaleString("en-UK", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                          timeZone: "UTC",
+                        })}{" "}
+                        -
+                        {new Date(item.end).toLocaleString("en-UK", {
+                          hour: "numeric",
+                          minute: "numeric",
+                          timeZone: "UTC",
+                        })}
+                      </td>
+                      <td class="row-section">
+                        <button
+                          className="timeBooking-btn btn-primary"
+                          onClick={() => postData(item.start, item.end)}
+                        >
+                          Book Time Slot
+                        </button>
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr className="notAvailable" key={item.start}>
+                      <td class="row-section">
+                        {new Date(item.start).toLocaleString("en-UK", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                          timeZone: "UTC",
+                        })}{" "}
+                        -
+                        {new Date(item.end).toLocaleString("en-UK", {
+                          hour: "numeric",
+                          minute: "numeric",
+                          timeZone: "UTC",
+                        })}
+                      </td>
+                      <td class="row-section">
+                        <h2>booked</h2>
+                      </td>
+                    </tr>
+                  )
+                )
+              ) : (
+                <tr>
+                  <td>
+                    <p>No available times slots</p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </column>
+      </row>
     </div>
   );
 }
