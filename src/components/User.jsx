@@ -1,9 +1,16 @@
 import React, {useState,useEffect} from "react";
-import { Button,Card } from "react-bootstrap";
+import { Button,Card, Table, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import "./css/User.css"
+import { ConfirmationModal } from "./parts/ConfirmationModal";
 
 function User() {
+
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [bookingToDelete, setBookingToDelete] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [registrationSentence, setRegistrationSentence] = useState("");
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const navigate = useNavigate();
@@ -82,7 +89,6 @@ function User() {
       setBookings(bookingsWithService);
     }
   };
-
   const fetchUserData = async (token) => {
     const response = await fetch(`http://localhost:3000/users/getUserData`, {
       method: "GET",
@@ -113,17 +119,44 @@ function User() {
     fetchUserData(token);
   }, []);
 
+  const handleDeleteBooking = async (_id) => {
+    setBookingToDelete(_id);
+    setShowConfirmationModal(true);
+  };
+
+  const handleConfirmDeleteBooking = async () => {
+    if (bookingToDelete) {
+      const packet = { _id: bookingToDelete };
+      const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
+        method: "DELETE",
+        body: JSON.stringify(packet),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const updatedBookings = bookings.filter((booking) => booking._id !== bookingToDelete);
+        setBookings(updatedBookings);
+      } else {
+        setRegistrationSentence("I'm sorry, you are unable to delete your booking within 24 hours of the scheduled time. Please contact the salon via phone to make any necessary changes. Thank you for your understanding.");
+        setShowModal(true);
+      }
+    }
+    setShowConfirmationModal(false);
+  };
+
 
   return (
     <div className="container">
-      <h1 className="welcome-text">Welcome, {userInfo.username}!</h1>
+      <h1 className="welcome-text">Welcome, {user.username}!</h1>
       <Card>
         <Card.Body>
 
           <Card.Subtitle className="mb-2 text-muted text-center">
             Email:{" "} {editEmailMode ? (
             <span>
-              <input type="email" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
               <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}>Save</Button>
               <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
             </span>
@@ -131,7 +164,7 @@ function User() {
             ) : (
 
               <span>
-                {userInfo.email}{" "}
+                {user.email}{" "}
                 <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
               </span>
             )}
@@ -139,7 +172,7 @@ function User() {
             Phone Number:{" "}
             {editPhoneNumberMode ? (
               <span>
-                <input type="text" value={userInfo.phoneNumber} onChange={(e) => setUserInfo({ ...userInfo, phoneNumber: e.target.value })}/>
+                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}>Save</Button>
                 <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}>Cancel</Button>
               </span>
@@ -147,7 +180,7 @@ function User() {
             ) : (
 
               <span>
-                {userInfo.phoneNumber}{" "}
+                {user.phoneNumber}{" "}
                 <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}>Edit</Button>
               </span>
             )}

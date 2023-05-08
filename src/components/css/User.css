@@ -1,31 +1,88 @@
-.container{
+.container-fluid {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
-    color: rgb(0, 0, 0);
+    color: rgb(65, 65, 65);
     background-image: url("/src/components/Images/lina-verovaya-N4njM45mXFM-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 100px;
-}
+    padding: 50px;
 
-.container .card {
-    width: 600px;
-    height: 200px;
+}
+  
+.container-fluid .card {
+    width: 95%;
+    padding: 20px;
+    background-color: rgba(201, 203, 201, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.user-details {
+    display: flex;
+    margin: 30px;
+    text-align: center;
 }
 
 .card-subtitle {
-    display: flex;
     flex-direction: column;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
 }
 
-input[type="email"],
-input[type="text"] {
+.email-input[type="email"],
+.phoneNumber-input[type="text"] {
   width: 300px;
+}
+
+.welcome-text {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.user-details td {
+    vertical-align: middle;
+}
+
+.bookings {
+    text-align: center;
+    margin: 30px;
+}
+
+@media (max-width: 991px) {
+    .container-fluid {
+      padding: 50px;
+    }
+    
+    .container-fluid .card {
+      width: 80%;
+    }
+  
+    .email-input[type="email"],
+    .phoneNumber-input[type="text"] {
+      width: 200px;
+    }
+}
+  
+@media (max-width: 767px) {
+    .container-fluid {
+      padding: 25px;
+    }
+    
+    .container-fluid .card {
+      width: 100%;
+    }
+  
+    .email-input[type="email"],
+    .phoneNumber-input[type="text"] {
+      width: 150px;
+    }
+  
+    .user-details {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 }

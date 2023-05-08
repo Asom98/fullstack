@@ -3,10 +3,13 @@ import { Card, Button } from "react-bootstrap";
 import "./css/Service.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { ConfirmationModal } from "./parts/ConfirmationModal";
 
 export const ServicePage = () => {
   const [servicesData, setServicesData] = useState([]);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [bookingSentence, setbookingSentence] = useState("");
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -41,14 +44,20 @@ export const ServicePage = () => {
               <Card.Body>
                 <Card.Title className="card-serviceName">{service.name}</Card.Title>
                 <Card.Text className="card-description">{service.description}</Card.Text>
-                <Card.Text>Duration: {service.duration}min</Card.Text>
-                <Card.Text>Price: {service.price}</Card.Text>
+                <Card.Text className="card-text duration">Duration: {service.duration}min</Card.Text>
+                <Card.Text className="card-text price">Price: ${service.price}</Card.Text>
                 <Button onClick={() => handleBookClick(service)}>Book Now</Button>
               </Card.Body>
             </Card>
           </div>
         ))}
       </div>
+      {showModal && (
+        <ConfirmationModal
+          sentance={bookingSentence}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
