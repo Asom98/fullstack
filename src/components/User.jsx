@@ -146,61 +146,100 @@ function User() {
     setShowConfirmationModal(false);
   };
 
+  const handleCancelDeleteBooking = () => {
+    setBookingToDelete(null);
+    setShowConfirmationModal(false);
+  };
 
-  return (
-    <div className="container">
-      <h1 className="welcome-text">Welcome, {userInfo.username}!</h1>
+return (
+    <div className="container-fluid">
       <Card>
         <Card.Body>
-
-          <Card.Subtitle className="mb-2 text-muted text-center">
-            Email:{" "} {editEmailMode ? (
-            <span>
-              <input type="email" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
-              <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}>Save</Button>
-              <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
-            </span>
-
+          <div className="welcome-text">
+            <h1>Welcome, {userInfo.username}!</h1>
+          </div>
+          <div className="user-details">
+            <Table>
+              <tbody>
+                <tr>
+                  <td>Email:</td>
+                  <td>
+                    {editEmailMode ? (
+                      <span>
+                        <input className="email-input" type="email" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
+                        <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}> Save </Button>
+                        <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
+                      </span>
+                    ) : (
+                      <span>
+                        {userInfo.email}{" "}
+                        <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone Number:</td>
+                  <td>
+                    {editPhoneNumberMode ? (
+                      <span>
+                        <input className="phoneNumber-input" type="email" value={userInfo.phoneNumber} onChange={(e) => setUserInfo({ ...userInfo, phoneNumber: e.target.value })} />
+                        <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}> Save </Button>
+                        <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}> Cancel </Button>
+                      </span>
+                    ) : (
+                      <span>
+                        {userInfo.phoneNumber}{" "}
+                        <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}> Edit </Button>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
+          <div className="bookings">
+            <h3>Your Bookings:</h3>
+            {bookings.length > 0 ? (
+              <Table className="bookings-table" bordered hover>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bookings.map((booking) => (
+                    <tr key={booking._id}>
+                      <td>{booking.service ? booking.service.name : "unknown"}</td>
+                      <td>{booking.bookingDate}</td>
+                      <td>{booking.bookingTime}</td>
+                      <td>
+                        <Button variant="danger" size="sm" onClick={()=> handleDeleteBooking(booking._id)}>Cancel booking</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
-
-              <span>
-                {userInfo.email}{" "}
-                <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
-              </span>
+              <p>You have no bookings.</p>
             )}
-
-            Phone Number:{" "}
-            {editPhoneNumberMode ? (
-              <span>
-                <input type="email" value={userInfo.phoneNumber} onChange={(e) => setUserInfo({ ...userInfo, phoneNumber: e.target.value })} />
-                <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}>Save</Button>
-                <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}>Cancel</Button>
-              </span>
-
-            ) : (
-
-              <span>
-                {userInfo.phoneNumber}{" "}
-                <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}>Edit</Button>
-              </span>
+            <Modal className="cancelBooking-modal" show={showConfirmationModal} onHide={handleCancelDeleteBooking}>
+              <Modal.Header closeButton>
+                <Modal.Title>Confirm Delete Booking</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Are you sure you want to cancel this booking?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCancelDeleteBooking}>No</Button>
+                <Button variant="danger" onClick={handleConfirmDeleteBooking}>Yes</Button>
+              </Modal.Footer>
+            </Modal>
+            {showModal && (
+            <ConfirmationModal className="confirmationModal" sentance={registrationSentence} onClose={() => setShowModal(false)}/>
             )}
-          </Card.Subtitle>
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Body>
-          <Card.Title>My Bookings</Card.Title>
-          {bookings.length > 0 ? (
-          <ul>{bookings.map((booking) => (
-            <li key={booking._id}>
-            Service: {booking.service ? booking.service.name : "unknown"} <br />
-            Date: {booking.bookingDate} <br />
-            Time: {booking.bookingTime} <br />
-          </li>))}
-          </ul>
-          ) : (
-          <p>You have no bookings yet.</p>
-          )}
+          </div>
         </Card.Body>
       </Card>
     </div>
