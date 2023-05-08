@@ -64,17 +64,17 @@ function NavigationBar() {
         <Nav className="navbar-nav">
           {!loggedIn ? (
             <div>
-              <Button variant="primary" onClick={handleLoginClick}>
+              <Button className="loginButton" variant="primary" onClick={handleLoginClick}>
                 Login
               </Button>
-              <Button variant="primary" as={Link} to="/registration">
+              <Button className="registerButton" variant="primary" as={Link} to="/registration">
                 Register
               </Button>
             </div>
           ) : (
             <div className="d-flex justify-content-center">
              <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
-             <Button variant="primary" className="ml-3" onClick={handleLogoutClick}>Logout</Button>
+             <Button variant="primary" className="ml-3 logoutButton" onClick={handleLogoutClick}>Logout</Button>
            </div>
           )}
         </Nav>

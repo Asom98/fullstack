@@ -178,7 +178,7 @@ function User() {
                       <td>{booking.bookingDate}</td>
                       <td>{booking.bookingTime}</td>
                       <td>
-                        <Button variant="danger" onClick={()=> handleDeleteBooking(booking._id)}>Delete</Button>
+                        <Button variant="danger" size="sm" onClick={()=> handleDeleteBooking(booking._id)}>Cancel booking</Button>
                       </td>
                     </tr>
                   ))}

@@ -57,6 +57,7 @@
 
 .card-serviceName {
     color: rgb(50, 46, 46);
+    font-weight: bold;
 }
 
 .custom.card .card-body .card-text.price {
