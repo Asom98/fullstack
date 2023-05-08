@@ -39,18 +39,25 @@ router.get("/getBookingsByUserId", authentication.authenticateUser,async (req,re
 }) 
 // delete booking but check time and return 
 
-router.delete("/deleteBooking", async (req ,res) => {
+router.delete("/deleteBooking", authentication.authenticateUser,async (req ,res) => {
   try {
-    const twentyFourHoursAgo = new Date();
-    twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
-
-    const booking = await bookingModel.findById(req.body._id)
-
-    if (booking.startTime < twentyFourHoursAgo) {
-      return res.sendStatus(400)
+    console.log(req.user);
+    if (req.user.role == "admin") {
+      
+        await bookingModel.findByIdAndDelete(req.body._id)
+        return res.sendStatus(200)
     } else {
-      await bookingModel.findByIdAndDelete(req.body._id)
-      return res.sendStatus(200)
+      const twentyFourHoursAgo = new Date();
+      twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
+  
+      const booking = await bookingModel.findById(req.body._id)
+  
+      if (booking.startTime < twentyFourHoursAgo) {
+        return res.sendStatus(400)
+      } else {
+        await bookingModel.findByIdAndDelete(req.body._id)
+        return res.sendStatus(200)
+      }
     }
   } catch (err) {
     console.log(err);
