@@ -60,6 +60,9 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/about">
             About
           </Nav.Link>
+          <Nav.Link as={Link} to="/contactus">
+            Contact
+          </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
           {!loggedIn ? (

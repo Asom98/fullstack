@@ -117,7 +117,7 @@ function User() {
         const updatedBookings = bookings.filter((booking) => booking._id !== bookingToDelete);
         setBookings(updatedBookings);
       } else {
-        setRegistrationSentence("I'm sorry, you are unable to delete your booking within 24 hours of the scheduled time. Please contact the salon via phone to make any necessary changes. Thank you for your understanding.");
+        setRegistrationSentence("I'm sorry, you are unable to delete bookings within 24 hours of the scheduled time. Please contact us directly to make any necessary changes. Thank you for your understanding.");
         setShowModal(true);
       }
     }

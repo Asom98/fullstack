@@ -9,6 +9,7 @@ import { Booking } from "./components/Booking";
 import { AdminPage } from "./components/AdminPage";
 import User from "./components/User";
 import { AboutPage } from "./components/AboutPage";
+import ContactUs from "./components/ContactUs";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="admin" element={<AdminPage />} />
           <Route path="user" element={<User />} />
           <Route path="about" element={<AboutPage />} />
+          <Route path="contactus" element={<ContactUs />} />
         </Routes>
       </main>
     </div>
