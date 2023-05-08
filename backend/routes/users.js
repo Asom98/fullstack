@@ -8,16 +8,12 @@ const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
 
-router.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
-  async (req, res) => {
-    await userModel.findOne({ username: req.user.username })
-      .then((response) => {
-        res.json(response).sendStatus(200);
-      });
-  }
-);
-
-// increase user counter for booking 
+router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
+    await userModel.findById(req.user._id)
+    .then((response) => {
+      res.json(response);
+    });
+});
 
 router.post("/register", async (req, res) => {
   try {
@@ -72,22 +68,22 @@ router.post("/login", async (req, res) => {
   if(admin != null){
     const isMatch = await bcrypt.compare(req.body.password, admin.password)
     if(isMatch){
-      const accessToken = jwt.sign({
-        username: admin.username, 
-        role: admin.role}, 
+      const accessToken = jwt.sign(
+        { _id: admin._id, 
+          role: admin.role }, 
         process.env.ACCESS_TOKEN)
-      res.json([{accessToken: accessToken}, admin])
+      res.json({accessToken: accessToken, user: admin})
     }
   } else if (user != null) {
-    console.log(admin);
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (isMatch) {
       // change to create token in controllers dir
       const accessToken = jwt.sign(
-        { username: user.username, role: user.role },
+        { _id: user._id, 
+          role: user.role },
         process.env.ACCESS_TOKEN
       ); // add { expiresIn: '10s' } to add expiration to the token
-      res.json([{ accessToken: accessToken }, user]);
+      res.json({accessToken: accessToken , user: user});
     }
   } else {
     res.sendStatus(404);

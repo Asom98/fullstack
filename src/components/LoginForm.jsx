@@ -32,16 +32,16 @@ export const Login = (props) => {
       if (response.ok) {
         setLoginStatus(true);
 
-        console.log(data[1].role);
-
-        if(data[1].role === "admin"){
+        if(data.user.role === "admin"){
           navigate("/admin");
-        }else if (data[1].role === "user"){
+        }else if (data.user.role === "user"){
           navigate("/user")
         }
+        
         props.onLoginSuccess();
 
-        localStorage.setItem("user", JSON.stringify(data[1]));
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", JSON.stringify(data.accessToken))
         
       } else {
         setLoginStatus(false);

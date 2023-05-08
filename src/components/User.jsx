@@ -1,15 +1,17 @@
 import React, {useState,useEffect} from "react";
 import { Button,Card } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import "./css/User.css"
 
 function User() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  const [email, setEmail] = useState(user.email);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [email, setEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [editEmailMode, setEditEmailMode] = useState(false);
   const [editPhoneNumberMode, setEditPhoneNumberMode] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [userInfo, setUserInfo] = useState({})
+
+  const navigate = useNavigate();
 
   const handleUpdateEmailClick = async () => {
     const response = await fetch("", {
@@ -25,9 +27,8 @@ function User() {
 
     if (response.ok) {
       setEditEmailMode(false);
-      const updatedUser = { ...user, email };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setEmail(email);
+      const newUserInfo = {...userInfo, email: email}
+      setUserInfo(newUserInfo)
     }
   };
 
@@ -45,9 +46,8 @@ function User() {
 
     if (response.ok) {
       setEditPhoneNumberMode(false);
-      const updatedUser = { ...user, phoneNumber };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setPhoneNumber(phoneNumber);
+      const newUserInfo = {...userInfo, phoneNumber: phoneNumber}
+      setUserInfo(newUserInfo)
     }
   };
 
@@ -58,7 +58,7 @@ function User() {
         "Content-Type": "application/json",
       },
     });
-  
+    
     if (response.ok) {
       const data = await response.json();
       const bookingsWithService = await Promise.all(
@@ -76,32 +76,60 @@ function User() {
             const bookingTime = startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             return { ...booking, service: serviceData, bookingDate,
               bookingTime,};
-          } else {
-            return { ...booking, service: null };
-          }
-        })
-      );
-      setBookings(bookingsWithService);
+            } else {
+              return { ...booking, service: null };
+            }
+          })
+          );
+          setBookings(bookingsWithService);
+        }
+  };
+  
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("token")
+
+    if (token == null) {
+      navigate("/login")
+    };
+
+    const response = await fetch(`http://localhost:3000/users/getUserData`, {
+      method: "GET",
+      headers: {
+        "authorization": `Bearer ${token}`
+      }
+    });
+    
+    if (response.ok) {
+      const result = await response.json()
+      console.log(result);
+      setUserInfo(result)
+      setEmail(result.email)
+      setPhoneNumber(result.phoneNumber)
+      return
+    }
+
+    if (response.status === 403) {
+      navigate("/login")
     }
   };
-
+  
   useEffect(() => {
     handleUserBookings();
-    console.log(bookings)
+    fetchUserData();
   }, []);
 
 
 
   return (
     <div className="container">
-      <h1 className="welcome-text">Welcome, {user.username}!</h1>
+      <h1 className="welcome-text">Welcome, {userInfo.username}!</h1>
       <Card>
         <Card.Body>
 
           <Card.Subtitle className="mb-2 text-muted text-center">
             Email:{" "} {editEmailMode ? (
             <span>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <input type="email" value={userInfo.email} onChange={(e) => setEmail(e.target.value)}/>
               <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}>Save</Button>
               <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
             </span>
@@ -109,7 +137,7 @@ function User() {
             ) : (
 
               <span>
-                {user.email}{" "}
+                {userInfo.email}{" "}
                 <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
               </span>
             )}
@@ -117,7 +145,7 @@ function User() {
             Phone Number:{" "}
             {editPhoneNumberMode ? (
               <span>
-                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                <input type="text" value={userInfo.phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}>Save</Button>
                 <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}>Cancel</Button>
               </span>
@@ -125,7 +153,7 @@ function User() {
             ) : (
 
               <span>
-                {user.phoneNumber}{" "}
+                {userInfo.phoneNumber}{" "}
                 <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}>Edit</Button>
               </span>
             )}
