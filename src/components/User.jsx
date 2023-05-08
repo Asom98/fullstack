@@ -126,11 +126,13 @@ function User() {
 
   const handleConfirmDeleteBooking = async () => {
     if (bookingToDelete) {
+      const token = localStorage.getItem("token")
       const packet = { _id: bookingToDelete };
       const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
         method: "DELETE",
         body: JSON.stringify(packet),
         headers: {
+          authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
