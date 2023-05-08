@@ -11,8 +11,11 @@ export const ServicePage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/services/getServices");
-        setServicesData(response.data);
+        const response = await fetch("http://localhost:3000/services/getServices",{
+          method: "GET"
+        });
+        const result = await response.json()
+        setServicesData(result);
       } catch (error) {
         console.log(error);
       }
