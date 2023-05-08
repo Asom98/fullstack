@@ -5,6 +5,8 @@ const mongoose = require("mongoose")
 const serviceModel = require("../models/service")
 const bookingModel = require("../models/booking");
 
+const authentication = require("../middleware/auth")
+
 router.get("/getBookings", async (req,res) =>{
     try {
         const bookings = await bookingModel.find()
@@ -26,8 +28,8 @@ router.get("/getBookings/:service_id", async (req,res) =>{
 
 // get bookings by user_id 
 
-router.get("/getBookingsByUserId/:user_id", async (req,res) => {
-  const user_id = new mongoose.Types.ObjectId(req.params.user_id)
+router.get("/getBookingsByUserId", authentication.authenticateUser,async (req,res) => {
+  const user_id = new mongoose.Types.ObjectId(req.user._id)
   try {
     const bookings = await bookingModel.find({user_id: user_id})
     res.json(bookings)
@@ -37,18 +39,25 @@ router.get("/getBookingsByUserId/:user_id", async (req,res) => {
 }) 
 // delete booking but check time and return 
 
-router.delete("/deleteBooking", async (req ,res) => {
+router.delete("/deleteBooking", authentication.authenticateUser,async (req ,res) => {
   try {
-    const twentyFourHoursAgo = new Date();
-    twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
-
-    const booking = await bookingModel.findById(req.body._id)
-
-    if (booking.startTime < twentyFourHoursAgo) {
-      return res.sendStatus(400)
+    console.log(req.user);
+    if (req.user.role == "admin") {
+      
+        await bookingModel.findByIdAndDelete(req.body._id)
+        return res.sendStatus(200)
     } else {
-      await bookingModel.findByIdAndDelete(req.body._id)
-      return res.sendStatus(200)
+      const twentyFourHoursAgo = new Date();
+      twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
+  
+      const booking = await bookingModel.findById(req.body._id)
+  
+      if (booking.startTime < twentyFourHoursAgo) {
+        return res.sendStatus(400)
+      } else {
+        await bookingModel.findByIdAndDelete(req.body._id)
+        return res.sendStatus(200)
+      }
     }
   } catch (err) {
     console.log(err);
@@ -66,8 +75,9 @@ router.put("/updateBooking", async(req, res)=>{
 })
 
 
-router.post("/postBooking", async (req,res) =>{
+router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
   try {
+
     const bookings = await bookingModel.find().sort({ count: -1 }).limit(1);
     let bookingCount = 0;
     if (bookings.length > 0) {
@@ -81,13 +91,14 @@ router.post("/postBooking", async (req,res) =>{
       startTime: req.body.startTime
     })
     .then(async (response) => {
+      console.log(req.user);
       if (response == null) {
         const newBooking = new bookingModel({
           service_id: req.body.service_id,
           employee_id: req.body.employee_id,
           startTime: req.body.startTime,
           endTime: req.body.endTime,
-          user_id: req.body.user_id,
+          user_id: req.user._id,
           status: true,
           count: bookingCount,
         });
@@ -102,7 +113,7 @@ router.post("/postBooking", async (req,res) =>{
   }
 })
   
-router.get("/getAvailableTimeSlots/:service_id/:date", async (req, res) => {
+router.get("/getAvailableTimeSlots/:service_id/:date", authentication.authenticateUser, async (req, res) => {
   try {
     const service = await serviceModel.findOne({ _id: req.params.service_id });
     if (service == null) {

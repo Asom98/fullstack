@@ -12,10 +12,9 @@ function checkRole(role) {
 }
 
 function authenticateUser(req, res, next) {
-    console.log(req);
-    const authHeader = req.headers.authorization
-    console.log(authHeader);
-    const token = authHeader.split(' ')[1]
+    const rawToken = req.headers.authorization
+    const onlyToken = rawToken.split(' ')[1]
+    const token = onlyToken.substring(1, onlyToken.length - 1);
     if(token == null) return res.sendStatus(403)
     jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
         if(err) return res.sendStatus(403)

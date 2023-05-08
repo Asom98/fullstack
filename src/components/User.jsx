@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from "react";
 import { Button,Card, Table, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import "./css/User.css"
 import { ConfirmationModal } from "./parts/ConfirmationModal";
 
@@ -12,12 +13,13 @@ function User() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const [email, setEmail] = useState(user.email);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const navigate = useNavigate();
+
   const [editEmailMode, setEditEmailMode] = useState(false);
   const [editPhoneNumberMode, setEditPhoneNumberMode] = useState(false);
   const [bookings, setBookings] = useState([]);
-
+  const [userInfo, setUserInfo] = useState({})
+ 
   const handleUpdateEmailClick = async () => {
     const response = await fetch("http://localhost:3000/admin/updateUser", {
       method: "PUT",
@@ -26,15 +28,12 @@ function User() {
       },
       body: JSON.stringify({
         id: user._id,
-        email,
+        email: userInfo.email,
       }),
     });
 
     if (response.ok) {
       setEditEmailMode(false);
-      const updatedUser = { ...user, email };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setEmail(email);
     }
   };
 
@@ -45,23 +44,22 @@ function User() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: user._id,
-        phoneNumber,
+        id: userInfo._id,
+        phoneNumber: userInfo.phoneNumber,
       }),
     });
 
     if (response.ok) {
       setEditPhoneNumberMode(false);
-      const updatedUser = { ...user, phoneNumber };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setPhoneNumber(phoneNumber);
     }
   };
 
-  const handleUserBookings = async () => {
-    const response = await fetch(`http://localhost:3000/bookings/getBookingsByUserId/${user._id}`, {
+  const handleUserBookings = async (token) => {
+
+    const response = await fetch(`http://localhost:3000/bookings/getBookingsByUserId`, {
       method: "GET",
       headers: {
+        "authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -91,10 +89,34 @@ function User() {
       setBookings(bookingsWithService);
     }
   };
+  const fetchUserData = async (token) => {
+    const response = await fetch(`http://localhost:3000/users/getUserData`, {
+      method: "GET",
+      headers: {
+        "authorization": `Bearer ${token}`
+      }
+    });
+    
+    if (response.ok) {
+      const result = await response.json()
+      setUserInfo(result)
+      return
+    }
 
+    if (response.status === 403) {
+      navigate("/")
+    }
+  };
+  
   useEffect(() => {
-    handleUserBookings();
-    console.log(bookings)
+    const token = localStorage.getItem("token")
+
+    if (token == null) {
+      navigate("/")
+    };
+
+    handleUserBookings(token);
+    fetchUserData(token);
   }, []);
 
   const handleDeleteBooking = async (_id) => {
@@ -104,11 +126,13 @@ function User() {
 
   const handleConfirmDeleteBooking = async () => {
     if (bookingToDelete) {
+      const token = localStorage.getItem("token")
       const packet = { _id: bookingToDelete };
       const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
         method: "DELETE",
         body: JSON.stringify(packet),
         headers: {
+          authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -129,12 +153,12 @@ function User() {
     setShowConfirmationModal(false);
   };
 
-  return (
+return (
     <div className="container-fluid">
       <Card>
         <Card.Body>
           <div className="welcome-text">
-            <h1>Welcome, {user.username}!</h1>
+            <h1>Welcome, {userInfo.username}!</h1>
           </div>
           <div className="user-details">
             <Table>
@@ -144,13 +168,13 @@ function User() {
                   <td>
                     {editEmailMode ? (
                       <span>
-                        <input className="email-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input className="email-input" type="email" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
                         <Button variant="primary" size="sm" onClick={handleUpdateEmailClick}> Save </Button>
                         <Button variant="secondary" size="sm" onClick={() => setEditEmailMode(false)}> Cancel </Button>
                       </span>
                     ) : (
                       <span>
-                        {user.email}{" "}
+                        {userInfo.email}{" "}
                         <Button variant="link" onClick={() => setEditEmailMode(true)}> Edit </Button>
                       </span>
                     )}
@@ -161,13 +185,13 @@ function User() {
                   <td>
                     {editPhoneNumberMode ? (
                       <span>
-                        <input className="phoneNumber-input" type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                        <input className="phoneNumber-input" type="email" value={userInfo.phoneNumber} onChange={(e) => setUserInfo({ ...userInfo, phoneNumber: e.target.value })} />
                         <Button variant="primary" size="sm" onClick={handleUpdatePhoneNumberClick}> Save </Button>
                         <Button variant="secondary" size="sm" onClick={() => setEditPhoneNumberMode(false)}> Cancel </Button>
                       </span>
                     ) : (
                       <span>
-                        {user.phoneNumber}{" "}
+                        {userInfo.phoneNumber}{" "}
                         <Button variant="link" onClick={() => setEditPhoneNumberMode(true)}> Edit </Button>
                       </span>
                     )}
