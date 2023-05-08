@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { useParams } from "react-router";
+import { useNavigate } from 'react-router-dom';
+
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
 
@@ -19,19 +21,21 @@ export function Booking() {
   );
 
   const {_id} = useParams();
-  console.log(_id);
+  const navigate = useNavigate();
+
   const [timeSlots, setTimeSlots] = useState([]);
   const [service, setService] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
 
   async function postData(start, end) {
+    const token = localStorage.getItem("token")
+
     const Data = {
       service_id: service._id,
       employee_id: "644a83d1f0a732d4a429ab87",
       startTime: start,
       endTime: end,
-      user_id: "6448086b584cfe43e7d99972",
       status: true,
     };
 
@@ -39,6 +43,7 @@ export function Booking() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
       },
       body: JSON.stringify(Data),
     }).then(async (result) => {
@@ -61,12 +66,26 @@ export function Booking() {
   useEffect(() => {
     async function fetchTimeSlots() {
       try {
+        const token = localStorage.getItem("token")
+
+        if (token == null) {
+          navigate("/login")
+        }
+
         const response = await fetch(
           `http://localhost:3000/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
           {
             method: "GET",
-          }
-        );
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 403) {
+          console.log("you do not have access to that resource");
+          navigate(`/login`);
+          return;
+        }
 
         if (response.status === 400) {
           console.log("Invalid date");
@@ -74,10 +93,13 @@ export function Booking() {
           setService(null);
           return;
         }
-
-        const result = await response.json();
-        setTimeSlots(result.timeSlots);
-        setService(result.service);
+        if (response.status === 200) {
+          console.log("hell oworld");
+          const result = await response.json();
+          setTimeSlots(result.timeSlots);
+          setService(result.service);
+          return
+        }
       } catch (error) {
         console.error(error);
         // handle the error here
@@ -87,10 +109,11 @@ export function Booking() {
 
     async function fetchEmployees() {
       const employee_ids = service.employee_ids;
+      if (employee_ids == null) {
+        return 
+      }
       await fetch(
-        `http://localhost:3000/employees/getEmployees/${employee_ids.join(
-          ","
-        )}`,
+        `http://localhost:3000/employees/getEmployees/${employee_ids.join(",")}`,
         {
           method: "GET",
         }
@@ -131,19 +154,20 @@ export function Booking() {
         onClickDay={handleDateClick}
         tileClassName={getTileClassName}
         formatShortWeekday={(locale, value) =>
-          new Intl.DateTimeFormat(locale, { weekday: "short" }).format(value)
+          {
+            return new Intl.DateTimeFormat(locale, { weekday: "short" }).format(value);
+          }
         }
       />
-      <table class="time-table">
-        <div></div>
+      <table className="time-table">
         <thead></thead>
-        <tbody class="table-body">
-          <td class="service-name">{service.name}</td>
+        <tbody className="table-body">
+          <td className="service-name">{service.name}</td>
           {timeSlots.length > 0 ? (
             timeSlots.map((item) =>
               item.isAvailable ? (
-                <tr className="isAvailable" key={item.start}>
-                  <td class="row-section">
+                <tr className="isAvailable row-section" key={item.start}>
+                  <td className="row-section">
                     {new Date(item.start).toLocaleString("en-UK", {
                       weekday: "long",
                       year: "numeric",
@@ -160,7 +184,7 @@ export function Booking() {
                       timeZone: "UTC",
                     })}
                   </td>
-                  <td class="row-section">
+                  <td className="row-section">
                     <button
                       className="timeBooking-btn btn-primary"
                       onClick={() => postData(item.start, item.end)}
@@ -171,7 +195,7 @@ export function Booking() {
                 </tr>
               ) : (
                 <tr className="notAvailable" key={item.start}>
-                  <td class="row-section">
+                  <td className="row-section">
                     {new Date(item.start).toLocaleString("en-UK", {
                       weekday: "long",
                       year: "numeric",
@@ -188,7 +212,7 @@ export function Booking() {
                       timeZone: "UTC",
                     })}
                   </td>
-                  <td class="row-section">
+                  <td className="row-section">
                     <h2>booked</h2>
                   </td>
                 </tr>
