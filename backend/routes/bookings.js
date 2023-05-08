@@ -28,8 +28,8 @@ router.get("/getBookings/:service_id", async (req,res) =>{
 
 // get bookings by user_id 
 
-router.get("/getBookingsByUserId/:user_id", async (req,res) => {
-  const user_id = new mongoose.Types.ObjectId(req.params.user_id)
+router.get("/getBookingsByUserId", authentication.authenticateUser,async (req,res) => {
+  const user_id = new mongoose.Types.ObjectId(req.user._id)
   try {
     const bookings = await bookingModel.find({user_id: user_id})
     res.json(bookings)
