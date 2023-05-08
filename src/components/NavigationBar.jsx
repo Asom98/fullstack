@@ -45,7 +45,7 @@ function NavigationBar() {
       expand="md"
       sticky="top"
       className="navbar-custom"
-      collapseOnSelectexpand="lg"
+      collapseOnSelect={true}
     >
       <Navbar.Brand>Company name</Navbar.Brand>
       <Navbar.Toggle aria-controls="my-navbar" />
