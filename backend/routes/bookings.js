@@ -113,6 +113,9 @@ router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
         if(booked && valid){
           confirmBooking(booked._id)
           res.sendStatus(200)
+        }else{
+          await booked.findByIdAndDelete(booked._id)
+          res.sendStatus(400)
         }
       } else {
         res.sendStatus(400)
