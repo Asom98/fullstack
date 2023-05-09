@@ -1,10 +1,10 @@
 ### LOGIN
-POST http://localhost:5000/users/login
+POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
     "username": "admin",
-    "password": "A123456789"
+    "password": "admin"
 }
 ### REGISTER
 POST http://localhost:5000/register
@@ -69,8 +69,9 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:5000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/2023-05-23T09:00:00.000Z
+GET http://localhost:3000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/2023-05-23T09:00:00.000Z
 Content-Type: application/json
+authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgzNTUwMjI5fQ.Y8CIZ_xJmEqqcX2DaKNFvN8EOGUVqSFd2TrbBr0uipU" 
 
 ### 
 POST http://localhost:5000/bookings/postService

@@ -14,8 +14,11 @@ export const ServicePage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/services/getServices");
-        setServicesData(response.data);
+        const response = await fetch("http://localhost:3000/services/getServices",{
+          method: "GET"
+        });
+        const result = await response.json()
+        setServicesData(result);
       } catch (error) {
         console.log(error);
       }
@@ -25,14 +28,9 @@ export const ServicePage = () => {
 
   const handleBookClick = (service) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      navigate(`/booking/${service._id}`, { state: { service }, search: `?user_id=${user._id}`});
-    } else {
-      setbookingSentence("In order to book our services, we kindly request that you log in to your account. If you do not yet have an account, we invite you to register or alternatively, please do not hesitate to contact us directly via phone or email.");
-      setShowModal(true);
-    }
-    console.log(service);
-  };
+    navigate(`/booking/${service._id}`);
+    console.log(service)
+  }
 
   return (
     <div className=" service-container d-flex flex-column justify-content-center align-items-center">

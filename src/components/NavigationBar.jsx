@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/NavigationBar.css";
@@ -6,7 +6,7 @@ import { Login } from "./LoginForm";
 
 function NavigationBar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(checkToken);
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -34,10 +34,21 @@ function NavigationBar() {
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     navigate("/");
     setLoggedIn(false);
    };
+
+  function checkToken() {
+    const token = localStorage.getItem("token")
+
+    if (token == null) {
+      return false
+    } else {
+      return true
+    }
+  }
+
 
   return (
     <Navbar
@@ -59,6 +70,9 @@ function NavigationBar() {
           </Nav.Link>
           <Nav.Link as={Link} to="/about">
             About
+          </Nav.Link>
+          <Nav.Link as={Link} to="/contactus">
+            Contact
           </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">

@@ -3,6 +3,12 @@
   height: 200px;
 }
 
+.developer-pic-david{
+  background-image: url("../backgrounds/David.png") !important;
+  height: 200px;
+  background-size: cover;
+}
+
 .about-container{
   background-image: url("../backgrounds/About_Page_Background.png") !important;
   padding-top: 50px !important;

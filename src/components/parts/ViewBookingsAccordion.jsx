@@ -41,6 +41,7 @@ export function ViewBookingsAccordion() {
 
   const handleDelete = (_id) => {
     (async () => {
+      const token = localStorage.getItem("token")
       const packet = { _id };
       let response = await fetch(
         `http://localhost:3000/bookings/deleteBooking`,
@@ -48,6 +49,7 @@ export function ViewBookingsAccordion() {
           method: "DELETE",
           body: JSON.stringify(packet),
           headers: {
+            authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
