@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Card, Button } from "react-bootstrap";
 import "./css/Service.css";
-import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { ConfirmationModal } from "./parts/ConfirmationModal";
 
@@ -28,9 +27,16 @@ export const ServicePage = () => {
 
   const handleBookClick = (service) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    navigate(`/booking/${service._id}`);
-    console.log(service)
-  }
+    console.log(user)
+    if (user) {
+      navigate(`/booking/${service._id}`, { state: { service }, search: `?user_id=${user._id}`});
+    } else {
+      setbookingSentence("In order to book our services, we kindly request that you log in to your account. If you do not yet have an account, we invite you to register or alternatively, please do not hesitate to contact us directly via phone or email.");
+      setShowModal(true);
+      console.log("Arro")
+    }
+    console.log(service);
+  };
 
   return (
     <div className=" service-container d-flex flex-column justify-content-center align-items-center">
