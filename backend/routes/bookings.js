@@ -41,7 +41,6 @@ router.get("/getBookingsByUserId", authentication.authenticateUser,async (req,re
 
 router.delete("/deleteBooking", authentication.authenticateUser,async (req ,res) => {
   try {
-    console.log(req.user);
     if (req.user.role == "admin") {
       
         await bookingModel.findByIdAndDelete(req.body._id)
@@ -91,7 +90,7 @@ router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
       startTime: req.body.startTime
     })
     .then(async (response) => {
-      console.log(req.user);
+
       if (response == null) {
         const newBooking = new bookingModel({
           service_id: req.body.service_id,

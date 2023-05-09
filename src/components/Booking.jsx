@@ -81,24 +81,15 @@ export function Booking() {
             },
           });
 
-          if (response.status === 403) {
-          console.log("you do not have access to that resource");
-          navigate(`/`);
-          return;
-        }
-
-        if (response.status === 400) {
-          console.log("Invalid date");
-          setTimeSlots([]);
-          setService(null);
-          return;
-        }
         if (response.status === 200) {
-          console.log("hell oworld");
           const result = await response.json();
           setTimeSlots(result.timeSlots);
           setService(result.service);
           return
+        } else {
+          console.log("you do not have access to that resource");
+          navigate(`/`);
+          return;
         }
       } catch (error) {
         console.error(error);

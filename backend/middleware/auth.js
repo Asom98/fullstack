@@ -13,6 +13,9 @@ function checkRole(role) {
 
 function authenticateUser(req, res, next) {
     const rawToken = req.headers.authorization
+    if (rawToken == null) {
+      return res.sendStatus(400)
+    }
     const onlyToken = rawToken.split(' ')[1]
     const token = onlyToken.substring(1, onlyToken.length - 1);
     if(token == null) return res.sendStatus(403)
