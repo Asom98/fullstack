@@ -9,7 +9,7 @@ export function AboutPage() {
         <h2 className="team-title">FrontEnd Team:</h2>
         <Row className="developer-row rounded-5">
           <Col xs={12} md={3}>
-            <Container className="developer-pic rounded-5 mt-4 mb-4"></Container>
+            <Container className="developer-pic-Farah rounded-5 mt-4 mb-4"></Container>
           </Col>
           <Col xs={12} md={9} className="mb-5 mt-5">
             <h3>Farah Mallah</h3>
@@ -24,8 +24,8 @@ export function AboutPage() {
               frontend
               <br />- Creted and styled Registration page
               <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;* Creted Registration fileds checking
-              methods
+              &nbsp;&nbsp;&nbsp;&nbsp;* Creted checking for the registration
+              fileds
               <br />- Creted and styled Booking page
               <br />- Creted and styled About page
             </p>
