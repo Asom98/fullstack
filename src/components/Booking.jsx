@@ -70,12 +70,26 @@ export function Booking() {
   useEffect(() => {
     async function fetchTimeSlots() {
       try {
+        const token = localStorage.getItem("token")
+
+        if (token == null) {
+          navigate("/")
+        }
+
         const response = await fetch(
           `http://localhost:3000/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
           {
             method: "GET",
-          }
-        );
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 403) {
+          console.log("you do not have access to that resource");
+          navigate(`/`);
+          return;
+        }
 
         if (response.status === 400) {
           console.log("Invalid date");
@@ -83,10 +97,14 @@ export function Booking() {
           setService(null);
           return;
         }
-
-        const result = await response.json();
-        setTimeSlots(result.timeSlots);
-        setService(result.service);
+        
+        if (response.status === 200) {
+          console.log("hell oworld");
+          const result = await response.json();
+          setTimeSlots(result.timeSlots);
+          setService(result.service);
+          return
+        }
       } catch (error) {
         console.error(error);
         // handle the error here
