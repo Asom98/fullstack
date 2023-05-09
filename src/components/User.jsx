@@ -27,7 +27,7 @@ function User() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: user._id,
+        id: userInfo._id,
         email: userInfo.email,
       }),
     });
@@ -79,8 +79,7 @@ function User() {
             const startTime = new Date(booking.startTime);
             const bookingDate = startTime.toLocaleDateString();
             const bookingTime = startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            return { ...booking, service: serviceData, bookingDate,
-              bookingTime,};
+            return { ...booking, service: serviceData, bookingDate, bookingTime,};
           } else {
             return { ...booking, service: null };
           }

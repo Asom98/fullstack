@@ -71,7 +71,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/bookings/getAvailableTimeSlots/644c378a049948fffb0a19d7/2023-05-23T09:00:00.000Z
 Content-Type: application/json
-authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgzNTUwMjI5fQ.Y8CIZ_xJmEqqcX2DaKNFvN8EOGUVqSFd2TrbBr0uipU" 
+authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ4MDg2YjU4NGNmZTQzZTdkOTk5NzIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY4MzY0NTQ1Nn0._NrDRAqxbtTIHoih15tY5Pw79Ypqwbc7Arg5ZVE1gDc"
 
 ### 
 POST http://localhost:5000/bookings/postService
@@ -163,3 +163,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/services/getServiceById/644c378a049948fffb0a19d7
 Content-Type: application/json
+
+###
+GET http://localhost:3000/checkAuth
+Authorization: "Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ4MDg2YjU4NGNmZTQzZTdkOTk5NzIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY4MzY0NTQ1Nn0._NrDRAqxbtTIHoih15tY5Pw79Ypqwbc7Arg5ZVE1gDc"
