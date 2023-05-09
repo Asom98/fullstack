@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { useParams } from "react-router";
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Col,
-  Card,
-  Accordion,
-} from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
 
@@ -27,20 +20,22 @@ export function Booking() {
     currentDate.getDay()
   );
 
-  const { _id } = useParams();
-  console.log(_id);
+  const {_id} = useParams();
+  const navigate = useNavigate();
+
   const [timeSlots, setTimeSlots] = useState([]);
   const [service, setService] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
 
   async function postData(start, end) {
+    const token = localStorage.getItem("token")
+
     const Data = {
       service_id: service._id,
       employee_id: "644a83d1f0a732d4a429ab87",
       startTime: start,
       endTime: end,
-      user_id: "6448086b584cfe43e7d99972",
       status: true,
     };
 
@@ -48,6 +43,7 @@ export function Booking() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
       },
       body: JSON.stringify(Data),
     }).then(async (result) => {
@@ -97,7 +93,6 @@ export function Booking() {
           setService(null);
           return;
         }
-        
         if (response.status === 200) {
           console.log("hell oworld");
           const result = await response.json();
@@ -114,10 +109,11 @@ export function Booking() {
 
     async function fetchEmployees() {
       const employee_ids = service.employee_ids;
+      if (employee_ids == null) {
+        return 
+      }
       await fetch(
-        `http://localhost:3000/employees/getEmployees/${employee_ids.join(
-          ","
-        )}`,
+        `http://localhost:3000/employees/getEmployees/${employee_ids.join(",")}`,
         {
           method: "GET",
         }
