@@ -130,10 +130,10 @@ router.get("/getAvailableTimeSlots/:service_id/:date", authentication.authentica
 
     const preparationTime = 15;
     const totalTimeInMinutes = totalTime / 60000;
-    const totalSlots = Math.ceil(
+    const totalSlots = Math.round(
       totalTimeInMinutes / (service.duration + preparationTime)
       );
-
+    console.log(totalSlots);
     const timeSlots = [];
     for (let i = 0; i < totalSlots; i++) {
       const start = new Date(

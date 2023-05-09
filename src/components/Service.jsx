@@ -29,7 +29,6 @@ export const ServicePage = () => {
   const handleBookClick = (service) => {
     const user = JSON.parse(localStorage.getItem('user'));
     navigate(`/booking/${service._id}`);
-    console.log(service)
   }
 
   return (
