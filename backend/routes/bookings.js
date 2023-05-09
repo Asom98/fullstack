@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose")
+const nodemailer = require("nodemailer");
+const emailValidator = require('deep-email-validator');
 
 const serviceModel = require("../models/service")
 const bookingModel = require("../models/booking");
+const employeeModel = require("../models/employee")
+const userModel = require("../models/user");
+
 
 const authentication = require("../middleware/auth")
 
@@ -101,8 +106,17 @@ router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
           status: true,
           count: bookingCount,
         });
-        await newBooking.save();
-        res.sendStatus(200)
+        const booked = await newBooking.save();
+        const currBooking = await bookingModel.findById(booked._id)
+        const currUser = await userModel.findById(currBooking.user_id)
+        const valid = await isEmailValid(currUser.email)
+        if(booked && valid){
+          confirmBooking(booked._id)
+          res.sendStatus(200)
+        }else{
+          await booked.findByIdAndDelete(booked._id)
+          res.sendStatus(400)
+        }
       } else {
         res.sendStatus(400)
       }
@@ -201,5 +215,43 @@ router.get("/getAmount", async (req, res) => {
   // increment booking count by 1
   res.json(bookingCount)
 })
+
+async function confirmBooking(bookingId) {
+  let config = {
+      service: "gmail",
+      auth: {
+          user: process.env.EMAIL,
+          pass: process.env.EPASS
+      }
+  }
+  let transporter = nodemailer.createTransport(config)
+  const currBooking = await bookingModel.findById(bookingId)
+  const currUser = await userModel.findById(currBooking.user_id)
+  const currService = await serviceModel.findById(currBooking.service_id)
+  const currEmployee = await employeeModel.findById(currBooking.employee_id)
+  
+
+  let message = {
+      from: process.env.EMAIL,
+      to: `${currUser.email}`,
+      subject: "Booking confirmation!",
+      text: `Hello ${currUser.username} here comes your booking confirmation.
+  
+  Date: ${currBooking.startTime}.
+  Service: ${currService.name}.
+  Service provider: ${currEmployee.name}.
+
+  Thank you for choosing us, see you at the appointment.
+  Have a good day.
+
+  `
+  }
+
+  transporter.sendMail(message)
+}
+
+async function isEmailValid(email) {
+  return emailValidator.validate(email)
+}
 
 module.exports = router
