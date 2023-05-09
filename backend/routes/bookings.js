@@ -16,7 +16,7 @@ router.get("/getBookings", async (req,res) =>{
     }
 })
 
-router.get("/getBookings/:service_id", async (req,res) =>{
+router.get("/getBookings/:service_id", authentication.authenticateUser, async (req,res) =>{
   const service_id = new mongoose.Types.ObjectId(req.params.service_id);  // convert to ObjectId
   try {
       const bookings = await bookingModel.find({service_id: service_id});

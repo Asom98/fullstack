@@ -10,8 +10,10 @@ import {
 } from "react-bootstrap";
 import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
+import { useNavigate } from "react-router";
 
 export function ViewBookingsAccordion() {
+  const navigate = useNavigate();
   const [bookingList, setBookingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
@@ -19,8 +21,19 @@ export function ViewBookingsAccordion() {
 
   useEffect(() => {
     (async () => {
+      const token = localStorage.getItem("token");
+
+      if (token == null) {
+        navigate("/")
+      }
+
       const bookings = await (
-        await fetch(`http://localhost:3000/bookings/getBookings`)
+        await fetch(`http://localhost:3000/bookings/getBookings`, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
       ).json();
 
       const tempServiceList = await Promise.all(
