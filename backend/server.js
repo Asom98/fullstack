@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const passport = require("passport"); //auth library used for facebook login
 require("dotenv").config();
 
 const userRoutes = require("./routes/users");
@@ -12,10 +11,6 @@ const employeeRoutes = require("./routes/employees");
 const serviceRoutes = require("./routes/services");
 
 app.use(express.json(), cors({ origin: "http://localhost:5173" }));
-
-// Passport middleware for facebook login
-app.use(passport.initialize()); // initialize passport
-app.use(passport.session()); // persistent login sessions
 
 mongoose
   .connect(process.env.CONNECTION_URL)
