@@ -1,0 +1,18 @@
+#contact-us {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.map-box_img{
+    width: 550px;
+    height: 400px;
+}
+
+.address-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
