@@ -47,6 +47,8 @@ const ProtectedRoute = () => {
 
   if (pathname === '/admin' && role !== 'admin') {
     return <Navigate to="/" replace />;
+  } else if (pathname === '/user' && role !== 'user') {
+    return <Navigate to="/" replace/>
   }
 
   return <Outlet />;
