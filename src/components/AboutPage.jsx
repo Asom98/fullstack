@@ -37,7 +37,26 @@ export function AboutPage() {
           </Col>
           <Col xs={12} md={9} className="mb-5 mt-5">
             <h3>Arrunee</h3>
-            <p>Did this</p>
+            <p>
+              - Created, styled and made Navigation bar responsive: <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Rerouted to different pages <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Added different buttons depending on the
+              state of the user like login, logout, register buttons
+              <br />- Created, styled and made Login responsive: <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Fetched user from backend <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Rerouted to user page <br />- Created,
+              styled and made Home page responsive.
+              <br />- Created, styled and made User page responsive: <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Fetched user information and bookings
+              from backend and displayed it <br />
+              - Created, styled and made Service page responsive: <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Fetched services from backend <br />-
+              Created, styled and made Contact us page responsive: <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Displayed the map using Google Maps API
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Made contact information clickable
+              links.
+            </p>
           </Col>
         </Row>
         <h2 className="team-title">BackEnd Team:</h2>

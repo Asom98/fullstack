@@ -72,7 +72,7 @@ function NavigationBar() {
             About
           </Nav.Link>
           <Nav.Link as={Link} to="/contactus">
-            Contact
+            Contact us
           </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">

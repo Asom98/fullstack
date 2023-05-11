@@ -11,9 +11,12 @@
     "install-All": "concurrently \"npm i\" \"cd backend && npm i\""
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.18.1",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "concurrently": "^8.0.1",
+    "deep-email-validator": "^0.1.21",
+    "nodemailer": "^6.9.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-calendar": "^4.2.1",
