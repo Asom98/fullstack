@@ -8,7 +8,7 @@ const userModel = require("../models/user");
 
 async function confirmBooking(bookingId) {
     let config = {
-        service: "gmail",
+        service: "stmp.gmail.com",
         auth: {
             user: process.env.EMAIL,
             pass: process.env.EPASS
