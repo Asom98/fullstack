@@ -70,11 +70,23 @@ export function AboutPage() {
         </Row>
         <Row className="developer-row rounded-5">
           <Col xs={12} md={3}>
-            <Container className="developer-pic rounded-5 mt-4 mb-4"></Container>
+            <Container className="developer-pic-Simon rounded-5 mt-4 mb-4"></Container>
           </Col>
           <Col xs={12} md={9} className="mb-5 mt-5">
             <h3>Simon</h3>
-            <p>Did this</p>
+            <p>
+              - Planning initial backend and database structure
+              <br />- Initial basic registration implementation. No involvement
+              in auth middleware, finished implementation made by David.
+              <br />- Services <br />- Database management:
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Adding multiple developers for Atlas
+              access <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Assisting frontend team with database
+              issues <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;* Service table data management <br />-
+              Assisting with render deployment <br />- Facebook login feature
+            </p>
           </Col>
         </Row>
         <Row className="developer-row rounded-5">

@@ -21,6 +21,12 @@
   background-size: cover;
 }
 
+.developer-pic-Simon {
+  background-image: url("../backgrounds/Simon.png") !important;
+  height: 200px;
+  background-size: cover;
+}
+
 .about-container{
   background-image: url("../backgrounds/About_Page_Background.png") !important;
   padding-top: 50px !important;
