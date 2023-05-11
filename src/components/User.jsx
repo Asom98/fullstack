@@ -11,8 +11,6 @@ function User() {
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const navigate = useNavigate();
 
   const [editEmailMode, setEditEmailMode] = useState(false);

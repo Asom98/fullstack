@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import "./css/LoginForm.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ErrorPopup } from "./parts/ErrorPopup";
 
 export const Login = (props) => {
+  const { showPopup } = useParams();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  const [showModal, setShowModal] = useState(showPopup === "true")
+
   const navigate = useNavigate();
-  
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -54,6 +59,7 @@ export const Login = (props) => {
 
   return (
     <div className="login-form-container">
+      {showModal ? <ErrorPopup onClose={() => setShowModal(false)}/> : null}
         <form onSubmit={handleLoginSubmit}>
             <label htmlFor="username">Username</label>
             <input

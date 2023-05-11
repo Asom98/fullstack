@@ -29,7 +29,7 @@ function App() {
           <Route path="/" element={<Welcom />} />
           <Route path="/services" element={<ServicePage />} />
           <Route path="/registration" element={<Registration isAdmin={false} />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login/:showPopup" element={<Login />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contactus" element={<ContactUs />} />
       </Routes>

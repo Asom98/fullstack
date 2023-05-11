@@ -86,10 +86,14 @@ export function Booking() {
           setTimeSlots(result.timeSlots);
           setService(result.service);
           return
+        } else if(response.status === 400) {
+          setTimeSlots([]);
+          setService([]);
+          return;
         } else {
           console.log("you do not have access to that resource");
           navigate(`/`);
-          return;
+          return
         }
       } catch (error) {
         console.error(error);

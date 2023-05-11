@@ -24,7 +24,7 @@ function NavigationBar() {
     setShowLoginForm(false);
   };
 
-  const handleUserIconClick = () => {
+  const handleUserIconClick = () => { ////////////////////////////////////////////////
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.role === "admin") {
       navigate("/admin");
