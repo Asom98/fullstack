@@ -15,6 +15,12 @@ const userSchema = mongoose.Schema({
     },
     role: {
         type: String,
+    },
+    couponAmount :{
+        type: Number
+    },
+    amountSpent: {
+        type: Number
     }
 })
 
