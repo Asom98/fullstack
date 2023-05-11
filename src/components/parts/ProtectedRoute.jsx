@@ -10,8 +10,6 @@ const ProtectedRoute = () => {
   const location = useLocation();
   const { pathname } = location;
 
-  console.log(pathname);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -49,6 +47,8 @@ const ProtectedRoute = () => {
 
   if (pathname === '/admin' && role !== 'admin') {
     return <Navigate to="/" replace />;
+  } else if (pathname === '/user' && role !== 'user') {
+    return <Navigate to="/" replace/>
   }
 
   return <Outlet />;
