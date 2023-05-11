@@ -1,6 +1,6 @@
  /* This still needs some re-structuring, specifically the parts that initializes the SDK. SDK likely needs init on page load to make sure it's always active */ 
  
- // This is called with the results from from FB.getLoginStatus()
+// This is called with the results from from FB.getLoginStatus()
 function statusChangeCallback(response) {
   console.log('statusChangeCallback');
   console.log(response);
@@ -17,6 +17,20 @@ function statusChangeCallback(response) {
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
+  });
+}
+
+// Test the Graph API after login is successful
+// Make calls to Graph API to get user, /me refers to the current user. The callback function recieves user data as an object
+function testAPI() {
+  console.log('Fetching your information...');
+  FB.api('/me', function(response) {
+    console.log('Successful login for: ' + response.name);
+    // Send the user data to be stored in the database
+    // Backend then sends back a JWT token to be stored in local storage
+    // Token can then be used to authenticate the user 
+
+    // This is where we would redirect the user to the logged in version of the site
   });
 }
 
@@ -49,14 +63,3 @@ window.fbAsyncInit = function() {
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-// Test the Graph API after login is successful
-// This is where we can make calls to the API to get user data and such. Which can then be used to create a user in our database
-function testAPI() {
-  console.log('Fetching your information...');
-  FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
-  });
-}
