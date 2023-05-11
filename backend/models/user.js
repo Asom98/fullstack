@@ -21,6 +21,9 @@ const userSchema = mongoose.Schema({
     },
     amountSpent: {
         type: Number
+    },
+    bookingAmount: {
+        type: Number
     }
 })
 
