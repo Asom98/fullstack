@@ -23,17 +23,23 @@ const ContactUs = () => {
 
   return (
     <section id="contact-us">
-      <h2>Contact information</h2>
-      <div className="contact-info">
-        <p>Email: <a href={`mailto:${email}`}>{email}</a></p>
-        <p>Phone: <a href={`tel:${phone}`}>{phone}</a></p>
-        <address onClick={handleAddressClick} className="address-link">Address: {address}</address>
+      <div className='contact-info'>
+        <h2 className='main-text'>Contact information</h2>
+        <div className="contact-detail">
+          <p className='email'>Email:</p>
+          <a className='email-link' href={`mailto:${email}`}>{email}</a>
+          <p className='phone'>Phone:</p>
+          <a className='phone-link' href={`tel:${phone}`}>{phone}</a>
+          <p className='phone'>Adress:</p>
+          <address onClick={handleAddressClick} className="address-link">{address}</address>
+        </div>
+        <div className="map-container">
+          <GoogleMap zoom={15} center={{ lat, lng }} mapContainerClassName="map-box_img">
+            <MarkerF position={{ lat, lng }} />
+          </GoogleMap> 
+        </div>
       </div>
-      <div className="map-container">
-        <GoogleMap zoom={15} center={{ lat, lng }} mapContainerClassName="map-box_img">
-          <MarkerF position={{ lat, lng }} />
-        </GoogleMap> 
-      </div>
+      
     </section>
   );
 }

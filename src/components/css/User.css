@@ -14,11 +14,12 @@
 .container-fluid .card {
     width: 95%;
     padding: 20px;
-    background-color: rgba(201, 203, 201, 0.8);
+    background-color: rgba(201, 203, 201, 0.9);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
 }
   
 .user-details {
