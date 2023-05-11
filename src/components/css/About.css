@@ -15,6 +15,12 @@
   background-size: cover;
 }
 
+.developer-pic-Kassim {
+  background-image: url("../backgrounds/Kassim.jpg") !important;
+  height: 200px;
+  background-size: cover;
+}
+
 .about-container{
   background-image: url("../backgrounds/About_Page_Background.png") !important;
   padding-top: 50px !important;

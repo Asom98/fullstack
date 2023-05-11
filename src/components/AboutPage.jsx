@@ -14,20 +14,21 @@ export function AboutPage() {
           <Col xs={12} md={9} className="mb-5 mt-5">
             <h3>Farah Mallah</h3>
             <p>
-              - Creted and styled Admin page <br /> &nbsp;&nbsp;&nbsp;&nbsp;*
-              Made Admin control the users on the frontend
+              - Creted, styled and made Admin page responsive <br />{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;* Made Admin control the users on the
+              frontend:
               <br />
               &nbsp;&nbsp;&nbsp;&nbsp;* Made Admin control the other admins on
-              the frontend
+              the frontend.
               <br />
               &nbsp;&nbsp;&nbsp;&nbsp;* Made Admin control the bookings on the
-              frontend
-              <br />- Creted and styled Registration page
+              frontend.
+              <br />- Creted, styled and made Registration page responsive:
               <br />
               &nbsp;&nbsp;&nbsp;&nbsp;* Creted checking for the registration
-              fileds
-              <br />- Creted and styled Booking page
-              <br />- Creted and styled About page
+              fileds.
+              <br />- Creted, styled and made Booking page responsive.
+              <br />- Creted, styled and made About page responsive.
             </p>
           </Col>
         </Row>
@@ -42,9 +43,7 @@ export function AboutPage() {
               &nbsp;&nbsp;&nbsp;&nbsp;* Rerouted to different pages <br />
               &nbsp;&nbsp;&nbsp;&nbsp;* Added different buttons depending on the
               state of the user like login, logout, register buttons
-              <br />- Created, styled and made Login responsive: <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;* Fetched user from backend <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;* Rerouted to user page <br />- Created,
+              <br />- Created, styled and made Login modal. <br />- Created,
               styled and made Home page responsive.
               <br />- Created, styled and made User page responsive: <br />
               &nbsp;&nbsp;&nbsp;&nbsp;* Fetched user information and bookings
@@ -53,8 +52,6 @@ export function AboutPage() {
               &nbsp;&nbsp;&nbsp;&nbsp;* Fetched services from backend <br />-
               Created, styled and made Contact us page responsive: <br />
               &nbsp;&nbsp;&nbsp;&nbsp;* Displayed the map using Google Maps API
-              <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;* Made contact information clickable
               links.
             </p>
           </Col>
@@ -82,11 +79,16 @@ export function AboutPage() {
         </Row>
         <Row className="developer-row rounded-5">
           <Col xs={12} md={3}>
-            <Container className="developer-pic rounded-5 mt-4 mb-4"></Container>
+            <Container className="developer-pic-Kassim rounded-5 mt-4 mb-4"></Container>
           </Col>
           <Col xs={12} md={9} className="mb-5 mt-5">
-            <h3>Kassim</h3>
-            <p>Did this</p>
+            <h3>Kassem Alsheikh</h3>
+            <p>
+              - Creating a functional model for the website <br />
+              - Making the admin functional in the backend <br />
+              - Created a mailer to send confirmations to the users <br />-
+              Making APIs for: admin, statistics, etc
+            </p>
           </Col>
         </Row>
       </Container>
