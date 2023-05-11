@@ -7,11 +7,13 @@ export function AboutPage() {
     <Container className="about-container">
       <Container className="about-in-container rounded-circle">
         <h2 className="team-title">FrontEnd Team:</h2>
-        <Row className="developer-row rounded-circle">
-          <Col xs={12}>
+        <Row className="developer-row rounded-6">
+          <Col xs={12} md={4}>
             <Container className="developer-pic-Farah rounded-circle"></Container>
+            <h2 className="developer-name">Farah Mallah</h2>
+          </Col>
+          <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
-              <h2>Farah Mallah</h2>
               <p>
                 Creted, styled and made Admin page responsive
                 <br /> <span style={{ color: "green" }}>*</span> Made Admin
@@ -35,11 +37,13 @@ export function AboutPage() {
             </Container>
           </Col>
         </Row>
-        <Row className="developer-row rounded-circle">
-          <Col xs={12}>
+        <Row className="developer-row rounded-6">
+          <Col xs={12} md={4}>
             <Container className="developer-pic rounded-circle mt-4 mb-4"></Container>
+            <h2 className="developer-name">Arrunee</h2>
+          </Col>
+          <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
-              <h2>Arrunee</h2>
               <p>
                 Made Navigation bar
                 <br />
@@ -64,11 +68,13 @@ export function AboutPage() {
           </Col>
         </Row>
         <h2 className="team-title">BackEnd Team:</h2>
-        <Row className="developer-row rounded-circle">
-          <Col xs={12}>
+        <Row className="developer-row rounded-6">
+          <Col xs={12} md={4}>
             <Container className="developer-pic-david rounded-circle mt-4 mb-4"></Container>
+            <h2 className="developer-name">David Kalla</h2>
+          </Col>
+          <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
-              <h2>David Kalla</h2>
               <p>
                 Booking system
                 <br />
@@ -79,11 +85,13 @@ export function AboutPage() {
             </Container>
           </Col>
         </Row>
-        <Row className="developer-row rounded-circle">
-          <Col xs={12}>
+        <Row className="developer-row rounded-6">
+          <Col xs={12} md={4}>
             <Container className="developer-pic-Simon rounded-circle mt-4 mb-4"></Container>
+            <h2 className="developer-name">Simon Eriksson</h2>
+          </Col>
+          <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
-              <h2>Simon Eriksson</h2>
               <p>
                 Planning initial backend and database structure
                 <br />
@@ -105,11 +113,13 @@ export function AboutPage() {
             </Container>
           </Col>
         </Row>
-        <Row className="developer-row rounded-circle">
-          <Col xs={12}>
+        <Row className="developer-row rounded-6">
+          <Col xs={12} md={4}>
             <Container className="developer-pic-Kassim rounded-circle mt-4 mb-4"></Container>
+            <h2 className="developer-name">Kassem Alsheikh</h2>
+          </Col>
+          <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
-              <h2>Kassem Alsheikh</h2>
               <p>
                 Creating a functional model for the website <br />
                 Making the admin functional in the backend <br />
