@@ -197,6 +197,24 @@ Request Body
 
 Responses
 
+### /statistic/getBookingsCount
+
+METHOD GET
+Get bookings count
+
+Request Body
+
+Responses
+
+### /statistic/getUsersCount
+
+METHOD GET
+Get users count
+
+Request Body
+
+Responses
+
 ## Parameters
 
 ## Responses

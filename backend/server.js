@@ -10,6 +10,7 @@ const adminRoutes = require("./routes/admin");
 const employeeRoutes = require("./routes/employees");
 const serviceRoutes = require("./routes/services");
 const authentication = require("./middleware/auth")
+const statisticRoutes = require("./routes/statistic")
 
 app.use(express.json(), cors({ origin: "http://localhost:5173" }));
 
@@ -27,6 +28,7 @@ app.use("/bookings", bookingRoutes);
 app.use("/employees", employeeRoutes);
 app.use("/admin", adminRoutes);
 app.use("/services", serviceRoutes);
+app.use("/statistic", statisticRoutes);
 
 app.get("/", (req, res) => {
   res.json("WELCOME TO THE SALOON");

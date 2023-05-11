@@ -167,3 +167,12 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/checkAuth
 Authorization: "Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ4MDg2YjU4NGNmZTQzZTdkOTk5NzIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY4MzY0NTQ1Nn0._NrDRAqxbtTIHoih15tY5Pw79Ypqwbc7Arg5ZVE1gDc"
+
+###
+GET http://localhost:3000/statistic/getUsersCount
+Content-Type: application/json
+
+###
+GET http://localhost:3000/statistic/getBookingsCount
+Content-Type: application/json
+
