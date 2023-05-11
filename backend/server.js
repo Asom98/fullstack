@@ -33,6 +33,5 @@ app.get("/", (req, res) => {
 });
 
 app.get("/checkAuth", authentication.authenticateUser,(req, res) => {
-  console.log("auth");
-  res.sendStatus(200)
+  res.json(req.user)
 })
