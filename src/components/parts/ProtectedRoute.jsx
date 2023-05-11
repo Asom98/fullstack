@@ -10,8 +10,6 @@ const ProtectedRoute = () => {
   const location = useLocation();
   const { pathname } = location;
 
-  console.log(pathname);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
 
