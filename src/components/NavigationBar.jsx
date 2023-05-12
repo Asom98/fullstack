@@ -79,7 +79,7 @@ function NavigationBar() {
     collapseOnSelect={true}
     >
       {showModal ? <ConfirmationModal sentance={"Your session has expired"} onClose={() => setShowModal(false)}/> : null}
-      <Navbar.Brand>Company name</Navbar.Brand>
+      <Navbar.Brand>HKR Beauty Salon</Navbar.Brand>
       <Navbar.Toggle aria-controls="my-navbar" />
       <Navbar.Collapse id="my-navbar">
         <Nav className="mr-auto menu">
