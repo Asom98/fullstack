@@ -28,10 +28,15 @@ export function Booking() {
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
 
   async function postData(start, end) {
     console.log(selectedEmployeeId);
+
+    if (selectedEmployeeId == null) {
+      setSelectedEmployeeId(employees[0]._id)
+    }
+    
     const Data = {
       service_id: service._id,
       employee_id: selectedEmployeeId,

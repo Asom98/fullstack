@@ -69,29 +69,21 @@ router.post("/registerAdmin", authMiddleware.authenticateUser, async (req, res) 
 })
 
 router.post("/login", async (req, res) => {
-  const user = await userModel.findOne({ username: req.body.username });
-  const admin = await adminModel.findOne({ username: req.body.username });
-  if(admin != null){
-    const isMatch = await bcrypt.compare(req.body.password, admin.password)
+  let user = await userModel.findOne({ username: req.body.username });
+  
+  if (!user) {
+    user = await adminModel.findOne({ username: req.body.username });
+  }
+
+  if(user){
+    const isMatch = await bcrypt.compare(req.body.password, user.password)
     if(isMatch){
       const accessToken = jwt.sign(
-        { _id: admin._id, 
-          role: admin.role }, 
+        { _id: user._id, 
+          role: user.role }, 
         process.env.ACCESS_TOKEN)
       res.cookie("accessToken", accessToken, { maxAge: 86400000 })
-      res.json({accessToken: accessToken, user: admin})
-    }
-  } else if (user != null) {
-    const isMatch = await bcrypt.compare(req.body.password, user.password);
-    if (isMatch) {
-      // change to create token in controllers dir
-      const accessToken = jwt.sign(
-        { _id: user._id, 
-          role: user.role },
-        process.env.ACCESS_TOKEN
-      ); // add { expiresIn: '10s' } to add expiration to the token
-      res.cookie("accessToken", accessToken)
-      res.json({accessToken: accessToken , user: user});
+      res.json({accessToken: accessToken, user: user})
     }
   } else {
     res.sendStatus(404);
