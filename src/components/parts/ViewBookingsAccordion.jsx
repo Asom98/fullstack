@@ -18,6 +18,7 @@ export function ViewBookingsAccordion() {
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
   const [serviceNames, setServiceNames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     (async () => {
@@ -43,6 +44,7 @@ export function ViewBookingsAccordion() {
 
       setBookingList(bookings);
       setServiceNames(tempServiceList);
+      setIsLoading(false)
     })();
   }, []);
 
@@ -88,45 +90,53 @@ export function ViewBookingsAccordion() {
   }*/
 
   return (
-    <Accordion.Item eventKey="2">
-      <Accordion.Header>Handle bookings</Accordion.Header>
-      <Accordion.Body>
-        <Container
-          className="bookings"
-          style={{ maxHeight: "400px", overflowY: "auto" }}
-        >
-          {bookingList.map((booking, index) => (
-            <Row className="booking-row mb-4" key={index}>
-              <Col>{serviceNames[index]}</Col>
-              <Col>
-                {new Date(booking.startTime).toLocaleString("en-UK", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  timeZone: "UTC",
-                })}
-              </Col>
-              <Col>
-                <Button
-                  className="colored-btn"
-                  onClick={() => handleDelete(booking._id)}
-                >
-                  Cancel booking
-                </Button>
-              </Col>
-            </Row>
-          ))}
-        </Container>
-      </Accordion.Body>
-      {showModal && (
-        <ConfirmationModal
+<Accordion.Item eventKey="2">
+  <Accordion.Header>Handle bookings</Accordion.Header>
+  <div>
+    <Accordion.Body>
+    {isLoading ? (
+      <div className="spinner-border"></div>
+    ) : (
+      <>
+          <Container
+            className="bookings"
+            style={{ maxHeight: "400px", overflowY: "auto" }}
+          >
+            {bookingList.map((booking, index) => (
+              <Row className="booking-row mb-4" key={index}>
+                <Col>{serviceNames[index]}</Col>
+                <Col>
+                  {new Date(booking.startTime).toLocaleString("en-UK", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    timeZone: "UTC",
+                  })}
+                </Col>
+                <Col>
+                  <Button
+                    className="colored-btn"
+                    onClick={() => handleDelete(booking._id)}
+                  >
+                    Cancel booking
+                  </Button>
+                </Col>
+              </Row>
+            ))}
+          </Container>
+        {showModal && (
+          <ConfirmationModal
           sentance={registrationSentence}
           onClose={() => setShowModal(false)}
-        />
-      )}
-    </Accordion.Item>
+          />
+          )}
+      </>
+    )}
+    </Accordion.Body>
+  </div>
+</Accordion.Item>
   );
 }
