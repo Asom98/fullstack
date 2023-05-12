@@ -4,7 +4,6 @@ const mongoose = require("mongoose")
 const {confirmBooking, isEmailValid} = require("./mail.js")
 const serviceModel = require("../models/service")
 const bookingModel = require("../models/booking");
-const employeeModel = require("../models/employee")
 const userModel = require("../models/user");
 
 

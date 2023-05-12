@@ -17,9 +17,8 @@ Content-Type: application/json
     "role": "asd"
 }
 ### 
-GET http://localhost:5000/users/getUserData
+GET http://localhost:3000/users/getUserData
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkppbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjgzMDM5MjY4fQ.ROYxIv0N92T4L2AuCAI1TXviBNGEJZX6LkSRxiBQfrE
 
 ### REGISTER ADMIN
 POST http://localhost:5000/users/registerAdmin

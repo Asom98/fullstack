@@ -21,18 +21,12 @@ export function ViewBookingsAccordion() {
 
   useEffect(() => {
     (async () => {
-      const token = localStorage.getItem("token");
-
-      if (token == null) {
-        navigate("/")
-      }
-
       const bookings = await (
         await fetch(`http://localhost:3000/bookings/getBookings`, {
           method: "GET",
           headers: {
-            authorization: `Bearer ${token}`
-          }
+          },
+          credentials: "include"
         })
       ).json();
 
@@ -54,7 +48,6 @@ export function ViewBookingsAccordion() {
 
   const handleDelete = (_id) => {
     (async () => {
-      const token = localStorage.getItem("token")
       const packet = { _id };
       let response = await fetch(
         `http://localhost:3000/bookings/deleteBooking`,
@@ -62,9 +55,9 @@ export function ViewBookingsAccordion() {
           method: "DELETE",
           body: JSON.stringify(packet),
           headers: {
-            authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          credentials: "include"
         }
       );
       if (response.status === 200) {

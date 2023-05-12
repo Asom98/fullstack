@@ -28,7 +28,10 @@ export const Login = (props) => {
     try {
       const response = await fetch("http://localhost:3000/users/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json" 
+        },
+        credentials: "include",
         body: JSON.stringify({ username, password }),
       });
 
@@ -45,9 +48,6 @@ export const Login = (props) => {
         
         props.onLoginSuccess();
 
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", JSON.stringify(data.accessToken))
-        
       } else {
         setLoginStatus(false);
       }

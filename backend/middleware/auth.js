@@ -12,12 +12,9 @@ function checkRole(role) {
 }
 
 function authenticateUser(req, res, next) {
-    const rawToken = req.headers.authorization
-    if (rawToken == null) {
-      return res.sendStatus(400)
-    }
-    const onlyToken = rawToken.split(' ')[1]
-    const token = onlyToken.substring(1, onlyToken.length - 1);
+    const { cookies } = req
+    const token = cookies.accessToken
+
     if(token == null) return res.sendStatus(403)
     jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
       if(err) return res.sendStatus(403)

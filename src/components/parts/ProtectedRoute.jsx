@@ -11,17 +11,10 @@ const ProtectedRoute = () => {
   const { pathname } = location;
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setIsLoading(false);
-      return;
-    }
-
     fetch("http://localhost:3000/checkAuth", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+      },
+      credentials: "include"
     })
       .then(response => {
         if (response.ok) {
@@ -38,7 +31,7 @@ const ProtectedRoute = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div  className="d-flex justify-content-center align-items-center spinner-border"></div>
   }
 
   if (!isLoggedIn) {
@@ -46,9 +39,9 @@ const ProtectedRoute = () => {
   }
 
   if (pathname === '/admin' && role !== 'admin') {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/user" replace />;
   } else if (pathname === '/user' && role !== 'user') {
-    return <Navigate to="/" replace/>
+    return <Navigate to="/admin" replace/>
   }
 
   return <Outlet />;

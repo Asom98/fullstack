@@ -26,15 +26,7 @@ export const ServicePage = () => {
   }, []);
 
   const handleBookClick = (service) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
-    if (user) {
-      navigate(`/booking/${service._id}`, { state: { service }, search: `?user_id=${user._id}`});
-    } else {
-      setbookingSentence("In order to book our services, we kindly request that you log in to your account. If you do not yet have an account, we invite you to register or alternatively, please do not hesitate to contact us directly via phone or email.");
-      setShowModal(true);
-      console.log("Arro")
-    }
+    navigate(`/booking/${service._id}`);
     console.log(service);
   };
 

@@ -9,10 +9,17 @@ const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
 
 router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
-    await userModel.findById(req.user._id)
-    .then((response) => {
-      res.json(response);
-    });
+  console.log(req.user._id);
+    const user = await userModel.findOne({_id: req.user._id})
+    const admin = await adminModel.findOne({_id: req.user._id})
+
+    if (user) {
+      res.json(user)
+    } else if (admin){
+      res.json(admin)
+    } else {
+      res.sendStatus(404)
+    }
 });
 
 router.post("/register", async (req, res) => {
@@ -36,7 +43,7 @@ router.post("/register", async (req, res) => {
     }
 })
 
-router.post("/registerAdmin", async (req, res) => {
+router.post("/registerAdmin", authMiddleware.authenticateUser, async (req, res) => {
   try {
     const adminExists = await adminModel.findOne({ username: req.body.username });
     if (adminExists) return res.status(400).send("Admin already exists");
@@ -64,7 +71,6 @@ router.post("/registerAdmin", async (req, res) => {
 router.post("/login", async (req, res) => {
   const user = await userModel.findOne({ username: req.body.username });
   const admin = await adminModel.findOne({ username: req.body.username });
-  console.log(admin);
   if(admin != null){
     const isMatch = await bcrypt.compare(req.body.password, admin.password)
     if(isMatch){
@@ -72,6 +78,7 @@ router.post("/login", async (req, res) => {
         { _id: admin._id, 
           role: admin.role }, 
         process.env.ACCESS_TOKEN)
+      res.cookie("accessToken", accessToken, { maxAge: 86400000 })
       res.json({accessToken: accessToken, user: admin})
     }
   } else if (user != null) {
@@ -83,6 +90,7 @@ router.post("/login", async (req, res) => {
           role: user.role },
         process.env.ACCESS_TOKEN
       ); // add { expiresIn: '10s' } to add expiration to the token
+      res.cookie("accessToken", accessToken)
       res.json({accessToken: accessToken , user: user});
     }
   } else {

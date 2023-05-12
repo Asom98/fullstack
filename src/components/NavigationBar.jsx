@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
+import { ConfirmationModal } from "./parts/ConfirmationModal";
 
 function NavigationBar() {
+
+  const navigate = useNavigate();
+
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [loggedIn, setLoggedIn] = useState(checkToken);
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false)
+  
 
   const handleLoginClick = () => {
     if (!loggedIn) {
@@ -24,40 +29,56 @@ function NavigationBar() {
     setShowLoginForm(false);
   };
 
-  const handleUserIconClick = () => { ////////////////////////////////////////////////
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.role === "admin") {
-      navigate("/admin");
-    } else if (user && user.role === "user") {
-      navigate("/user");
-    }
+  const handleUserIconClick = () => {
+    fetch("http://localhost:3000/users/getUserData", {
+      method: "GET",
+      credentials: "include",
+    })
+    .then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        return response.json()
+      } else {
+        setLoggedIn(false)
+        setShowModal(true)
+      }
+    })
+    .then(result => {
+      const user = result
+      console.log(user);
+      if (user && user.role === "admin") {
+        navigate("/admin");
+      } else if (user && user.role === "user") {
+        navigate("/user");
+      }
+    })
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("token");
     navigate("/");
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setLoggedIn(false);
    };
 
   function checkToken() {
-    const token = localStorage.getItem("token")
-
-    if (token == null) {
-      return false
-    } else {
+    if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
+      // Cookie exists
       return true
+    } else {
+      // Cookie does not exist
+      return false
     }
   }
 
-
   return (
     <Navbar
-      bg="light"
-      expand="md"
-      sticky="top"
-      className="navbar-custom"
-      collapseOnSelect={true}
+    bg="light"
+    expand="md"
+    sticky="top"
+    className="navbar-custom"
+    collapseOnSelect={true}
     >
+      {showModal ? <ConfirmationModal sentance={"Your session has expired"} onClose={() => setShowModal(false)}/> : null}
       <Navbar.Brand>Company name</Navbar.Brand>
       <Navbar.Toggle aria-controls="my-navbar" />
       <Navbar.Collapse id="my-navbar">

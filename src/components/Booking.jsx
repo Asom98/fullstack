@@ -27,13 +27,14 @@ export function Booking() {
   const [service, setService] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
 
   async function postData(start, end) {
-    const token = localStorage.getItem("token")
-
+    console.log(selectedEmployeeId);
     const Data = {
       service_id: service._id,
-      employee_id: "644a83d1f0a732d4a429ab87",
+      employee_id: selectedEmployeeId,
       startTime: start,
       endTime: end,
       status: true,
@@ -43,8 +44,8 @@ export function Booking() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "authorization": `Bearer ${token}`
       },
+      credentials: "include",
       body: JSON.stringify(Data),
     }).then(async (result) => {
       if (result.ok) {
@@ -65,30 +66,27 @@ export function Booking() {
 
   useEffect(() => {
     async function fetchTimeSlots() {
+      setIsLoading(true)
       try {
-        const token = localStorage.getItem("token")
-
-        if (token == null) {
-          navigate("/")
-        }
-
         const response = await fetch(
           `http://localhost:3000/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
           {
             method: "GET",
             headers: {
-              authorization: `Bearer ${token}`,
             },
+            credentials: "include"
           });
 
         if (response.status === 200) {
           const result = await response.json();
           setTimeSlots(result.timeSlots);
           setService(result.service);
+          setIsLoading(false)
           return
         } else if(response.status === 400) {
           setTimeSlots([]);
           setService([]);
+          setIsLoading(false)
           return;
         } else {
           console.log("you do not have access to that resource");
@@ -101,9 +99,12 @@ export function Booking() {
       }
     }
     fetchTimeSlots();
+  }, [selectedDate]);
 
+  useEffect(() => {
     async function fetchEmployees() {
       const employee_ids = service.employee_ids;
+
       if (employee_ids == null) {
         return 
       }
@@ -118,11 +119,11 @@ export function Booking() {
         })
         .then((result) => {
           setEmployees(result);
+          console.log(employees);
         });
     }
     fetchEmployees();
-  }, [selectedDate]);
-
+  },[service])
   const isDateDisabled = (date) => {
     return date < new Date();
   };
@@ -165,8 +166,16 @@ export function Booking() {
       </row>
       <row className="section-row justify-content-center">
         <column>
+                    <label>
+                      Select Employee
+                    </label>
+                    <select className="form-select" onChange={(e) => setSelectedEmployeeId(e.target.value)}>
+                      <option selected>Open this select menu</option>
+                      {employees.length > 0 ? employees.map(employee => {return <option key={employee._id} value={employee._id}>{employee.name}</option>}) : null}
+                    </select>
           <table class="time-table">
             <thead></thead>
+            {isLoading ? <div className="spinner-border"></div>: 
             <tbody class="table-body justify-content-center">
               {timeSlots.length > 0 ? (
                 timeSlots.map((item) =>
@@ -231,6 +240,7 @@ export function Booking() {
                 </tr>
               )}
             </tbody>
+            }
           </table>
         </column>
       </row>

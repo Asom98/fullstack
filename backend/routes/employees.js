@@ -7,9 +7,8 @@ const employeeModel = require("../models/employee");
 router.get("/getEmployees/:ids", async (req, res)=> {
     const ids = req.params.ids.split(',');
     try {
-        const employees = await employeeModel.find({_id: {$in: [ids[0], ids[1]]}})
+       const employees = await employeeModel.find({ _id: { $in: [...ids] } });
         res.json(employees);    
-
     } catch (error) {
       console.log(error);
     }
