@@ -82,7 +82,7 @@ function NavigationBar() {
       <Navbar.Brand>Company name</Navbar.Brand>
       <Navbar.Toggle aria-controls="my-navbar" />
       <Navbar.Collapse id="my-navbar">
-        <Nav className="mr-auto">
+        <Nav className="mr-auto menu">
           <Nav.Link as={Link} to="/">
             Home
           </Nav.Link>
