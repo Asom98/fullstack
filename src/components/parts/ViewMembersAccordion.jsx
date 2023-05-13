@@ -136,73 +136,95 @@ export function ViewMembersAccordion() {
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
           <Row className="member-row mb-4">
-            <Col>Name</Col>
-            <Col>Email</Col>
-            <Col>Phone Number</Col>
-            <Col>Controls</Col>
+            <Col md={2}>Name</Col>
+            <Col md={3}>Email</Col>
+            <Col md={2}>Phone Number</Col>
+            <Col md={1}>Coupon amount</Col>
+            <Col md={1}>Amount spent</Col>
+            <Col md={1}>Booking amount</Col>
+            <Col md={2}>Controls</Col>
           </Row>
           {memberList.map((member, index) => (
-            <Row className="member-row mb-4" key={index}>
-              <Col className="info-section">
-                {member.isEditable ? (
-                  <Form.Control
-                    name="name"
-                    value={member.username}
-                    onChange={(event) => handleChange(event, index)}
-                  />
-                ) : (
-                  member.username
-                )}
-              </Col>
-              <Col className="info-section">
-                {member.isEditable ? (
-                  <Form.Control
-                    name="email"
-                    value={member.email}
-                    onChange={(event) => handleChange(event, index)}
-                  />
-                ) : (
-                  member.email
-                )}
-              </Col>
-              <Col></Col>
-              <Col className="info-section">
-                {member.isEditable ? (
-                  <Form.Control
-                    name="phoneNumber"
-                    value={member.phoneNumber}
-                    onChange={(event) => handleChange(event, index)}
-                  />
-                ) : (
-                  member.phoneNumber
-                )}
-              </Col>
-              <Col className="info-section">
-                <Button
-                  className="colored-btn"
-                  onClick={() => handleDelete(index, member._id)}
-                >
-                  Delete Member
-                </Button>
-              </Col>
-              <Col className="info-section">
-                {member.isEditable ? (
+            <>
+              <Row className="member-row mb-4" key={index}>
+                <Col className="info-section" md={2}>
+                  {member.isEditable ? (
+                    <Form.Control
+                      name="name"
+                      value={member.username}
+                      onChange={(event) => handleChange(event, index)}
+                    />
+                  ) : (
+                    member.username
+                  )}
+                </Col>
+                <Col className="info-section" md={3}>
+                  {member.isEditable ? (
+                    <Form.Control
+                      name="email"
+                      value={member.email}
+                      onChange={(event) => handleChange(event, index)}
+                    />
+                  ) : (
+                    member.email
+                  )}
+                </Col>
+                <Col className="info-section" md={2}>
+                  {member.isEditable ? (
+                    <Form.Control
+                      name="phoneNumber"
+                      value={member.phoneNumber}
+                      onChange={(event) => handleChange(event, index)}
+                    />
+                  ) : (
+                    member.phoneNumber
+                  )}
+                </Col>
+                <Col className="info-section" md={1}>
+                  {member.isEditable ? (
+                    <Form.Control
+                      name="couponAmount"
+                      value={member.couponAmount}
+                      onChange={(event) => handleChange(event, index)}
+                    />
+                  ) : (
+                    member.couponAmount
+                  )}
+                </Col>
+                <Col className="info-section" md={1}>
+                  {member.amountSpent}
+                </Col>
+                <Col className="info-section" md={1}>
+                  {member.bookingAmount}
+                </Col>
+                <Col className="info-section" md={1}>
+                  {member.isEditable ? (
+                    <Button
+                      className="colored-btn"
+                      onClick={() => handleSave(index, member)}
+                    >
+                      Save
+                    </Button>
+                  ) : (
+                    <Button
+                      className="colored-btn"
+                      onClick={() => handleUpdate(index, member._id)}
+                    >
+                      Edit
+                    </Button>
+                  )}
+                </Col>
+                <Col className="info-section" md={1}>
                   <Button
                     className="colored-btn"
-                    onClick={() => handleSave(index, member)}
+                    onClick={() => handleDelete(index, member._id)}
                   >
-                    Save
+                    Delete
                   </Button>
-                ) : (
-                  <Button
-                    className="colored-btn"
-                    onClick={() => handleUpdate(index, member._id)}
-                  >
-                    Edit
-                  </Button>
-                )}
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+              <Row></Row>
+            </>
           ))}
         </Container>
       </Accordion.Body>

@@ -6,6 +6,8 @@ function ChangePassword (props) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [userInfo, setUserInfo] = useState({})
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const [passwordError, setPasswordError] = useState(false);
 
     const fetchUserData = async () => {
         const response = await fetch(`http://localhost:3000/users/getUserData`, {
@@ -27,6 +29,17 @@ function ChangePassword (props) {
     };
   
     const handleSave = async () => {
+
+        if (newPassword !== confirmPassword) {
+            setPasswordsMatch(false);
+            return;
+        }
+
+        if (currentPassword !== userInfo.password) {
+            setPasswordError(true);
+            return;
+        }
+
         const response = await fetch("http://localhost:3000/admin/updateUser", {
             method: "PUT",
             headers: {
@@ -38,7 +51,6 @@ function ChangePassword (props) {
             }),
         });
         props.onClose();
-        console.log(newPassword)
     };
 
     useEffect(() => {
@@ -53,17 +65,22 @@ function ChangePassword (props) {
         <Modal.Body>
           <Form>
             <Form.Group controlId="currentPassword">
-              <Form.Label>Current Password</Form.Label>
-              <Form.Control type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+                <Form.Label>Current Password</Form.Label>
+                <Form.Control type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+                {passwordError && <div className="text-danger">Incorrect current password</div>}
             </Form.Group>
             <Form.Group controlId="newPassword">
               <Form.Label>New Password</Form.Label>
               <Form.Control type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
             </Form.Group>
             <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm New Password</Form.Label>
-              <Form.Control type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-            </Form.Group>
+                <Form.Label>Confirm New Password</Form.Label>
+                <Form.Control type="password" value={confirmPassword} onChange={e => {
+                    setConfirmPassword(e.target.value);
+                    setPasswordsMatch(e.target.value === newPassword);
+                    }} />
+                    {!passwordsMatch && <div className="text-danger">Passwords do not match</div>}
+                </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
