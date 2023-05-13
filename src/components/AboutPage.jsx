@@ -39,8 +39,8 @@ export function AboutPage() {
         </Row>
         <Row className="developer-row rounded-6">
           <Col xs={12} md={4}>
-            <Container className="developer-pic rounded-circle mt-4 mb-4"></Container>
-            <h2 className="developer-name">Arrunee</h2>
+            <Container className="developer-pic-Arunee rounded-circle mt-4 mb-4"></Container>
+            <h2 className="developer-name">Arunee Thongkrathok</h2>
           </Col>
           <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">

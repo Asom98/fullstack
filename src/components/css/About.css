@@ -40,6 +40,13 @@
   background-size: cover;
 }
 
+.developer-pic-Arunee {
+  background-image: url("../backgrounds/Arunee.jpeg") !important;
+  height: 200px !important;
+  width: 200px !important;
+  background-size: cover;
+}
+
 .about-container{
   background-image: url("../backgrounds/About_Page_Background.png") !important;
   padding-top: 50px !important;
@@ -71,4 +78,10 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+@media screen and (max-width: 768px) {
+  .about-container {
+    text-align: center;
+  }
 }
