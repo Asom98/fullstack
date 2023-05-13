@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
 import GoogleLogin from "./GoogleLogin";
-
 
 function NavigationBar() {
 
@@ -13,9 +12,9 @@ function NavigationBar() {
   const navigate = useNavigate();
 
   const handleCredentialResponse = (response) => {
-    console.log("Encoded JWT" + response.credential);
-    setLoggedIn(true);
-  };
+    console.log('Encoded JWT', response.credential);
+    // Do something with the credential, such as send it to your server for verification
+  }
 
   const handleLoginClick = () => {
     if (!loggedIn) {
@@ -71,15 +70,15 @@ function NavigationBar() {
           </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
-          {!loggedIn ? (
-            <div>
-              <GoogleLogin handleCredentialResponse={handleCredentialResponse} />
+            {!loggedIn ? (
+              <div>
               <Button className="loginButton" variant="primary" onClick={handleLoginClick}>
                 Login
               </Button>
               <Button className="registerButton" variant="primary" as={Link} to="/registration">
                 Register
-              </Button>
+                </Button>
+              <GoogleLogin />
             </div>
             ) : (
             <div className="d-flex justify-content-center">
