@@ -28,18 +28,12 @@ export function Booking() {
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
 
   async function postData(start, end) {
-    console.log(selectedEmployeeId);
 
-    if (selectedEmployeeId == null) {
-      setSelectedEmployeeId(employees[0]._id)
-    }
-    
     const Data = {
       service_id: service._id,
-      employee_id: selectedEmployeeId,
+      employee_id: employees[0]._id,
       startTime: start,
       endTime: end,
       status: true,
@@ -171,13 +165,14 @@ export function Booking() {
       </row>
       <row className="section-row justify-content-center">
         <column>
-                    <label>
+        <div>{employees.length > 0 ? employees[0].name : null}</div>
+                    {/* <label>
                       Select Employee
                     </label>
                     <select className="form-select" onChange={(e) => setSelectedEmployeeId(e.target.value)}>
                       <option selected>Open this select menu</option>
                       {employees.length > 0 ? employees.map(employee => {return <option key={employee._id} value={employee._id}>{employee.name}</option>}) : null}
-                    </select>
+                    </select> */}
           <table class="time-table">
             <thead></thead>
             {isLoading ? <div className="spinner-border"></div>: 
