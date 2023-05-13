@@ -136,41 +136,32 @@ router.post(
             res.sendStatus(400);
           }
         });
-<<<<<<< HEAD
+      const booked = await newBooking.save();
+      res.sendStatus(200);
+      const currBooking = await bookingModel.findById(booked._id);
+      const currUser = await userModel.findById(currBooking.user_id);
+      const currService = await serviceModel.findById(currBooking.service_id);
+
+      const amountToPay = parseInt(currService.price);
+      currUser.amountSpent += amountToPay;
+      currUser.bookingAmount += 1;
+      const couponWorthy = await checkCoupon(currUser.amountSpent);
+      if (couponWorthy) {
+        currUser.amountSpent -= 500;
+        currUser.couponAmount += 1;
+      }
+      await currUser.save();
+
+      const valid = await isEmailValid(currUser.email);
+      if (booked && valid) {
+        confirmBooking(booked._id);
+      } else {
+        await booked.findByIdAndDelete(booked._id);
+        res.sendStatus(400);
+      }
     } catch (error) {
       // handle error
     }
-=======
-        const booked = await newBooking.save();
-        res.sendStatus(200)
-        const currBooking = await bookingModel.findById(booked._id)
-        const currUser = await userModel.findById(currBooking.user_id)
-        const currService = await serviceModel.findById(currBooking.service_id)
-
-        const amountToPay = parseInt(currService.price)
-        currUser.amountSpent += amountToPay
-        currUser.bookingAmount += 1
-        const couponWorthy = await checkCoupon(currUser.amountSpent)
-        if (couponWorthy) {
-          currUser.amountSpent -= 500
-          currUser.couponAmount += 1
-        }
-        await currUser.save()
-
-        const valid = await isEmailValid(currUser.email)
-        if(booked && valid){
-          confirmBooking(booked._id)
-        }else{
-          await booked.findByIdAndDelete(booked._id)
-          res.sendStatus(400)
-        }
-      } else {
-        res.sendStatus(400)
-      }
-    })
-  } catch (error) {
-    // handle error
->>>>>>> 68df5f1304c941c701b0e327a1f6c053ddb1a683
   }
 );
 
@@ -273,20 +264,14 @@ router.get("/getAmount", async (req, res) => {
     bookingCount = bookings[0].count;
   }
   // increment booking count by 1
-<<<<<<< HEAD
   res.json(bookingCount);
 });
 module.exports = router;
-=======
-  res.json(bookingCount)
-})
-module.exports = router
 
 function checkCoupon(couponAmount) {
-  if(couponAmount >= 500) {
-    couponAmount -= 500
-    return true
+  if (couponAmount >= 500) {
+    couponAmount -= 500;
+    return true;
   }
-  return false
+  return false;
 }
->>>>>>> 68df5f1304c941c701b0e327a1f6c053ddb1a683
