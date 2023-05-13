@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { useParams } from "react-router";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
@@ -20,17 +20,16 @@ export function Booking() {
     currentDate.getDay()
   );
 
-  const {_id} = useParams();
+  const { _id } = useParams();
   const navigate = useNavigate();
 
   const [timeSlots, setTimeSlots] = useState([]);
   const [service, setService] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   async function postData(start, end) {
-
     const Data = {
       service_id: service._id,
       employee_id: employees[0]._id,
@@ -65,32 +64,32 @@ export function Booking() {
 
   useEffect(() => {
     async function fetchTimeSlots() {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const response = await fetch(
           `http://localhost:3000/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
           {
             method: "GET",
-            headers: {
-            },
-            credentials: "include"
-          });
+            headers: {},
+            credentials: "include",
+          }
+        );
 
         if (response.status === 200) {
           const result = await response.json();
           setTimeSlots(result.timeSlots);
           setService(result.service);
-          setIsLoading(false)
-          return
-        } else if(response.status === 400) {
+          setIsLoading(false);
+          return;
+        } else if (response.status === 400) {
           setTimeSlots([]);
           setService([]);
-          setIsLoading(false)
+          setIsLoading(false);
           return;
         } else {
           console.log("you do not have access to that resource");
           navigate(`/`);
-          return
+          return;
         }
       } catch (error) {
         console.error(error);
@@ -105,10 +104,12 @@ export function Booking() {
       const employee_ids = service.employee_ids;
 
       if (employee_ids == null) {
-        return 
+        return;
       }
       await fetch(
-        `http://localhost:3000/employees/getEmployees/${employee_ids.join(",")}`,
+        `http://localhost:3000/employees/getEmployees/${employee_ids.join(
+          ","
+        )}`,
         {
           method: "GET",
         }
@@ -122,7 +123,7 @@ export function Booking() {
         });
     }
     fetchEmployees();
-  },[service])
+  }, [service]);
   const isDateDisabled = (date) => {
     return date < new Date();
   };
@@ -165,8 +166,13 @@ export function Booking() {
       </row>
       <row className="section-row justify-content-center">
         <column>
-        <div>{employees.length > 0 ? employees[0].name : null}</div>
-                    {/* <label>
+          <div class="employee-item">
+            <p>
+              <strong>Employee:</strong> &nbsp;
+              {employees.length > 0 ? employees[0].name : null}
+            </p>
+          </div>
+          {/* <label>
                       Select Employee
                     </label>
                     <select className="form-select" onChange={(e) => setSelectedEmployeeId(e.target.value)}>
@@ -175,72 +181,74 @@ export function Booking() {
                     </select> */}
           <table class="time-table">
             <thead></thead>
-            {isLoading ? <div className="spinner-border"></div>: 
-            <tbody class="table-body justify-content-center">
-              {timeSlots.length > 0 ? (
-                timeSlots.map((item) =>
-                  item.isAvailable ? (
-                    <tr className="isAvailable" key={item.start}>
-                      <td class="row-section">
-                        {new Date(item.start).toLocaleString("en-UK", {
-                          weekday: "long",
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                          timeZone: "UTC",
-                        })}{" "}
-                        -
-                        {new Date(item.end).toLocaleString("en-UK", {
-                          hour: "numeric",
-                          minute: "numeric",
-                          timeZone: "UTC",
-                        })}
-                      </td>
-                      <td class="row-section">
-                        <button
-                          className="timeBooking-btn btn-primary"
-                          onClick={() => postData(item.start, item.end)}
-                        >
-                          Book Time Slot
-                        </button>
-                      </td>
-                    </tr>
-                  ) : (
-                    <tr className="notAvailable" key={item.start}>
-                      <td class="row-section">
-                        {new Date(item.start).toLocaleString("en-UK", {
-                          weekday: "long",
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                          timeZone: "UTC",
-                        })}{" "}
-                        -
-                        {new Date(item.end).toLocaleString("en-UK", {
-                          hour: "numeric",
-                          minute: "numeric",
-                          timeZone: "UTC",
-                        })}
-                      </td>
-                      <td class="row-section">
-                        <h2>booked</h2>
-                      </td>
-                    </tr>
+            {isLoading ? (
+              <div className="spinner-border"></div>
+            ) : (
+              <tbody class="table-body justify-content-center">
+                {timeSlots.length > 0 ? (
+                  timeSlots.map((item) =>
+                    item.isAvailable ? (
+                      <tr className="isAvailable" key={item.start}>
+                        <td class="row-section">
+                          {new Date(item.start).toLocaleString("en-UK", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZone: "UTC",
+                          })}{" "}
+                          -
+                          {new Date(item.end).toLocaleString("en-UK", {
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZone: "UTC",
+                          })}
+                        </td>
+                        <td class="row-section">
+                          <button
+                            className="timeBooking-btn btn-primary"
+                            onClick={() => postData(item.start, item.end)}
+                          >
+                            Book Time Slot
+                          </button>
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr className="notAvailable" key={item.start}>
+                        <td class="row-section">
+                          {new Date(item.start).toLocaleString("en-UK", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZone: "UTC",
+                          })}{" "}
+                          -
+                          {new Date(item.end).toLocaleString("en-UK", {
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZone: "UTC",
+                          })}
+                        </td>
+                        <td class="row-section">
+                          <h2>booked</h2>
+                        </td>
+                      </tr>
+                    )
                   )
-                )
-              ) : (
-                <tr>
-                  <td>
-                    <p>No available times slots</p>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-            }
+                ) : (
+                  <tr>
+                    <td>
+                      <p>No available times slots</p>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            )}
           </table>
         </column>
       </row>

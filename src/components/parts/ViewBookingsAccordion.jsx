@@ -18,16 +18,16 @@ export function ViewBookingsAccordion() {
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
   const [serviceNames, setServiceNames] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [userNames, setUserNames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       const bookings = await (
         await fetch(`http://localhost:3000/bookings/getBookings`, {
           method: "GET",
-          headers: {
-          },
-          credentials: "include"
+          headers: {},
+          credentials: "include",
         })
       ).json();
 
@@ -41,10 +41,20 @@ export function ViewBookingsAccordion() {
           return service.name;
         })
       );
-
+      const tempUserNames = await Promise.all(
+        bookings.map(async (booking) => {
+          const user = await (
+            await fetch(
+              `http://localhost:3000/users/getUserData/${booking.user_id}`
+            )
+          ).json();
+          return user.username;
+        })
+      );
       setBookingList(bookings);
       setServiceNames(tempServiceList);
-      setIsLoading(false)
+      setUserNames(tempUserNames);
+      setIsLoading(false);
     })();
   }, []);
 
@@ -59,7 +69,7 @@ export function ViewBookingsAccordion() {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include"
+          credentials: "include",
         }
       );
       if (response.status === 200) {
@@ -90,53 +100,54 @@ export function ViewBookingsAccordion() {
   }*/
 
   return (
-<Accordion.Item eventKey="2">
-  <Accordion.Header>Handle bookings</Accordion.Header>
-  <div>
-    <Accordion.Body>
-    {isLoading ? (
-      <div className="spinner-border"></div>
-    ) : (
-      <>
-          <Container
-            className="bookings"
-            style={{ maxHeight: "400px", overflowY: "auto" }}
-          >
-            {bookingList.map((booking, index) => (
-              <Row className="booking-row mb-4" key={index}>
-                <Col>{serviceNames[index]}</Col>
-                <Col>
-                  {new Date(booking.startTime).toLocaleString("en-UK", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    timeZone: "UTC",
-                  })}
-                </Col>
-                <Col>
-                  <Button
-                    className="colored-btn"
-                    onClick={() => handleDelete(booking._id)}
-                  >
-                    Cancel booking
-                  </Button>
-                </Col>
-              </Row>
-            ))}
-          </Container>
-        {showModal && (
-          <ConfirmationModal
-          sentance={registrationSentence}
-          onClose={() => setShowModal(false)}
-          />
+    <Accordion.Item eventKey="2">
+      <Accordion.Header>Handle bookings</Accordion.Header>
+      <div>
+        <Accordion.Body>
+          {isLoading ? (
+            <div className="spinner-border"></div>
+          ) : (
+            <>
+              <Container
+                className="bookings"
+                style={{ maxHeight: "400px", overflowY: "auto" }}
+              >
+                {bookingList.map((booking, index) => (
+                  <Row className="booking-row mb-4" key={index}>
+                    <Col>{userNames[index]}</Col>
+                    <Col>{serviceNames[index]}</Col>
+                    <Col>
+                      {new Date(booking.startTime).toLocaleString("en-UK", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZone: "UTC",
+                      })}
+                    </Col>
+                    <Col>
+                      <Button
+                        className="colored-btn"
+                        onClick={() => handleDelete(booking._id)}
+                      >
+                        Cancel booking
+                      </Button>
+                    </Col>
+                  </Row>
+                ))}
+              </Container>
+              {showModal && (
+                <ConfirmationModal
+                  sentance={registrationSentence}
+                  onClose={() => setShowModal(false)}
+                />
+              )}
+            </>
           )}
-      </>
-    )}
-    </Accordion.Body>
-  </div>
-</Accordion.Item>
+        </Accordion.Body>
+      </div>
+    </Accordion.Item>
   );
 }

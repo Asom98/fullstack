@@ -16,7 +16,15 @@ import { ViewAdminsAccordion } from "./parts/ViewAdminsAccordion";
 
 export function AdminPage() {
   const [loyalList, setLoyalList] = useState([]);
+  const [monthlyList, setMonthlyList] = useState([]);
+
   useEffect(() => {
+    (async () => {
+      let loyal = await (
+        await fetch(`http://localhost:3000/statistic/getMostLoyal`)
+      ).json();
+      setLoyalList(loyal);
+    })();
     (async () => {
       let loyal = await (
         await fetch(`http://localhost:3000/statistic/getMostLoyal`)
@@ -37,6 +45,16 @@ export function AdminPage() {
               <div className="loyal-list-item">{member.username}</div>
             </Col>
           ))}
+        </Row>
+        <Row>
+          <Row className="monthly-title">Employee/s of the month</Row>
+          <Row>
+            {monthlyList.map((employee, index) => (
+              <Col md={2} key={index}>
+                <div className="loyal-list-item">{employee.username}</div>
+              </Col>
+            ))}
+          </Row>
         </Row>
       </Container>
       <Accordion defaultActiveKey={null}>
