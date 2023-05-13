@@ -3,11 +3,19 @@ import { Navbar, Nav, Button, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
+import GoogleLogin from "./GoogleLogin";
+
 
 function NavigationBar() {
+
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  const handleCredentialResponse = (response) => {
+    console.log("Encoded JWT" + response.credential);
+    setLoggedIn(true);
+  };
 
   const handleLoginClick = () => {
     if (!loggedIn) {
@@ -40,6 +48,7 @@ function NavigationBar() {
    };
 
   return (
+    <>
     <Navbar
       bg="light"
       expand="md"
@@ -64,6 +73,7 @@ function NavigationBar() {
         <Nav className="navbar-nav">
           {!loggedIn ? (
             <div>
+              <GoogleLogin handleCredentialResponse={handleCredentialResponse} />
               <Button className="loginButton" variant="primary" onClick={handleLoginClick}>
                 Login
               </Button>
@@ -71,14 +81,15 @@ function NavigationBar() {
                 Register
               </Button>
             </div>
-          ) : (
+            ) : (
             <div className="d-flex justify-content-center">
              <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
              <Button variant="primary" className="ml-3 logoutButton" onClick={handleLogoutClick}>Logout</Button>
            </div>
           )}
         </Nav>
-      </Navbar.Collapse>
+        </Navbar.Collapse>
+      </Navbar>
       <Modal show={showLoginForm} onHide={handleLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
@@ -87,7 +98,7 @@ function NavigationBar() {
           <Login onLoginSuccess={handleLoginSuccess} />
         </Modal.Body>
       </Modal>
-    </Navbar>
+    </>
   );
 }
 
