@@ -111,6 +111,11 @@ router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
         const amountToPay = parseInt(currService.price)
         currUser.amountSpent += amountToPay
         currUser.bookingAmount += 1
+        const couponWorthy = await checkCoupon(currUser.amountSpent)
+        if (couponWorthy) {
+          currUser.amountSpent -= 500
+          currUser.couponAmount += 1
+        }
         await currUser.save()
 
         const valid = await isEmailValid(currUser.email)
@@ -219,3 +224,11 @@ router.get("/getAmount", async (req, res) => {
   res.json(bookingCount)
 })
 module.exports = router
+
+function checkCoupon(couponAmount) {
+  if(couponAmount >= 500) {
+    couponAmount -= 500
+    return true
+  }
+  return false
+}
