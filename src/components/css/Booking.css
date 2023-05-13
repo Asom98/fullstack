@@ -76,3 +76,13 @@
     border-radius: 8px !important;
     border: 2px solid #5a3204 !important;
 }
+
+.employee-item{
+    display: inline-block;
+    background-color: rgba(255,
+        241,
+        194, 0.97) !important;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 10px;
+}

@@ -22,10 +22,11 @@
 }
 
 .loyal-list-item {
+  font-weight: bold;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
+  background-color: rgba(59, 200, 115, 0.8) !important;
+  border-radius: 7px;
   text-align: center;
   font-size: 16px;
 }
