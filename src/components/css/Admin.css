@@ -21,7 +21,12 @@
   font-weight: bold !important;
 }
 
-.info-section{
-  width: 50px !important;
+.loyal-list-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
 }
 
