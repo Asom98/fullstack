@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser")
 require("dotenv").config();
 
 const userRoutes = require("./routes/users");
@@ -12,7 +13,11 @@ const serviceRoutes = require("./routes/services");
 const authentication = require("./middleware/auth")
 const statisticRoutes = require("./routes/statistic")
 
-app.use(express.json(), cors({ origin: "http://localhost:5173" }));
+app.use(
+  express.json(), 
+  cors({ origin: "http://localhost:5173", credentials: true }),
+  cookieParser()
+);
 
 mongoose
   .connect(process.env.CONNECTION_URL)
@@ -35,6 +40,5 @@ app.get("/", (req, res) => {
 });
 
 app.get("/checkAuth", authentication.authenticateUser,(req, res) => {
-  console.log("auth");
-  res.sendStatus(200)
+  res.json(req.user)
 })

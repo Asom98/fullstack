@@ -4,11 +4,15 @@
     display: flex;
     justify-content: space-between;
 }
+
+.menu{
+    font-weight: 500;
+}
   
 .navbar-brand {
     margin-left: 150px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 28px;
+    font-size: 50px;
     font-weight: 700;
     color: white !important;
     text-transform: uppercase;

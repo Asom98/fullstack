@@ -21,15 +21,15 @@ function App() {
       <main className="App">
       <Routes>
           <Route element={<ProtectedRoute/>}>  {/* checks if they have an active token if not they will be redirected to the login screen */}
-            <Route path="/admin" element={<AdminPage />} />
             <Route path="/user" element={<User />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/booking/:_id" element={<Booking />} />
           </Route>
           
           <Route path="/" element={<Welcom />} />
           <Route path="/services" element={<ServicePage />} />
           <Route path="/registration" element={<Registration isAdmin={false} />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login/:showPopup" element={<Login />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contactus" element={<ContactUs />} />
       </Routes>

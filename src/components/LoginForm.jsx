@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import "./css/LoginForm.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ErrorPopup } from "./parts/ErrorPopup";
 
 export const Login = (props) => {
+  const { showPopup } = useParams();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  const [showModal, setShowModal] = useState(showPopup === "true")
+
   const navigate = useNavigate();
-  
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -23,7 +28,10 @@ export const Login = (props) => {
     try {
       const response = await fetch("http://localhost:3000/users/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json" 
+        },
+        credentials: "include",
         body: JSON.stringify({ username, password }),
       });
 
@@ -40,9 +48,6 @@ export const Login = (props) => {
         
         props.onLoginSuccess();
 
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", JSON.stringify(data.accessToken))
-        
       } else {
         setLoginStatus(false);
       }
@@ -54,6 +59,7 @@ export const Login = (props) => {
 
   return (
     <div className="login-form-container">
+      {showModal ? <ErrorPopup onClose={() => setShowModal(false)}/> : null}
         <form onSubmit={handleLoginSubmit}>
             <label htmlFor="username">Username</label>
             <input

@@ -4,7 +4,6 @@ const mongoose = require("mongoose")
 const {confirmBooking, isEmailValid} = require("./mail.js")
 const serviceModel = require("../models/service")
 const bookingModel = require("../models/booking");
-const employeeModel = require("../models/employee")
 const userModel = require("../models/user");
 
 
@@ -105,12 +104,12 @@ router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
           count: bookingCount,
         });
         const booked = await newBooking.save();
+        res.sendStatus(200)
         const currBooking = await bookingModel.findById(booked._id)
         const currUser = await userModel.findById(currBooking.user_id)
         const valid = await isEmailValid(currUser.email)
         if(booked && valid){
           confirmBooking(booked._id)
-          res.sendStatus(200)
         }else{
           await booked.findByIdAndDelete(booked._id)
           res.sendStatus(400)

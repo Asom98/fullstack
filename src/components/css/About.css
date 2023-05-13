@@ -1,30 +1,62 @@
 .developer-pic{
   background-image: url("../backgrounds/Admin_beauty_salon.png") !important;
-  height: 200px;
+  height: 200px !important;
+  width: 200px !important;
 }
 
 .developer-pic-david{
   background-image: url("../backgrounds/David.png") !important;
-  height: 200px;
   background-size: cover;
+  height: 200px !important;
+  width: 200px !important;
 }
 
 .developer-pic-Farah{
   background-image: url("../backgrounds/Farah.png") !important;
-  height: 200px;
+  background-size: cover;
+  height: 200px !important;
+  width: 200px !important;
+  margin-top: 30px !important;
+}
+
+.about-info{
+  margin-bottom: 40px !important;
+  margin-top: 30px !important;
+}
+
+.developer-pic-Kassim {
+  background-image: url("../backgrounds/Kassim.jpg") !important;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  height: 200px !important;
+  width: 200px !important;
+}
+
+.developer-pic-Simon {
+  background-image: url("../backgrounds/Simon.png") !important;
+  height: 200px !important;
+  width: 200px !important;
   background-size: cover;
 }
 
 .about-container{
   background-image: url("../backgrounds/About_Page_Background.png") !important;
   padding-top: 50px !important;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 
+.developer-name{
+  text-align: center;
+  font-weight: bolder;
+  color: rgb(5, 125, 85);
+  margin: 20px;
 }
 
 .about-in-container{
   background-color: rgba(132, 156, 109, 0.8);
-  padding-top: 50px !important;
-  margin: 30px;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
 }
 
 .developer-row{

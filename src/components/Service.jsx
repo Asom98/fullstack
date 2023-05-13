@@ -26,15 +26,7 @@ export const ServicePage = () => {
   }, []);
 
   const handleBookClick = (service) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
-    if (user) {
-      navigate(`/booking/${service._id}`, { state: { service }, search: `?user_id=${user._id}`});
-    } else {
-      setbookingSentence("In order to book our services, we kindly request that you log in to your account. If you do not yet have an account, we invite you to register or alternatively, please do not hesitate to contact us directly via phone or email.");
-      setShowModal(true);
-      console.log("Arro")
-    }
+    navigate(`/booking/${service._id}`);
     console.log(service);
   };
 
@@ -46,14 +38,17 @@ export const ServicePage = () => {
       <div className="card-columns mt-4 custom-card-columns">
         {servicesData.map((service) => (
           <div key={service._id} className="custom card">
-            <Card>
-              <Card.Body>
+            <Card className="custom">
+              <div className="d-flex">
+                <Card.Img className="card-img w-50" src={`/src/components/Images/${service.img}`} />
+                <Card.Body>
                 <Card.Title className="card-serviceName">{service.name}</Card.Title>
                 <Card.Text className="card-description">{service.description}</Card.Text>
                 <Card.Text className="card-text duration">Duration: {service.duration}min</Card.Text>
                 <Card.Text className="card-text price">Price: ${service.price}</Card.Text>
                 <Button onClick={() => handleBookClick(service)}>Book Now</Button>
-              </Card.Body>
+                </Card.Body>
+              </div>
             </Card>
           </div>
         ))}

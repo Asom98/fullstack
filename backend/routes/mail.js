@@ -10,6 +10,7 @@ async function confirmBooking(bookingId) {
     let config = {
         service: "gmail",
         auth: {
+            
             user: process.env.EMAIL,
             pass: process.env.EPASS
         }

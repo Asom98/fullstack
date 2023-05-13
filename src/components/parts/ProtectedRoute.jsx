@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
 
 const ProtectedRoute = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("")
+  
+  const location = useLocation();
+  const { pathname } = location;
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setIsLoading(false);
-      return;
-    }
-
-    fetch("/api/checkToken", {
+    fetch("http://localhost:3000/checkAuth", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+      },
+      credentials: "include"
     })
       .then(response => {
         if (response.ok) {
           setIsLoggedIn(true);
+          return response.json()
         }
+      })
+      .then(result => {
+        setRole(result.role)
       })
       .finally(() => {
         setIsLoading(false);
@@ -29,11 +31,17 @@ const ProtectedRoute = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div  className="d-flex justify-content-center align-items-center spinner-border"></div>
   }
 
   if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login/true" replace />;
+  }
+
+  if (pathname === '/admin' && role !== 'admin') {
+    return <Navigate to="/user" replace />;
+  } else if (pathname === '/user' && role !== 'user') {
+    return <Navigate to="/admin" replace/>
   }
 
   return <Outlet />;

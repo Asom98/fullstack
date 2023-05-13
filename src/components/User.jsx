@@ -9,16 +9,14 @@ function User() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [registrationSentence, setRegistrationSentence] = useState("");
-
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  const navigate = useNavigate();
-
   const [editEmailMode, setEditEmailMode] = useState(false);
   const [editPhoneNumberMode, setEditPhoneNumberMode] = useState(false);
   const [bookings, setBookings] = useState([]);
   const [userInfo, setUserInfo] = useState({})
+  const [registrationSentence, setRegistrationSentence] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
+
+  const navigate = useNavigate();
  
   const handleUpdateEmailClick = async () => {
     const response = await fetch("http://localhost:3000/admin/updateUser", {
@@ -54,14 +52,14 @@ function User() {
     }
   };
 
-  const handleUserBookings = async (token) => {
+  const handleUserBookings = async () => {
 
     const response = await fetch(`http://localhost:3000/bookings/getBookingsByUserId`, {
       method: "GET",
       headers: {
-        "authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
+      credentials: "include"
     });
   
     if (response.ok) {
@@ -86,14 +84,15 @@ function User() {
         })
       );
       setBookings(bookingsWithService);
+      setIsLoading(false)
     }
   };
-  const fetchUserData = async (token) => {
+  const fetchUserData = async () => {
     const response = await fetch(`http://localhost:3000/users/getUserData`, {
       method: "GET",
       headers: {
-        "authorization": `Bearer ${token}`
-      }
+      },
+      credentials: "include"
     });
     
     if (response.ok) {
@@ -108,14 +107,8 @@ function User() {
   };
   
   useEffect(() => {
-    const token = localStorage.getItem("token")
-
-    if (token == null) {
-      navigate("/")
-    };
-
-    handleUserBookings(token);
-    fetchUserData(token);
+    handleUserBookings();
+    fetchUserData();
   }, []);
 
   const handleDeleteBooking = async (_id) => {
@@ -125,15 +118,14 @@ function User() {
 
   const handleConfirmDeleteBooking = async () => {
     if (bookingToDelete) {
-      const token = localStorage.getItem("token")
       const packet = { _id: bookingToDelete };
       const response = await fetch(`http://localhost:3000/bookings/deleteBooking`, {
         method: "DELETE",
         body: JSON.stringify(packet),
         headers: {
-          authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        credentials: "include"
       });
 
       if (response.ok) {
@@ -201,7 +193,7 @@ return (
           </div>
           <div className="bookings">
             <h3>Your Bookings:</h3>
-            {bookings.length > 0 ? (
+            {isLoading ? <div className="spinner-border"></div> : bookings.length > 0 ? (
               <Table className="bookings-table" bordered hover>
                 <thead>
                   <tr>
