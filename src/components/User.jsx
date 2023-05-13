@@ -3,6 +3,7 @@ import { Button,Card, Table, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import "./css/User.css"
 import { ConfirmationModal } from "./parts/ConfirmationModal";
+import ChangePassword from "./parts/ChangePassword";
 
 function User() {
 
@@ -13,10 +14,10 @@ function User() {
   const [editPhoneNumberMode, setEditPhoneNumberMode] = useState(false);
   const [bookings, setBookings] = useState([]);
   const [userInfo, setUserInfo] = useState({})
-  const [registrationSentence, setRegistrationSentence] = useState("");
+  const [Sentence, setSentence] = useState("");
   const [isLoading, setIsLoading] = useState(true)
-
   const navigate = useNavigate();
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
  
   const handleUpdateEmailClick = async () => {
     const response = await fetch("http://localhost:3000/admin/updateUser", {
@@ -29,7 +30,6 @@ function User() {
         email: userInfo.email,
       }),
     });
-
     if (response.ok) {
       setEditEmailMode(false);
     }
@@ -46,7 +46,6 @@ function User() {
         phoneNumber: userInfo.phoneNumber,
       }),
     });
-
     if (response.ok) {
       setEditPhoneNumberMode(false);
     }
@@ -132,7 +131,7 @@ function User() {
         const updatedBookings = bookings.filter((booking) => booking._id !== bookingToDelete);
         setBookings(updatedBookings);
       } else {
-        setRegistrationSentence("I'm sorry, you are unable to delete bookings within 24 hours of the scheduled time. Please contact us directly to make any necessary changes. Thank you for your understanding.");
+        setSentence("I'm sorry, you are unable to delete bookings within 24 hours of the scheduled time. Please contact us directly to make any necessary changes. Thank you for your understanding.");
         setShowModal(true);
       }
     }
@@ -190,6 +189,8 @@ return (
                 </tr>
               </tbody>
             </Table>
+            <Button variant="link" onClick={() => setShowPasswordModal(true)}>Change Password</Button>
+            <ChangePassword show={showPasswordModal} onClose={() => setShowPasswordModal(false)} />
           </div>
           <div className="bookings">
             <h3>Your Bookings:</h3>
@@ -230,7 +231,7 @@ return (
               </Modal.Footer>
             </Modal>
             {showModal && (
-            <ConfirmationModal className="confirmationModal" sentance={registrationSentence} onClose={() => setShowModal(false)}/>
+            <ConfirmationModal className="confirmationModal" sentance={Sentence} onClose={() => setShowModal(false)}/>
             )}
           </div>
         </Card.Body>
