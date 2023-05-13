@@ -22,6 +22,16 @@ router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => 
     }
 });
 
+// get user by id
+router.get("/getUserData/:_id", async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params._id)
+    res.json(user)
+  } catch (error) {
+    res.status(404).send({ message: error })
+  }
+});
+
 router.post("/register", async (req, res) => {
   try {
     const userExists = await userModel.findOne({ username: req.body.username });
