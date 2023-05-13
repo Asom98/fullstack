@@ -49,11 +49,11 @@
     background-color: #577C57;
 }
 
-.navbar-nav .btn-primary:first-child {
+.navbar-nav .loginButton {
     margin-right: 10px; 
 }
 
-.navbar-nav .btn-primary:last-child {
+.navbar-nav .registerButton {
     margin-left: 10px; 
 }
 
@@ -72,15 +72,20 @@
     padding: 1rem;
 }
 
-.user-icon {
+.navbar-nav .user-icon {
     margin-right: 10px;
     width: 35px;
     height: 35px;
-    margin-right: 10px;
+    margin-left: 28px;
 }
 
-.user-icon:hover {
+.navbar-nav .user-icon:hover {
     filter: brightness(0) invert(1);
+}
+
+.navbar-nav .logoutButton {
+    margin-top: 10px;
+    height: 35px;
 }
 
 @media (max-width: 1080px) {
