@@ -83,10 +83,7 @@ router.put("/updateBooking", async (req, res) => {
   }
 });
 
-router.post(
-  "/postBooking",
-  authentication.authenticateUser,
-  async (req, res) => {
+router.post("/postBooking", authentication.authenticateUser, async (req, res) => {
     try {
       const bookings = await bookingModel.find().sort({ count: -1 }).limit(1);
       let bookingCount = 0;
@@ -123,6 +120,11 @@ router.post(
             const amountToPay = parseInt(currService.price);
             currUser.amountSpent += amountToPay;
             currUser.bookingAmount += 1;
+            const couponWorthy = checkCoupon(currUser.amountSpent)
+            if (couponWorthy) {
+              currUser.amountSpent -= 500
+              currUser.couponAmount += 1
+            }
             await currUser.save();
 
             const valid = await isEmailValid(currUser.email);
