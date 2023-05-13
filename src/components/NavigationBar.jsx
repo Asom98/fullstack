@@ -11,11 +11,6 @@ function NavigationBar() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const handleCredentialResponse = (response) => {
-    console.log('Encoded JWT', response.credential);
-    // Do something with the credential, such as send it to your server for verification
-  }
-
   const handleLoginClick = () => {
     if (!loggedIn) {
       setShowLoginForm(true);
@@ -78,7 +73,9 @@ function NavigationBar() {
               <Button className="registerButton" variant="primary" as={Link} to="/registration">
                 Register
                 </Button>
-              <GoogleLogin />
+              <Button className="googleButton" variant="primary">
+                  <GoogleLogin />
+              </Button>
             </div>
             ) : (
             <div className="d-flex justify-content-center">

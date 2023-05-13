@@ -2,12 +2,19 @@ import { useEffect } from 'react';
 
 function handleCredentialResponse(response) {
   console.log('Encoded JWT', response.credential);
+  // decode jwt 
+  const jwt = response.credential;
+  const jwtParts = jwt.split('.');
+  const payload = JSON.parse(atob(jwtParts[1]));    // deprecated decode function but works for now
+ 
+  console.log('Decoded JWT payload', payload);
+  
   // Do something with the credential, such as send it to your server for verification
 }
 
 function initializeGoogleLogin() {
   google.accounts.id.initialize({
-    client_id: '1079428828720-dfo4k6av3jvepch0hmpums7a1agal8dl.apps.googleusercontent.com',
+    client_id: '1079428828720-dfo4k6av3jvepch0hmpums7a1agal8dl.apps.googleusercontent.com',   // belongs in .env file
     callback: handleCredentialResponse,
   });
   google.accounts.id.renderButton(
