@@ -116,3 +116,34 @@
     }
 }
 
+@media (max-width: 1280px) {
+    
+    .navbar-brand {
+        
+        margin-right: 20px;
+    }
+    
+    .nav-link {
+      margin: 10px 0;
+    }
+    
+    .navbar-collapse {
+      justify-content: center;
+    }
+    
+    .navbar-nav {
+      margin: 10px 0;
+    }
+    
+    .navbar-nav .btn-primary {
+      margin-left: 20px;
+    }
+    
+    .user-icon {
+      margin: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        margin-right: 30px;
+    }
+}

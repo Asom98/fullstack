@@ -71,30 +71,16 @@ function NavigationBar() {
   }
 
   return (
-    <Navbar
-    bg="light"
-    expand="md"
-    sticky="top"
-    className="navbar-custom"
-    collapseOnSelect={true}
-    >
+    <Navbar bg="light" expand="md" sticky="top" className="navbar-custom" collapseOnSelect={true}>
       {showModal ? <ConfirmationModal sentance={"Your session has expired"} onClose={() => setShowModal(false)}/> : null}
-      <Navbar.Brand>HKR Beauty Salon</Navbar.Brand>
-      <Navbar.Toggle aria-controls="my-navbar" />
+      <Navbar.Brand className="brand-name">HKR Beauty Salon</Navbar.Brand>
+      <Navbar.Toggle aria-controls="my-navbar"/>
       <Navbar.Collapse id="my-navbar">
         <Nav className="mr-auto menu">
-          <Nav.Link as={Link} to="/">
-            Home
-          </Nav.Link>
-          <Nav.Link as={Link} to="/services">
-            Services
-          </Nav.Link>
-          <Nav.Link as={Link} to="/about">
-            About
-          </Nav.Link>
-          <Nav.Link as={Link} to="/contactus">
-            Contact us
-          </Nav.Link>
+          <Nav.Link as={Link} to="/"> Home </Nav.Link>
+          <Nav.Link as={Link} to="/services"> Services </Nav.Link>
+          <Nav.Link as={Link} to="/about"> About </Nav.Link>
+          <Nav.Link as={Link} to="/contactus"> Contact us </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
           {!loggedIn ? (
