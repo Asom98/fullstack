@@ -41,8 +41,17 @@ export function ViewBookingsAccordion() {
           return service.name;
         })
       );
+      setBookingList(bookings);
+      setServiceNames(tempServiceList);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      console.log(bookingList);
       const tempUserNames = await Promise.all(
-        bookings.map(async (booking) => {
+        bookingList.map(async (booking) => {
           const user = await (
             await fetch(
               `http://localhost:3000/users/getUserData/${booking.user_id}`
@@ -51,12 +60,10 @@ export function ViewBookingsAccordion() {
           return user.username;
         })
       );
-      setBookingList(bookings);
-      setServiceNames(tempServiceList);
       setUserNames(tempUserNames);
       setIsLoading(false);
     })();
-  }, []);
+  }, [bookingList]);
 
   const handleDelete = (_id) => {
     (async () => {
