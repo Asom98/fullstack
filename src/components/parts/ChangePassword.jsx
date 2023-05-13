@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import bcrypt from 'bcryptjs';
 
 function ChangePassword (props) {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -8,6 +9,7 @@ function ChangePassword (props) {
     const [userInfo, setUserInfo] = useState({})
     const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [passwordError, setPasswordError] = useState(false);
+    const [passwordChanged, setPasswordChanged] = useState(false);
 
     const fetchUserData = async () => {
         const response = await fetch(`http://localhost:3000/users/getUserData`, {
@@ -35,7 +37,8 @@ function ChangePassword (props) {
             return;
         }
 
-        if (currentPassword !== userInfo.password) {
+        const isMatch = await bcrypt.compare(currentPassword, userInfo.password);
+        if (!isMatch) {
             setPasswordError(true);
             return;
         }
@@ -50,20 +53,38 @@ function ChangePassword (props) {
                 password: newPassword,
             }),
         });
-        props.onClose();
+        if (response.ok) {
+            setPasswordChanged(true);
+            setTimeout(() => {
+                setPasswordChanged(false);
+                props.onClose();
+            }, );
+        }
     };
 
     useEffect(() => {
         fetchUserData();
     }, []);
+
+    useEffect(() => {
+        if (!props.show) {
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+            setPasswordsMatch(true);
+            setPasswordError(false);
+            setPasswordChanged(false);
+        }
+    }, [props.show]);
   
     return (
-      <Modal show={props.show} onHide={props.onClose}>
+      <Modal show={props.show} onHide={props.onClose} className="main-modal">
         <Modal.Header closeButton>
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+        {passwordChanged && <div className="text-success mb-3">Password changed successfully.</div>}
+          <Form className="d-flex flex-column mx-auto">
             <Form.Group controlId="currentPassword">
                 <Form.Label>Current Password</Form.Label>
                 <Form.Control type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />

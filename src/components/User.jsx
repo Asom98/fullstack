@@ -189,7 +189,7 @@ return (
                 </tr>
               </tbody>
             </Table>
-            <Button className="change-passwordBt" variant="primary" onClick={() => setShowPasswordModal(true)}>Change Password</Button>
+            <Button variant="link" onClick={() => setShowPasswordModal(true)}>Change Password</Button>
             <ChangePassword show={showPasswordModal} onClose={() => setShowPasswordModal(false)} />
           </div>
           <div className="bookings">
