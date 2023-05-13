@@ -34,7 +34,10 @@ router.post("/register", async (req, res) => {
               phoneNumber: req.body.phoneNumber, 
               username: req.body.username, 
               password: hashedPassword, 
-              role: "user"})
+              role: "user",
+              couponAmount : 0,
+              amountSpent: 0,
+              bookingAmount: 0})
             newUser.save()
             .then(res.sendStatus(201))
         })

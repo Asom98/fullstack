@@ -6,7 +6,6 @@ const serviceModel = require("../models/service")
 const bookingModel = require("../models/booking");
 const userModel = require("../models/user");
 
-
 const authentication = require("../middleware/auth")
 
 router.get("/getBookings", async (req,res) =>{
@@ -107,6 +106,13 @@ router.post("/postBooking", authentication.authenticateUser, async (req,res) =>{
         res.sendStatus(200)
         const currBooking = await bookingModel.findById(booked._id)
         const currUser = await userModel.findById(currBooking.user_id)
+        const currService = await serviceModel.findById(currBooking.service_id)
+
+        const amountToPay = parseInt(currService.price)
+        currUser.amountSpent += amountToPay
+        currUser.bookingAmount += 1
+        await currUser.save()
+
         const valid = await isEmailValid(currUser.email)
         if(booked && valid){
           confirmBooking(booked._id)

@@ -175,3 +175,28 @@ Content-Type: application/json
 GET http://localhost:3000/statistic/getBookingsCount
 Content-Type: application/json
 
+
+###
+GET http://localhost:3000/statistic/getMostLoyal
+Content-Type: application/json
+
+###
+PUT  http://localhost:3000/statistic/updateUserCoupon
+Content-Type: application/json
+
+{
+    "id": "645f88fd1d9f521260d9c372",
+    "couponAmount": 4
+
+}
+
+###
+PUT  http://localhost:3000/statistic/updateUserBooking
+Content-Type: application/json
+
+{
+    "id": "645f88fd1d9f521260d9c372",
+    "bookingAmount" 
+
+}
+
