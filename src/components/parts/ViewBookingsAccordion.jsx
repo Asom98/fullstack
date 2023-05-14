@@ -15,7 +15,7 @@ export function ViewBookingsAccordion() {
   const [bookingList, setBookingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
-  const [serviceNames, setServiceNames] = useState([]);
+  const [service, setService] = useState([]);
   const [userNames, setUserNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,12 +41,12 @@ export function ViewBookingsAccordion() {
               `http://localhost:3000/services/getServiceById/${booking.service_id}`
             )
           ).json();
-          return service.name;
+          return service;
         })
       );
       setTotalPages(Math.ceil(bookings.length / perPage));
       setBookingList(bookings);
-      setServiceNames(tempServiceList);
+      setService(tempServiceList);
     })();
   }, []);
 
@@ -127,33 +127,35 @@ export function ViewBookingsAccordion() {
                 className="bookings"
                 style={{ maxHeight: "400px", overflowY: "auto" }}
               >
-                {bookingList
-                  .slice(currentPage * perPage, (currentPage + 1) * perPage)
-                  .map((booking, index) => (
-                    <Row className="booking-row mb-4" key={index}>
-                      <Col>{userNames[index + currentPage * perPage]}</Col>
-                      <Col>{serviceNames[index + currentPage * perPage]}</Col>
-                      <Col>
-                        {new Date(booking.startTime).toLocaleString("en-UK", {
-                          weekday: "long",
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                          timeZone: "UTC",
-                        })}
-                      </Col>
-                      <Col>
-                        <Button
-                          className="colored-btn"
-                          onClick={() => handleDelete(booking._id)}
-                        >
-                          Cancel booking
-                        </Button>
-                      </Col>
-                    </Row>
-                  ))}
+                {bookingList.slice(currentPage * perPage, (currentPage + 1) * perPage ).map((booking, index) => (
+                  <Row className="booking-row mb-4" key={index}>
+                    <Col>{userNames[index + currentPage * perPage]}</Col>
+                    <Col>{service[index + currentPage * perPage].name}</Col>
+                    {booking.useCoupon 
+                    ? <Col>{service[index + currentPage * perPage].price - 15}</Col> 
+                    : <Col>{service[index + currentPage * perPage].price}</Col>
+                    }
+                    <Col>
+                      {new Date(booking.startTime).toLocaleString("en-UK", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZone: "UTC",
+                      })}
+                    </Col>
+                    <Col>
+                      <Button
+                        className="colored-btn"
+                        onClick={() => handleDelete(booking._id)}
+                      >
+                        Cancel booking
+                      </Button>
+                    </Col>
+                  </Row>
+                ))}
               </Container>
               {showModal && (
                 <ConfirmationModal

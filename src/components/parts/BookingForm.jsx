@@ -101,6 +101,9 @@ export function BookingForm({
             <p>
               <strong>Booked by:</strong> {user.username}
             </p>
+            <p>
+              <strong>Confirmation sent to:</strong> {user.email}
+            </p>
             {user.couponAmount > 0 && useCoupon == false ? (
               <>
                 <p>
