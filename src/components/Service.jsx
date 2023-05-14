@@ -9,6 +9,7 @@ export const ServicePage = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [bookingSentence, setbookingSentence] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -18,6 +19,7 @@ export const ServicePage = () => {
         });
         const result = await response.json()
         setServicesData(result);
+        setIsLoading(false)
       } catch (error) {
         console.log(error);
       }
@@ -36,7 +38,10 @@ export const ServicePage = () => {
         Our Services
       </div>
       <div className="card-columns mt-4 custom-card-columns">
-        {servicesData.map((service) => (
+        { isLoading ? (
+              <div className="spinner-border text-primary"></div>
+            ) : (
+        servicesData.map((service) => (
           <div key={service._id} className="custom card">
             <Card className="custom">
               <div className="d-flex">
@@ -51,7 +56,8 @@ export const ServicePage = () => {
               </div>
             </Card>
           </div>
-        ))}
+        )))
+      }
       </div>
       {showModal && (
         <ConfirmationModal

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import Calendar from "react-calendar";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import Calendar from "react-calendar";
+import { BookingForm } from "./parts/BookingForm";
 
 import "./css/Booking.css";
 import "react-calendar/dist/Calendar.css";
@@ -28,39 +29,30 @@ export function Booking() {
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
   const [isLoading, setIsLoading] = useState(true);
+  const [showBookingForm, setShowBookingForm] = useState(false)
+  const [startTime, setStartTime] = useState(null)
+  const [endTime, setEndTime] = useState(null)
+  
+  function handleBooking(start,end) {
+    setStartTime(start)
+    setEndTime(end)
+    setShowBookingForm(true)
+  } 
+  
+  const handleNewTimeSlots = (newTimeSlots) => {
 
-  async function postData(start, end) {
-    const Data = {
-      service_id: service._id,
-      employee_id: employees[0]._id,
-      startTime: start,
-      endTime: end,
-      status: true,
-    };
-
-    await fetch(`http://localhost:3000/bookings/postBooking`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(Data),
-    }).then(async (result) => {
-      if (result.ok) {
-        const updatedTimeSlots = timeSlots.map((timeSlot) => {
-          if (timeSlot.start === start && timeSlot.end === end) {
-            return { ...timeSlot, isAvailable: false };
-          } else {
-            return timeSlot;
-          }
-        });
-        setTimeSlots(updatedTimeSlots);
+    const updatedTimeSlots = timeSlots.map((timeSlot) => {
+      if (timeSlot.start === newTimeSlots.start && timeSlot.end === newTimeSlots.end) {
+        return { ...timeSlot, isAvailable: false };
       } else {
-        const error = await response.json();
-        console.error(error);
+        return timeSlot;
       }
-    });
+    })
+
+    setTimeSlots(updatedTimeSlots)
+
   }
+
 
   useEffect(() => {
     async function fetchTimeSlots() {
@@ -172,17 +164,17 @@ export function Booking() {
               {employees.length > 0 ? employees[0].name : null}
             </p>
           </div>
-          {/* <label>
-                      Select Employee
-                    </label>
-                    <select className="form-select" onChange={(e) => setSelectedEmployeeId(e.target.value)}>
-                      <option selected>Open this select menu</option>
-                      {employees.length > 0 ? employees.map(employee => {return <option key={employee._id} value={employee._id}>{employee.name}</option>}) : null}
-                    </select> */}
+          {showBookingForm ? <BookingForm 
+            start={startTime} 
+            end={endTime} 
+            service={service} 
+            employee={employees[0]} 
+            onClose={() => setShowBookingForm(false)} onTimeSlotsChange={handleNewTimeSlots}/>  
+          : null}
           <table class="time-table">
             <thead></thead>
             {isLoading ? (
-              <div className="spinner-border"></div>
+              <div className="spinner-border text-primary"></div>
             ) : (
               <tbody class="table-body justify-content-center">
                 {timeSlots.length > 0 ? (
@@ -209,7 +201,7 @@ export function Booking() {
                         <td class="row-section">
                           <button
                             className="timeBooking-btn btn-primary"
-                            onClick={() => postData(item.start, item.end)}
+                            onClick={() => handleBooking(item.start, item.end)}
                           >
                             Book Time Slot
                           </button>
