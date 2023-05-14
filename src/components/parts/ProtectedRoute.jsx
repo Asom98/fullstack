@@ -23,6 +23,7 @@ const ProtectedRoute = () => {
         }
       })
       .then(result => {
+        console.log(result);
         setRole(result.role)
       })
       .finally(() => {

@@ -15,7 +15,7 @@ const statisticRoutes = require("./routes/statistic")
 
 app.use(
   express.json(), 
-  cors({ origin: "https://frontend-saloon2.onrender.com", credentials: true }),
+  cors({ origin: "https://frontend-saloon2.onrender.com", credentials: true }), 
   cookieParser()
 );
 
