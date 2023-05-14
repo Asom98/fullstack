@@ -58,7 +58,7 @@ function ChangePassword (props) {
             setTimeout(() => {
                 setPasswordChanged(false);
                 props.onClose();
-            }, );
+            },1500 );
         }
     };
 

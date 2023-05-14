@@ -76,7 +76,8 @@ function User() {
             const startTime = new Date(booking.startTime);
             const bookingDate = startTime.toLocaleDateString();
             const bookingTime = startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', timeZone: 'UTC'});
-            return { ...booking, service: serviceData, bookingDate, bookingTime,};
+            const price = serviceData.price;
+            return { ...booking, service: serviceData, bookingDate, bookingTime, price,};
           } else {
             return { ...booking, service: null };
           }
@@ -201,6 +202,7 @@ return (
                     <th>Service</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Price</th>
                     <th>Delete</th>
                   </tr>
                 </thead>
@@ -210,6 +212,7 @@ return (
                       <td>{booking.service ? booking.service.name : "unknown"}</td>
                       <td>{booking.bookingDate}</td>
                       <td>{booking.bookingTime}</td>
+                      <td>${booking.price}</td>
                       <td>
                         <Button variant="danger" size="sm" onClick={()=> handleDeleteBooking(booking._id)}>Cancel booking</Button>
                       </td>
@@ -233,6 +236,18 @@ return (
             {showModal && (
             <ConfirmationModal className="confirmationModal" sentance={Sentence} onClose={() => setShowModal(false)}/>
             )}
+            <div className="card coupon-card">
+              <div className="display-coupons">
+                <h3>Coupons:</h3>
+                <p>If you spend $500, you'll receive a coupon for $15 off your next visit! 
+                <br/> To redeem this offer,simply show the coupon to our receptionist during your next appointment
+                <br/> or use it with the next online booking.
+                <br/> The coupon can only be used once.</p>
+                <h4>You have spent: $<span id="amount-spent">{userInfo.amountSpent}</span></h4>
+                <h6>Spend ${500-userInfo.amountSpent} more to recieve the next coupon.</h6>
+                <h4 className="coupon">You have: <span id="coupon-amount">{userInfo.couponAmount}</span> coupon to use</h4>
+              </div>
+            </div>
           </div>
         </Card.Body>
       </Card>
