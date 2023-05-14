@@ -1,81 +1,80 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import bcrypt from 'bcryptjs';
 
-function ChangePassword (props) {
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [userInfo, setUserInfo] = useState({})
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const [passwordError, setPasswordError] = useState(false);
-    const [passwordChanged, setPasswordChanged] = useState(false);
 
-    const fetchUserData = async () => {
-        const response = await fetch(`http://localhost:3000/users/getUserData`, {
-          method: "GET",
-          headers: {
-          },
-          credentials: "include"
-        });
-        
-        if (response.ok) {
-          const result = await response.json()
-          setUserInfo(result)
-          return
-        }
+function ChangePassword(props) {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [userInfo, setUserInfo] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
-        if (response.status === 403) {
-          navigate("/")
-        }
-    };
-  
-    const handleSave = async () => {
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
-        if (newPassword !== confirmPassword) {
-            setPasswordsMatch(false);
-            return;
-        }
+  const fetchUserData = async () => {
+    const response = await fetch(`http://localhost:3000/users/getUserData`, {
+      method: "GET",
+      headers: {},
+      credentials: "include",
+    });
 
-        const isMatch = await bcrypt.compare(currentPassword, userInfo.password);
-        if (!isMatch) {
-            setPasswordError(true);
-            return;
-        }
+    if (response.ok) {
+      const result = await response.json();
+      setUserInfo(result);
+    }
 
-        const response = await fetch("http://localhost:3000/admin/updateUser", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: userInfo._id,
-                password: newPassword,
-            }),
-        });
-        if (response.ok) {
-            setPasswordChanged(true);
-            setTimeout(() => {
-                setPasswordChanged(false);
-                props.onClose();
-            },1500 );
-        }
-    };
+    if (response.status === 403) {
+      navigate("/");
+    }
+  };
 
-    useEffect(() => {
-        fetchUserData();
-    }, []);
+  const handleSave = async () => {
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords don't match");
+      setShowError(true);
+      return;
+    }
 
-    useEffect(() => {
-        if (!props.show) {
-            setCurrentPassword('');
-            setNewPassword('');
-            setConfirmPassword('');
-            setPasswordsMatch(true);
-            setPasswordError(false);
-            setPasswordChanged(false);
-        }
-    }, [props.show]);
+    const response = await fetch("http://localhost:3000/users/newPassword", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        currentPassword,
+        password,
+      }),
+    });
+
+    if (response.ok) {
+      setPasswordChanged(true);
+      setTimeout(() => {
+        setPasswordChanged(false);
+        props.onClose();
+        setCurrentPassword("");
+        setPassword("");
+        setConfirmPassword("");
+      }, 2000);
+    } else {
+      const error = await response.text();
+      setErrorMessage(error);
+      setShowError(true);
+    }
+  };
+
+  const onHide = () => {
+    setCurrentPassword("");
+    setPassword("");
+    setConfirmPassword("");
+    setErrorMessage("");
+    setShowError(false);
+    props.onClose();
+  };
   
     return (
       <Modal show={props.show} onHide={props.onClose} className="main-modal">
@@ -88,19 +87,17 @@ function ChangePassword (props) {
             <Form.Group controlId="currentPassword">
                 <Form.Label>Current Password</Form.Label>
                 <Form.Control type="password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
-                {passwordError && <div className="text-danger">Incorrect current password</div>}
             </Form.Group>
-            <Form.Group controlId="newPassword">
+            <Form.Group controlId="password">
               <Form.Label>New Password</Form.Label>
-              <Form.Control type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+              <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
             <Form.Group controlId="confirmPassword">
                 <Form.Label>Confirm New Password</Form.Label>
                 <Form.Control type="password" value={confirmPassword} onChange={e => {
                     setConfirmPassword(e.target.value);
-                    setPasswordsMatch(e.target.value === newPassword);
+                    setPasswordsMatch(e.target.value === password);
                     }} />
-                    {!passwordsMatch && <div className="text-danger">Passwords do not match</div>}
                 </Form.Group>
           </Form>
         </Modal.Body>
