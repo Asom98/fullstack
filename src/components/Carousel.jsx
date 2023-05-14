@@ -1,5 +1,4 @@
 import Carousel from 'react-bootstrap/Carousel';
-import './css/carousel.css';
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
