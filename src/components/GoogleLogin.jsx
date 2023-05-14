@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 
 async function handleCredentialResponse(userData) {
-  const navigate = useNavigate();
+
   console.log('Encoded JWT', userData.credential);
   // decode jwt 
   const jwt = userData.credential;
@@ -51,7 +50,7 @@ async function handleCredentialResponse(userData) {
     });
     if (response.ok) {
       console.log("You have succesfuly logged in!");
-      navigate("/user")
+      location.reload();
     } else {
       console.log("Something went wrong!");
     }
