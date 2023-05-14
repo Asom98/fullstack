@@ -19,6 +19,11 @@ export function ViewBookingsAccordion() {
   const [userNames, setUserNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const perPage = 5
+
   useEffect(() => {
     (async () => {
       const bookings = await (
@@ -39,6 +44,8 @@ export function ViewBookingsAccordion() {
           return service.name;
         })
       );
+      setTotalPages(Math.ceil(bookings.length / perPage));
+      console.log(Math.ceil(bookings.length / perPage));
       setBookingList(bookings);
       setServiceNames(tempServiceList);
     })();
@@ -58,7 +65,6 @@ export function ViewBookingsAccordion() {
       );
       setUserNames(tempUserNames);
       if (tempUserNames.length > 0) {
-        console.log(tempUserNames);
         setIsLoading(false);
       }
     })();
@@ -105,6 +111,11 @@ export function ViewBookingsAccordion() {
     "__v": 0
   }*/
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page - 1)
+    console.log(currentPage);
+  }
+
   return (
     <Accordion.Item eventKey="2">
       <Accordion.Header>Handle bookings</Accordion.Header>
@@ -114,14 +125,21 @@ export function ViewBookingsAccordion() {
             <div className="spinner-border"></div>
           ) : (
             <>
+              <div>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button className="btn btn-secondary" key={page} onClick={() => handlePageChange(page)}>
+                    {page}
+                  </button>
+                ))}
+              </div>
               <Container
                 className="bookings"
                 style={{ maxHeight: "400px", overflowY: "auto" }}
               >
-                {bookingList.map((booking, index) => (
+                {bookingList.slice(currentPage * perPage, (currentPage + 1) * perPage ).map((booking, index) => (
                   <Row className="booking-row mb-4" key={index}>
-                    <Col>{userNames[index]}</Col>
-                    <Col>{serviceNames[index]}</Col>
+                    <Col>{userNames[index + currentPage * perPage]}</Col>
+                    <Col>{serviceNames[index + currentPage * perPage]}</Col>
                     <Col>
                       {new Date(booking.startTime).toLocaleString("en-UK", {
                         weekday: "long",
