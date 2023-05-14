@@ -50,7 +50,7 @@ async function handleCredentialResponse(userData) {
     });
     if (response.ok) {
       console.log("You have succesfuly logged in!");
-      location.reload();
+      // location.reload();
     } else {
       console.log("Something went wrong!");
     }

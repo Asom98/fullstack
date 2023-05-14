@@ -212,7 +212,7 @@ return (
                       <td>{booking.service ? booking.service.name : "unknown"}</td>
                       <td>{booking.bookingDate}</td>
                       <td>{booking.bookingTime}</td>
-                      <td>${booking.price}</td>
+                      {booking.useCoupon ? <td>{booking.price - 15}</td> : <td>{booking.price}</td>}
                       <td>
                         <Button variant="danger" size="sm" onClick={()=> handleDeleteBooking(booking._id)}>Cancel booking</Button>
                       </td>
