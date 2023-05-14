@@ -10,10 +10,8 @@ import {
 } from "react-bootstrap";
 import "../css/Admin.css";
 import { ConfirmationModal } from "./ConfirmationModal";
-import { useNavigate } from "react-router";
 
 export function ViewBookingsAccordion() {
-  const navigate = useNavigate();
   const [bookingList, setBookingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");

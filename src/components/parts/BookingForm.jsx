@@ -34,6 +34,7 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
           endTime: end,
           status: true,
         };
+        console.log("asd");
         await fetch(`http://localhost:3000/bookings/postBooking`, {
           method: "POST",
           headers: {
@@ -42,7 +43,8 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
           credentials: "include",
           body: JSON.stringify(Data),
         }).then(async (result) => {
-          if (result.ok) {
+          console.log(result);
+          if (result.status === 200) {
             const timeSlots = {start,end}
             onTimeSlotsChange(timeSlots);
             onClose();
@@ -72,7 +74,7 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
         
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => postData}>
+        <Button onClick={() => postData()}>
             Submit Booking
         </Button>
         <Button variant="secondary" onClick={onClose}>

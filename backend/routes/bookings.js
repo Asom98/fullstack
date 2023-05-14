@@ -84,21 +84,16 @@ router.put("/updateBooking", async (req, res) => {
 });
 
 router.post("/postBooking", authentication.authenticateUser, async (req, res) => {
+    if (req.user.role == "admin") {
+      return res.sendStatus(403)
+    }
     try {
-      const bookings = await bookingModel.find().sort({ count: -1 }).limit(1);
-      let bookingCount = 0;
-      if (bookings.length > 0) {
-        bookingCount = bookings[0].count;
-      }
-      // increment booking count by 1
-      bookingCount += 1;
-      bookingModel
-        .findOne({
+      bookingModel.findOne({
           service_id: req.body.service_id,
           employee_id: req.body.employee_id,
           startTime: req.body.startTime,
         })
-        .then(async (response) => {
+      .then(async (response) => {
           if (response == null) {
             const newBooking = new bookingModel({
               service_id: req.body.service_id,
@@ -107,7 +102,6 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               endTime: req.body.endTime,
               user_id: req.user._id,
               status: true,
-              count: bookingCount,
             });
             const booked = await newBooking.save();
             res.sendStatus(200);
