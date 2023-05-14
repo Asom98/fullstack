@@ -19,7 +19,7 @@ async function handleCredentialResponse(userData) {
 
   // register user with google credentials
   try {
-    const response = await fetch("http://localhost:3000/users/register", {
+    const response = await fetch("https://backend-saloon.onrender.com/users/register", {
       method: "POST",
       body: JSON.stringify(packet),
       headers: {
@@ -40,7 +40,7 @@ async function handleCredentialResponse(userData) {
 
   // login user with google credentials
   try {
-    const response = await fetch("http://localhost:3000/users/login", {
+    const response = await fetch("https://backend-saloon.onrender.com/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
