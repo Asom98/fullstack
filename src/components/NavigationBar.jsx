@@ -28,6 +28,7 @@ function NavigationBar() {
   const handleLoginSuccess = () => {
     setLoggedIn(true);
     setShowLoginForm(false);
+    console.log(loggedIn);
   };
 
   const handleUserIconClick = () => {
