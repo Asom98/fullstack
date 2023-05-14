@@ -43,13 +43,11 @@ export function ViewBookingsAccordion() {
       );
       setBookingList(bookings);
       setServiceNames(tempServiceList);
-      setIsLoading(false);
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      console.log(bookingList);
       const tempUserNames = await Promise.all(
         bookingList.map(async (booking) => {
           const user = await (
@@ -61,7 +59,10 @@ export function ViewBookingsAccordion() {
         })
       );
       setUserNames(tempUserNames);
-      setIsLoading(false);
+      if (tempUserNames.length > 0) {
+        console.log(tempUserNames);
+        setIsLoading(false);
+      }
     })();
   }, [bookingList]);
 
