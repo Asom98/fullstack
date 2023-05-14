@@ -32,6 +32,7 @@ export function Booking() {
   const [showBookingForm, setShowBookingForm] = useState(false)
   const [startTime, setStartTime] = useState(null)
   const [endTime, setEndTime] = useState(null)
+  const [error, setError] = useState(false)
   
   function handleBooking(start,end) {
     setStartTime(start)
@@ -72,10 +73,12 @@ export function Booking() {
           setTimeSlots(result.timeSlots);
           setService(result.service);
           setIsLoading(false);
+          setError(false)
           return;
         } else if (response.status === 400) {
           setTimeSlots([]);
           setService([]);
+          setError(true)
           setIsLoading(false);
           return;
         } else {
@@ -235,7 +238,8 @@ export function Booking() {
                 ) : (
                   <tr>
                     <td>
-                      <p>No available times slots</p>
+                    <div class="alert alert-danger" role="alert"> No available Time Slots </div>
+
                     </td>
                   </tr>
                 )}
