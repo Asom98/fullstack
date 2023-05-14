@@ -24,6 +24,9 @@ const bookingSchema = mongoose.Schema({
     },
     count: {
         type: Number
+    }, 
+    useCoupon: {
+        type: Boolean
     }
 })
 

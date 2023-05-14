@@ -7,6 +7,7 @@ const bookingModel = require("../models/booking");
 const userModel = require("../models/user");
 
 const authentication = require("../middleware/auth");
+const service = require("../models/service");
 
 router.get("/getBookings", async (req, res) => {
   try {
@@ -17,10 +18,7 @@ router.get("/getBookings", async (req, res) => {
   }
 });
 
-router.get(
-  "/getBookings/:service_id",
-  authentication.authenticateUser,
-  async (req, res) => {
+router.get("/getBookings/:service_id", authentication.authenticateUser, async (req, res) => {
     const service_id = new mongoose.Types.ObjectId(req.params.service_id); // convert to ObjectId
     try {
       const bookings = await bookingModel.find({ service_id: service_id });
@@ -46,24 +44,43 @@ router.get(
 );
 // delete booking but check time and return
 
-router.delete(
-  "/deleteBooking",
-  authentication.authenticateUser,
-  async (req, res) => {
+router.delete("/deleteBooking", authentication.authenticateUser, async (req, res) => {
     try {
       if (req.user.role == "admin") {
+        const booking = await bookingModel.findById(req.body._id);
         await bookingModel.findByIdAndDelete(req.body._id);
+        const user = await userModel.findById(booking.user_id)
+        const service = await serviceModel.findById(booking.service_id)
+        if (booking.useCoupon) {
+          user.couponAmount += 1
+          user.amountSpent -= service.price - 15
+          
+        } else {
+          user.amountSpent -= service.price
+        }
+        await user.save()
         return res.sendStatus(200);
       } else {
         const twentyFourHoursAgo = new Date();
         twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
 
         const booking = await bookingModel.findById(req.body._id);
+        const user = await userModel.findById(booking.user_id)
+        const service = await serviceModel.findById(booking.service_id)
 
         if (booking.startTime < twentyFourHoursAgo) {
           return res.sendStatus(400);
+
         } else {
           await bookingModel.findByIdAndDelete(req.body._id);
+          if (booking.useCoupon) {
+            user.couponAmount += 1
+            user.amountSpent -= service.price - 15
+            
+          } else {
+            user.amountSpent -= service.price
+          }
+          await user.save()
           return res.sendStatus(200);
         }
       }
@@ -101,6 +118,7 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               startTime: req.body.startTime,
               endTime: req.body.endTime,
               user_id: req.user._id,
+              useCoupon: req.body.useCoupon,
               status: true,
             });
             const booked = await newBooking.save();
