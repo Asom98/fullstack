@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import bcrypt from 'bcryptjs';
 
 function ChangePassword (props) {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -32,34 +31,34 @@ function ChangePassword (props) {
   
     const handleSave = async () => {
 
-        if (newPassword !== confirmPassword) {
-            setPasswordsMatch(false);
-            return;
-        }
+        // if (newPassword !== confirmPassword) {
+        //     setPasswordsMatch(false);
+        //     return;
+        // }
 
-        const isMatch = await bcrypt.compare(currentPassword, userInfo.password);
-        if (!isMatch) {
-            setPasswordError(true);
-            return;
-        }
+        // const isMatch = await bcrypt.compare(currentPassword, userInfo.password);
+        // if (!isMatch) {
+        //     setPasswordError(true);
+        //     return;
+        // }
 
-        const response = await fetch("http://backend-saloon.onrender.com/admin/updateUser", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: userInfo._id,
-                password: newPassword,
-            }),
-        });
-        if (response.ok) {
-            setPasswordChanged(true);
-            setTimeout(() => {
-                setPasswordChanged(false);
-                props.onClose();
-            },1500 );
-        }
+        // const response = await fetch("http://backend-saloon.onrender.com/admin/updateUser", {
+        //     method: "PUT",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         id: userInfo._id,
+        //         password: newPassword,
+        //     }),
+        // });
+        // if (response.ok) {
+        //     setPasswordChanged(true);
+        //     setTimeout(() => {
+        //         setPasswordChanged(false);
+        //         props.onClose();
+        //     },1500 );
+        // }
     };
 
     useEffect(() => {
