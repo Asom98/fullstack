@@ -12,7 +12,7 @@ function ChangePassword (props) {
     const [passwordChanged, setPasswordChanged] = useState(false);
 
     const fetchUserData = async () => {
-        const response = await fetch(`http://localhost:3000/users/getUserData`, {
+        const response = await fetch(`http://backend-saloon.onrender.com/users/getUserData`, {
           method: "GET",
           headers: {
           },
@@ -43,7 +43,7 @@ function ChangePassword (props) {
             return;
         }
 
-        const response = await fetch("http://localhost:3000/admin/updateUser", {
+        const response = await fetch("http://backend-saloon.onrender.com/admin/updateUser", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

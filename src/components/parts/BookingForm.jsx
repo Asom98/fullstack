@@ -15,7 +15,7 @@ export function BookingForm({
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      await fetch("http://localhost:3000/users/getUserData", {
+      await fetch("http://backend-saloon.onrender.com/users/getUserData", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export function BookingForm({
       useCoupon: useCoupon,
       status: true,
     };
-    await fetch(`http://localhost:3000/bookings/postBooking`, {
+    await fetch(`http://backend-saloon.onrender.com/bookings/postBooking`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

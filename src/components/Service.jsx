@@ -14,7 +14,7 @@ export const ServicePage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch("http://localhost:3000/services/getServices",{
+        const response = await fetch("http://backend-saloon.onrender.com/services/getServices",{
           method: "GET"
         });
         const result = await response.json()
