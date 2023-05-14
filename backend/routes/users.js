@@ -7,7 +7,6 @@ require("dotenv").config();
 const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
-const { isMatch } = require('lodash');
 
 router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
     const user = await userModel.findOne({_id: req.user._id})
