@@ -112,13 +112,22 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
             );
 
             const amountToPay = parseInt(currService.price);
-            currUser.amountSpent += amountToPay;
             currUser.bookingAmount += 1;
             const couponWorthy = checkCoupon(currUser.amountSpent)
             if (couponWorthy) {
               currUser.amountSpent -= 500
               currUser.couponAmount += 1
             }
+            console.log(req.body.useCoupon);
+            if (req.body.useCoupon && currUser.couponAmount <= 0) {
+              res.sendStatus(403)
+            } else if (req.body.useCoupon && currUser.couponAmount > 0) {
+              currUser.couponAmount -= 1
+              currUser.amountSpent += amountToPay - 15;
+            } else {
+              currUser.amountSpent += amountToPay;
+            }
+            
             await currUser.save();
 
             const valid = await isEmailValid(currUser.email);
