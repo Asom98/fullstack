@@ -108,7 +108,7 @@ export function AboutPage() {
                 <span style={{ color: "green" }}>*</span> Service table data
                 management <br />
                 Assisting with render deployment <br />
-                Facebook login feature
+                Google login feature
               </p>
             </Container>
           </Col>
