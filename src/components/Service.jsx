@@ -29,7 +29,6 @@ export const ServicePage = () => {
 
   const handleBookClick = (service) => {
     navigate(`/booking/${service._id}`);
-    console.log(service);
   };
 
   return (

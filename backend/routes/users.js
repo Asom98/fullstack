@@ -9,7 +9,6 @@ const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
 
 router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
-  console.log(req.user._id);
     const user = await userModel.findOne({_id: req.user._id})
     const admin = await adminModel.findOne({_id: req.user._id})
 

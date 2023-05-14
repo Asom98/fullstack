@@ -31,7 +31,6 @@ export function AdminPage() {
       ).json();
       setLoyalList(loyal);
     })();
-    console.log(loyalList);
   }, []);
 
   return (

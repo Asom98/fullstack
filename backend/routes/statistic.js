@@ -6,14 +6,12 @@ const bookingModel = require("../models/booking");
 
 router.get("/getUsersCount", async(req, res)=>{
     await userModel.count().then(result =>{
-        console.log(result)
         res.json(result)
     })
 })
 
 router.get("/getBookingsCount", async(req, res)=>{
     await bookingModel.count().then(result =>{
-        console.log(result)
         res.json(result)
     })
 })
@@ -45,7 +43,6 @@ router.put("/updateUserBooking", async(req, res)=>{ ///testing purpose
     const data = req.body
     try{
         const user = await userModel.findByIdAndUpdate(id, data).then(res.sendStatus(200))
-        console.log(user.bookingAmount)
     }catch(e){
         res.sendStatus(404)
     }

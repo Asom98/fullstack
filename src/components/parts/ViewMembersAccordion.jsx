@@ -68,7 +68,6 @@ export function ViewMembersAccordion() {
     }
     (async () => {
       const packet = { id, username, email, phoneNumber, couponAmount };
-      console.log(editedName, editedEmail, editedPhone, editedCoupon);
       let response = await fetch(`http://localhost:3000/admin/updateUser`, {
         method: "PUT",
         body: JSON.stringify(packet),

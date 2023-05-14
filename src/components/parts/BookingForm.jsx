@@ -21,7 +21,6 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
                 }
             })
             .then(user => {
-                console.log("hello world");
                 setUser(user)
             })
         }

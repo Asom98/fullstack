@@ -35,7 +35,6 @@ function NavigationBar() {
       credentials: "include",
     })
     .then(response => {
-      console.log(response);
       if (response.status === 200) {
         return response.json()
       } else {
@@ -45,7 +44,6 @@ function NavigationBar() {
     })
     .then(result => {
       const user = result
-      console.log(user);
       if (user && user.role === "admin") {
         navigate("/admin");
       } else if (user && user.role === "user") {

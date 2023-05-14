@@ -45,7 +45,6 @@ export function ViewBookingsAccordion() {
         })
       );
       setTotalPages(Math.ceil(bookings.length / perPage));
-      console.log(Math.ceil(bookings.length / perPage));
       setBookingList(bookings);
       setServiceNames(tempServiceList);
     })();
@@ -113,7 +112,6 @@ export function ViewBookingsAccordion() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page - 1)
-    console.log(currentPage);
   }
 
   return (

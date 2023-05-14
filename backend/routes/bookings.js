@@ -118,7 +118,6 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               currUser.amountSpent -= 500
               currUser.couponAmount += 1
             }
-            console.log(req.body.useCoupon);
             if (req.body.useCoupon && currUser.couponAmount <= 0) {
               res.sendStatus(403)
             } else if (req.body.useCoupon && currUser.couponAmount > 0) {
@@ -199,7 +198,6 @@ router.get(
       const totalSlots = Math.round(
         totalTimeInMinutes / (service.duration + preparationTime)
       );
-      console.log(totalSlots);
       const timeSlots = [];
       for (let i = 0; i < totalSlots; i++) {
         const start = new Date(

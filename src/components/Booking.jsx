@@ -82,7 +82,6 @@ export function Booking() {
           setIsLoading(false);
           return;
         } else {
-          console.log("you do not have access to that resource");
           navigate(`/`);
           return;
         }
@@ -114,11 +113,11 @@ export function Booking() {
         })
         .then((result) => {
           setEmployees(result);
-          console.log(employees);
         });
     }
     fetchEmployees();
   }, [service]);
+  
   const isDateDisabled = (date) => {
     return date < new Date();
   };

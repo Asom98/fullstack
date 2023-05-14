@@ -76,7 +76,6 @@ export function Registration({ isAdmin }) {
       setFormErrors(errors);
     } else {
       // form is valid, submit data to server or do something else
-      console.log("Form data:", formData);
       setFormErrors({
         name: "",
         email: "",
