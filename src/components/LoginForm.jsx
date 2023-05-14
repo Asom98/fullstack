@@ -10,6 +10,7 @@ export const Login = (props) => {
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
   const [showModal, setShowModal] = useState(showPopup === "true")
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -47,13 +48,17 @@ export const Login = (props) => {
         }
         
         props.onLoginSuccess();
-
+      } else if (response.status === 404) {
+        setLoginStatus(false);
+        setErrorMessage("User does not exist. Please check your username.");
       } else {
         setLoginStatus(false);
+        setErrorMessage("Wrong username or password. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting login form:", error);
       setLoginStatus(false);
+      setErrorMessage("Something went wrong. Please try again later.");
     }
   };
 
@@ -85,7 +90,7 @@ export const Login = (props) => {
         </form>
         {loginStatus !== null && (
             <p className={`message ${loginStatus ? "success" : "error"}`}>
-            {loginStatus ? "Login Successful" : "Login Failed"}
+            {loginStatus ? "Login Successful" : "Invalid username or password"}
             </p>
         )}
     </div>

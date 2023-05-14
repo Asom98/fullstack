@@ -97,6 +97,8 @@ router.post("/login", async (req, res) => {
         process.env.ACCESS_TOKEN)
       res.cookie("accessToken", accessToken, { maxAge: 86400000 })
       res.json({accessToken: accessToken, user: user})
+    } else {
+      res.status(401).json({ error: "Incorrect password" });
     }
   } else {
     res.sendStatus(404);

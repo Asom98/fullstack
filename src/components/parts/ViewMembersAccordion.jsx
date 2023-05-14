@@ -28,6 +28,7 @@ export function ViewMembersAccordion() {
   const [editedName, setEditedName] = useState("");
   const [editedEmail, setEditedEmail] = useState("");
   const [editedPhone, setEditedPhone] = useState("");
+  const [editedCoupon, setEditedCoupon] = useState("");
 
   const handleUpdate = (index, memberId) => {
     setMemberList((prevMemberList) => {
@@ -51,6 +52,7 @@ export function ViewMembersAccordion() {
     let email = member.email;
     let phoneNumber = member.phoneNumber;
     let username = member.username;
+    let couponAmount = member.couponAmount;
     const id = member._id;
     if (editedName && editedName !== member.username) {
       username = editedName;
@@ -61,10 +63,12 @@ export function ViewMembersAccordion() {
     if (editedPhone && editedPhone !== member.phoneNumber) {
       phoneNumber = editedPhone;
     }
-
+    if (editedCoupon && editedCoupon !== member.couponAmount) {
+      couponAmount = editedCoupon;
+    }
     (async () => {
-      const packet = { id, username, email, phoneNumber };
-      console.log(editedName, editedEmail, editedPhone);
+      const packet = { id, username, email, phoneNumber, couponAmount };
+      console.log(editedName, editedEmail, editedPhone, editedCoupon);
       let response = await fetch(`http://localhost:3000/admin/updateUser`, {
         method: "PUT",
         body: JSON.stringify(packet),
@@ -97,6 +101,9 @@ export function ViewMembersAccordion() {
       } else if (name === "phoneNumber") {
         setEditedPhone(value);
         updatedMember.phoneNumber = value;
+      } else if (name === "couponAmount") {
+        setEditedCoupon(value);
+        updatedMember.couponAmount = value;
       }
       updatedMemberList[index] = updatedMember;
       return updatedMemberList;

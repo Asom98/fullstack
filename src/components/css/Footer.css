@@ -1,0 +1,36 @@
+.my-footer{
+  background: linear-gradient(to right, #577C57, #BCD1B3);
+  color:black !important;
+}
+
+.insta{
+  background-image: url("../backgrounds/insta.png") !important;
+  height: 30px !important;
+  width: 30px !important;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+}
+
+.facebook {
+  background-image: url("../backgrounds/facebook.png") !important;
+  height: 30px !important;
+  width: 30px !important;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+}
+
+.twitter {
+  background-image: url("../backgrounds/twitter.png") !important;
+  height: 30px !important;
+  width: 30px !important;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+}
+
+.my-row{
+  text-align: center;
+  margin-bottom: 5px;
+}
