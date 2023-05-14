@@ -27,7 +27,7 @@ export const Login = (props) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://backend-saloon.onrender.com/users/login", {
+      const response = await fetch("https://backend-saloon.onrender.com/users/login", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json" 

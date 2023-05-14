@@ -20,7 +20,7 @@ function User() {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
  
   const handleUpdateEmailClick = async () => {
-    const response = await fetch("http://backend-saloon.onrender.com/admin/updateUser", {
+    const response = await fetch("https://backend-saloon.onrender.com/admin/updateUser", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ function User() {
   };
 
   const handleUpdatePhoneNumberClick = async () => {
-    const response = await fetch("http://backend-saloon.onrender.com/admin/updateUser", {
+    const response = await fetch("https://backend-saloon.onrender.com/admin/updateUser", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function User() {
 
   const handleUserBookings = async () => {
 
-    const response = await fetch(`http://backend-saloon.onrender.com/bookings/getBookingsByUserId`, {
+    const response = await fetch(`https://backend-saloon.onrender.com/bookings/getBookingsByUserId`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ function User() {
       const data = await response.json();
       const bookingsWithService = await Promise.all(
         data.map(async (booking) => {
-          const serviceResponse = await fetch(`http://backend-saloon.onrender.com/services/getServiceById/${booking.service_id}`, {
+          const serviceResponse = await fetch(`https://backend-saloon.onrender.com/services/getServiceById/${booking.service_id}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -88,7 +88,7 @@ function User() {
     }
   };
   const fetchUserData = async () => {
-    const response = await fetch(`http://backend-saloon.onrender.com/users/getUserData`, {
+    const response = await fetch(`https://backend-saloon.onrender.com/users/getUserData`, {
       method: "GET",
       headers: {
       },
@@ -119,7 +119,7 @@ function User() {
   const handleConfirmDeleteBooking = async () => {
     if (bookingToDelete) {
       const packet = { _id: bookingToDelete };
-      const response = await fetch(`http://backend-saloon.onrender.com/bookings/deleteBooking`, {
+      const response = await fetch(`https://backend-saloon.onrender.com/bookings/deleteBooking`, {
         method: "DELETE",
         body: JSON.stringify(packet),
         headers: {

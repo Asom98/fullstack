@@ -60,7 +60,7 @@ export function Booking() {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://backend-saloon.onrender.com/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
+          `https://backend-saloon.onrender.com/bookings/getAvailableTimeSlots/${_id}/${selectedDate}`,
           {
             method: "GET",
             headers: {},
@@ -101,7 +101,7 @@ export function Booking() {
         return;
       }
       await fetch(
-        `http://backend-saloon.onrender.com/employees/getEmployees/${employee_ids.join(
+        `https://backend-saloon.onrender.com/employees/getEmployees/${employee_ids.join(
           ","
         )}`,
         {
