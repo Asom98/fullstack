@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 
 export function BookingForm({ start, end, service, employee, onClose, onTimeSlotsChange}) {
     const [user, setUser] = useState(null)
+    const [error, setError]= useState(false)
 
     useEffect(()=> {
         const fetchUserInfo = async () => {
@@ -34,7 +35,6 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
           endTime: end,
           status: true,
         };
-        console.log("asd");
         await fetch(`http://localhost:3000/bookings/postBooking`, {
           method: "POST",
           headers: {
@@ -43,16 +43,14 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
           credentials: "include",
           body: JSON.stringify(Data),
         }).then(async (result) => {
-          console.log(result);
           if (result.status === 200) {
             const timeSlots = {start,end}
             onTimeSlotsChange(timeSlots);
             onClose();
-          } else {
-            const error = await response.json();
-            console.error(error);
+          } else{
+            setError(true)
           }
-        });
+        })
       }
 
   return (
@@ -69,6 +67,9 @@ export function BookingForm({ start, end, service, employee, onClose, onTimeSlot
             <p>{service.name}</p>
             <p>{employee.name}</p>
             <p>{user.username}</p> 
+            {error ? <div class="alert alert-danger" role="alert">
+              An error has occured proccesing your booking
+            </div> : null}
         </div>)
     : (<div className="spinner-border"></div>)}
         
