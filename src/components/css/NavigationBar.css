@@ -4,11 +4,15 @@
     display: flex;
     justify-content: space-between;
 }
+
+.menu{
+    font-weight: 500;
+}
   
 .navbar-brand {
     margin-left: 150px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 28px;
+    font-size: 50px;
     font-weight: 700;
     color: white !important;
     text-transform: uppercase;
@@ -45,11 +49,11 @@
     background-color: #577C57;
 }
 
-.navbar-nav .btn-primary:first-child {
+.navbar-nav .loginButton {
     margin-right: 10px; 
 }
 
-.navbar-nav .btn-primary:last-child {
+.navbar-nav .registerButton {
     margin-left: 10px; 
 }
 
@@ -68,15 +72,20 @@
     padding: 1rem;
 }
 
-.user-icon {
+.navbar-nav .user-icon {
     margin-right: 10px;
     width: 35px;
     height: 35px;
-    margin-right: 10px;
+    margin-left: 28px;
 }
 
-.user-icon:hover {
+.navbar-nav .user-icon:hover {
     filter: brightness(0) invert(1);
+}
+
+.navbar-nav .logoutButton {
+    margin-top: 10px;
+    height: 35px;
 }
 
 @media (max-width: 1080px) {
@@ -112,3 +121,34 @@
     }
 }
 
+@media (max-width: 1280px) {
+    
+    .navbar-brand {
+        
+        margin-right: 20px;
+    }
+    
+    .nav-link {
+      margin: 10px 0;
+    }
+    
+    .navbar-collapse {
+      justify-content: center;
+    }
+    
+    .navbar-nav {
+      margin: 10px 0;
+    }
+    
+    .navbar-nav .btn-primary {
+      margin-left: 20px;
+    }
+    
+    .user-icon {
+      margin: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        margin-right: 30px;
+    }
+}

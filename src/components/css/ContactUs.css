@@ -1,0 +1,62 @@
+#contact-us {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 120vh;
+    background-image: url('/src/components/Images/lina-verovaya-41TbIC5J_l0-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.contact-info {
+    background-color: rgba(201, 203, 201, 0.9);
+    width: 90%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+}
+
+.map-box_img{
+    width: 500px;
+    height: 300px;
+}
+
+.address-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(65, 65, 65);
+    margin-top: -10px;
+}
+
+.contact-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+.main-text {
+    margin-bottom: 15px;
+    font-style: italic;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(65, 65, 65);
+}
+
+.email-link, .phone-link {
+    margin-top: -15px;
+    color: rgb(65, 65, 65);
+}
+
+.phone, .email{
+    margin-top: 30px;
+    color: rgb(65, 65, 65);
+    font-size: 1.2rem;
+}
+

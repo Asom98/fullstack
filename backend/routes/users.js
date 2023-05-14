@@ -8,16 +8,28 @@ const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
 
-router.get("/getUserData", authMiddleware.authenticateUser, authMiddleware.checkRole(["admin", "user"]),
-  async (req, res) => {
-    await userModel.findOne({ username: req.user.username })
-      .then((response) => {
-        res.json(response).sendStatus(200);
-      });
-  }
-);
+router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
+    const user = await userModel.findOne({_id: req.user._id})
+    const admin = await adminModel.findOne({_id: req.user._id})
 
-// increase user counter for booking 
+    if (user) {
+      res.json(user)
+    } else if (admin){
+      res.json(admin)
+    } else {
+      res.sendStatus(404)
+    }
+});
+
+// get user by id
+router.get("/getUserData/:_id", async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params._id)
+    res.json(user)
+  } catch (error) {
+    res.status(404).send({ message: error })
+  }
+});
 
 router.post("/register", async (req, res) => {
   try {
@@ -31,7 +43,10 @@ router.post("/register", async (req, res) => {
               phoneNumber: req.body.phoneNumber, 
               username: req.body.username, 
               password: hashedPassword, 
-              role: "user"})
+              role: "user",
+              couponAmount : 0,
+              amountSpent: 0,
+              bookingAmount: 0})
             newUser.save()
             .then(res.sendStatus(201))
         })
@@ -40,7 +55,7 @@ router.post("/register", async (req, res) => {
     }
 })
 
-router.post("/registerAdmin", async (req, res) => {
+router.post("/registerAdmin", authMiddleware.authenticateUser, async (req, res) => {
   try {
     const adminExists = await adminModel.findOne({ username: req.body.username });
     if (adminExists) return res.status(400).send("Admin already exists");
@@ -66,28 +81,23 @@ router.post("/registerAdmin", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-  const user = await userModel.findOne({ username: req.body.username });
-  const admin = await adminModel.findOne({ username: req.body.username });
-  console.log(admin);
-  if(admin != null){
-    const isMatch = await bcrypt.compare(req.body.password, admin.password)
+  let user = await userModel.findOne({ username: req.body.username });
+  
+  if (!user) {
+    user = await adminModel.findOne({ username: req.body.username });
+  }
+
+  if(user){
+    const isMatch = await bcrypt.compare(req.body.password, user.password)
     if(isMatch){
-      const accessToken = jwt.sign({
-        username: admin.username, 
-        role: admin.role}, 
-        process.env.ACCESS_TOKEN)
-      res.json([{accessToken: accessToken}, admin])
-    }
-  } else if (user != null) {
-    console.log(admin);
-    const isMatch = await bcrypt.compare(req.body.password, user.password);
-    if (isMatch) {
-      // change to create token in controllers dir
       const accessToken = jwt.sign(
-        { username: user.username, role: user.role },
-        process.env.ACCESS_TOKEN
-      ); // add { expiresIn: '10s' } to add expiration to the token
-      res.json([{ accessToken: accessToken }, user]);
+        { _id: user._id, 
+          role: user.role }, 
+        process.env.ACCESS_TOKEN)
+      res.cookie("accessToken", accessToken, { maxAge: 86400000 })
+      res.json({accessToken: accessToken, user: user})
+    } else {
+      res.status(401).json({ error: "Incorrect password" });
     }
   } else {
     res.sendStatus(404);

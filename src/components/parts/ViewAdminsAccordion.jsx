@@ -64,7 +64,6 @@ export function ViewAdminsAccordion() {
 
     (async () => {
       const packet = { id, username, email, phoneNumber };
-      console.log(editedName, editedEmail, editedPhone);
       let response = await fetch(`http://localhost:3000/admin/updateAdmin`, {
         method: "PUT",
         body: JSON.stringify(packet),

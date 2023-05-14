@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./css/LoginForm.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ErrorPopup } from "./parts/ErrorPopup";
 
 export const Login = (props) => {
+  const { showPopup } = useParams();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  const [showModal, setShowModal] = useState(showPopup === "true")
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const navigate = useNavigate();
-  
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -23,7 +29,10 @@ export const Login = (props) => {
     try {
       const response = await fetch("http://localhost:3000/users/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json" 
+        },
+        credentials: "include",
         body: JSON.stringify({ username, password }),
       });
 
@@ -32,28 +41,30 @@ export const Login = (props) => {
       if (response.ok) {
         setLoginStatus(true);
 
-        console.log(data[1].role);
-
-        if(data[1].role === "admin"){
+        if(data.user.role === "admin"){
           navigate("/admin");
-        }else if (data[1].role === "user"){
+        }else if (data.user.role === "user"){
           navigate("/user")
         }
-        props.onLoginSuccess();
-
-        localStorage.setItem("user", JSON.stringify(data[1]));
         
+        props.onLoginSuccess();
+      } else if (response.status === 404) {
+        setLoginStatus(false);
+        setErrorMessage("User does not exist. Please check your username.");
       } else {
         setLoginStatus(false);
+        setErrorMessage("Wrong username or password. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting login form:", error);
       setLoginStatus(false);
+      setErrorMessage("Something went wrong. Please try again later.");
     }
   };
 
   return (
     <div className="login-form-container">
+      {showModal ? <ErrorPopup onClose={() => setShowModal(false)}/> : null}
         <form onSubmit={handleLoginSubmit}>
             <label htmlFor="username">Username</label>
             <input
@@ -79,7 +90,7 @@ export const Login = (props) => {
         </form>
         {loginStatus !== null && (
             <p className={`message ${loginStatus ? "success" : "error"}`}>
-            {loginStatus ? "Login Successful" : "Login Failed"}
+            {loginStatus ? "Login Successful" : "Invalid username or password"}
             </p>
         )}
     </div>

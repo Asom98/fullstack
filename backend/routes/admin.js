@@ -83,10 +83,15 @@ router.post("/addAdmin", async (req, res) => {
 router.put("/updateUser", async(req, res)=>{
     const id = req.body.id
     const data = req.body
-    try{
-        await userModel.findByIdAndUpdate(id, data).then(res.sendStatus(200))
-    }catch(e){
-        res.sendStatus(404)
+    try {
+        
+        if (data.password && data.password !== "") {
+          data.password = await bcrypt.hash(data.password, 10);
+        }
+        await userModel.findByIdAndUpdate(id, data);
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404);
     }
 })
 

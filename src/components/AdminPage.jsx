@@ -15,9 +15,47 @@ import { ViewBookingsAccordion } from "./parts/ViewBookingsAccordion";
 import { ViewAdminsAccordion } from "./parts/ViewAdminsAccordion";
 
 export function AdminPage() {
+  const [loyalList, setLoyalList] = useState([]);
+  const [monthlyList, setMonthlyList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let loyal = await (
+        await fetch(`http://localhost:3000/statistic/getMostLoyal`)
+      ).json();
+      setLoyalList(loyal);
+    })();
+    (async () => {
+      let loyal = await (
+        await fetch(`http://localhost:3000/statistic/getMostLoyal`)
+      ).json();
+      setLoyalList(loyal);
+    })();
+  }, []);
+
   return (
     <Container className={"admin-full"}>
       <h3>Admin Page!</h3>
+      <Container className="statistics-row mb-4">
+        <Row className="loyal-title">Most loyal member/s</Row>
+        <Row>
+          {loyalList.map((member, index) => (
+            <Col md={2} key={index}>
+              <div className="loyal-list-item">{member.username}</div>
+            </Col>
+          ))}
+        </Row>
+        <Row>
+          <Row className="monthly-title">Employee/s of the month</Row>
+          <Row>
+            {monthlyList.map((employee, index) => (
+              <Col md={2} key={index}>
+                <div className="loyal-list-item">{employee.username}</div>
+              </Col>
+            ))}
+          </Row>
+        </Row>
+      </Container>
       <Accordion defaultActiveKey={null}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Handle Admin</Accordion.Header>

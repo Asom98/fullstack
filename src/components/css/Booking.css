@@ -1,6 +1,5 @@
 .time-body {
     width: 100%;
-    
 }
 
 .notAvailable {
@@ -15,8 +14,9 @@
     background-color: rgba(255, 241, 194, 0.9);
 }
 
-.isAvailable, .notAvailable{
-    display:flex;
+.isAvailable,
+.notAvailable {
+    display: flex;
     align-items: center !important;
     border-radius: 10px;
     border: 2px solid #5a3204;
@@ -24,47 +24,52 @@
     margin-top: 10px;
 }
 
-.disabled, .react-calendar__navigation__prev-button, .react-calendar__navigation__prev2-button{
+.disabled {
     background-color: rgb(183, 174, 128) !important;
 }
 
-.react-calendar__tile--active{
+.react-calendar__tile--active {
     background-color: rgb(234, 142, 13) !important;
 }
 
-.time-table {
-    display: flex;
-    align-items: center !important;
-    margin-top: 100px;
-}
-
-.booking-div{
-    margin-left: 100px;
-    margin-right: 100px;
-    display: flex;
-    align-items: center !important;
+.booking-div {
     background-image: url("../backgrounds/Time-booking.png") !important;
 }
 
-.calendar{
+@media screen and (min-width: 900px) {
+    .booking-div {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+}
+
+.calendar {
     margin-right: 60px;
     background-color: rgba(255, 241, 194, 0.9) !important;
 }
 
-.service-name{
+.service-name-text {
     padding: 20px;
-    background-color: rgba(255, 241, 194, 0.9) !important;
+    background-color: rgba(212, 255, 194, 0.8) !important;
     font-weight: bold !important;
-    border-radius: 8px !important;
 }
 
-.row-section{
+.service-name{
+    margin-top: 30px !important;
+}
+
+.row-section {
     margin: 20px;
 }
 
+.section-row{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 50px !important;
+}
 
-
-.timeBooking-btn{
+.timeBooking-btn {
     background: linear-gradient(to right, #839d83, #BCD1B3);
     color: black !important;
     font-weight: bold !important;
@@ -72,3 +77,12 @@
     border: 2px solid #5a3204 !important;
 }
 
+.employee-item{
+    display: inline-block;
+    background-color: rgba(255,
+        241,
+        194, 0.97) !important;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 10px;
+}

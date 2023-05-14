@@ -16,11 +16,22 @@ export function ViewBookingsAccordion() {
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
   const [serviceNames, setServiceNames] = useState([]);
+  const [userNames, setUserNames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const perPage = 5
 
   useEffect(() => {
     (async () => {
       const bookings = await (
-        await fetch(`http://localhost:3000/bookings/getBookings`)
+        await fetch(`http://localhost:3000/bookings/getBookings`, {
+          method: "GET",
+          headers: {},
+          credentials: "include",
+        })
       ).json();
 
       const tempServiceList = await Promise.all(
@@ -33,11 +44,30 @@ export function ViewBookingsAccordion() {
           return service.name;
         })
       );
-
+      setTotalPages(Math.ceil(bookings.length / perPage));
       setBookingList(bookings);
       setServiceNames(tempServiceList);
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      const tempUserNames = await Promise.all(
+        bookingList.map(async (booking) => {
+          const user = await (
+            await fetch(
+              `http://localhost:3000/users/getUserData/${booking.user_id}`
+            )
+          ).json();
+          return user.username;
+        })
+      );
+      setUserNames(tempUserNames);
+      if (tempUserNames.length > 0) {
+        setIsLoading(false);
+      }
+    })();
+  }, [bookingList]);
 
   const handleDelete = (_id) => {
     (async () => {
@@ -50,6 +80,7 @@ export function ViewBookingsAccordion() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
         }
       );
       if (response.status === 200) {
@@ -79,46 +110,66 @@ export function ViewBookingsAccordion() {
     "__v": 0
   }*/
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page - 1)
+  }
+
   return (
     <Accordion.Item eventKey="2">
       <Accordion.Header>Handle bookings</Accordion.Header>
-      <Accordion.Body>
-        <Container
-          className="bookings"
-          style={{ maxHeight: "400px", overflowY: "auto" }}
-        >
-          {bookingList.map((booking, index) => (
-            <Row className="booking-row mb-4" key={index}>
-              <Col>{serviceNames[index]}</Col>
-              <Col>
-                {new Date(booking.startTime).toLocaleString("en-UK", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  timeZone: "UTC",
-                })}
-              </Col>
-              <Col>
-                <Button
-                  className="colored-btn"
-                  onClick={() => handleDelete(booking._id)}
-                >
-                  Cancel booking
-                </Button>
-              </Col>
-            </Row>
-          ))}
-        </Container>
-      </Accordion.Body>
-      {showModal && (
-        <ConfirmationModal
-          sentance={registrationSentence}
-          onClose={() => setShowModal(false)}
-        />
-      )}
+      <div>
+        <Accordion.Body>
+          {isLoading ? (
+            <div className="spinner-border"></div>
+          ) : (
+            <>
+              <div>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button className="btn btn-secondary" key={page} onClick={() => handlePageChange(page)}>
+                    {page}
+                  </button>
+                ))}
+              </div>
+              <Container
+                className="bookings"
+                style={{ maxHeight: "400px", overflowY: "auto" }}
+              >
+                {bookingList.slice(currentPage * perPage, (currentPage + 1) * perPage ).map((booking, index) => (
+                  <Row className="booking-row mb-4" key={index}>
+                    <Col>{userNames[index + currentPage * perPage]}</Col>
+                    <Col>{serviceNames[index + currentPage * perPage]}</Col>
+                    <Col>
+                      {new Date(booking.startTime).toLocaleString("en-UK", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZone: "UTC",
+                      })}
+                    </Col>
+                    <Col>
+                      <Button
+                        className="colored-btn"
+                        onClick={() => handleDelete(booking._id)}
+                      >
+                        Cancel booking
+                      </Button>
+                    </Col>
+                  </Row>
+                ))}
+              </Container>
+              {showModal && (
+                <ConfirmationModal
+                  sentance={registrationSentence}
+                  onClose={() => setShowModal(false)}
+                />
+              )}
+            </>
+          )}
+        </Accordion.Body>
+      </div>
     </Accordion.Item>
   );
 }

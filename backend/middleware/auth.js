@@ -12,15 +12,14 @@ function checkRole(role) {
 }
 
 function authenticateUser(req, res, next) {
-    console.log(req);
-    const authHeader = req.headers.authorization
-    console.log(authHeader);
-    const token = authHeader.split(' ')[1]
+    const { cookies } = req
+    const token = cookies.accessToken
+
     if(token == null) return res.sendStatus(403)
     jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
-        if(err) return res.sendStatus(403)
-        req.user = user
-        next()
+      if(err) return res.sendStatus(403)
+      req.user = user
+      next()
     })
 }
 

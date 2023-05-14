@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
-import GoogleLogin from "./GoogleLogin";
+import { ConfirmationModal } from "./parts/ConfirmationModal";
 
 function NavigationBar() {
 
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(checkToken);
+  const [showModal, setShowModal] = useState(false)
+  
 
   const handleLoginClick = () => {
     if (!loggedIn) {
@@ -27,42 +30,55 @@ function NavigationBar() {
   };
 
   const handleUserIconClick = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.role === "admin") {
-      navigate("/admin");
-    } else if (user && user.role === "user") {
-      navigate("/user");
-    }
+    fetch("http://localhost:3000/users/getUserData", {
+      method: "GET",
+      credentials: "include",
+    })
+    .then(response => {
+      if (response.status === 200) {
+        return response.json()
+      } else {
+        setLoggedIn(false)
+        setShowModal(true)
+      }
+    })
+    .then(result => {
+      const user = result
+      if (user && user.role === "admin") {
+        navigate("/admin");
+      } else if (user && user.role === "user") {
+        navigate("/user");
+      }
+    })
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("user");
     navigate("/");
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setLoggedIn(false);
    };
 
+  function checkToken() {
+    if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
+      // Cookie exists
+      return true
+    } else {
+      // Cookie does not exist
+      return false
+    }
+  }
+
   return (
-    <>
-    <Navbar
-      bg="light"
-      expand="md"
-      sticky="top"
-      className="navbar-custom"
-      collapseOnSelect={true}
-    >
-      <Navbar.Brand>Company name</Navbar.Brand>
-      <Navbar.Toggle aria-controls="my-navbar" />
+    <Navbar bg="light" expand="md" sticky="top" className="navbar-custom" collapseOnSelect={true}>
+      {showModal ? <ConfirmationModal sentance={"Your session has expired"} onClose={() => setShowModal(false)}/> : null}
+      <Navbar.Brand className="brand-name">HKR Beauty Salon</Navbar.Brand>
+      <Navbar.Toggle aria-controls="my-navbar"/>
       <Navbar.Collapse id="my-navbar">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">
-            Home
-          </Nav.Link>
-          <Nav.Link as={Link} to="/services">
-            Services
-          </Nav.Link>
-          <Nav.Link as={Link} to="/about">
-            About
-          </Nav.Link>
+        <Nav className="mr-auto menu">
+          <Nav.Link as={Link} to="/"> Home </Nav.Link>
+          <Nav.Link as={Link} to="/services"> Services </Nav.Link>
+          <Nav.Link as={Link} to="/about"> About </Nav.Link>
+          <Nav.Link as={Link} to="/contactus"> Contact us </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
             {!loggedIn ? (
@@ -77,10 +93,10 @@ function NavigationBar() {
                   <GoogleLogin />
               </Button>
             </div>
-            ) : (
-            <div className="d-flex justify-content-center">
+          ) : (
+            <div className="d-flex justify-content-center nav-loggedin">
              <img className="user-icon" src="./src/components/Images/icons8-male-user-48.png" alt="User Icon" onClick={handleUserIconClick} />
-             <Button variant="primary" className="ml-3 logoutButton" onClick={handleLogoutClick}>Logout</Button>
+             <Button className="ml-3 logoutButton" variant="primary" onClick={handleLogoutClick}>Logout</Button>
            </div>
           )}
         </Nav>
