@@ -10,13 +10,14 @@
 }
   
 .navbar-brand {
-    margin-left: 150px;
+    margin-left: 50px;
     font-family: 'Montserrat', sans-serif;
     font-size: 50px;
     font-weight: 700;
     color: white !important;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-top: 10px;
 }
   
 .nav-link {
@@ -55,6 +56,7 @@
 
 .navbar-nav .registerButton {
     margin-left: 10px; 
+    margin-right: 20px;
 }
 
 .modal-header {
@@ -77,6 +79,7 @@
     width: 35px;
     height: 35px;
     margin-left: 28px;
+    margin-top: 10px;
 }
 
 .navbar-nav .user-icon:hover {
@@ -88,7 +91,11 @@
     height: 35px;
 }
 
-@media (max-width: 1080px) {
+.navbar-nav .googleButton{
+  font-size: 8px;
+}
+
+@media (max-width: 1170px) {
 
     .navbar-custom {
       height: auto;
