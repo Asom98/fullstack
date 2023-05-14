@@ -26,6 +26,7 @@
     display: flex;
     margin: 30px;
     text-align: center;
+    font-weight: bold;
 }
 
 .card-subtitle {
@@ -51,6 +52,17 @@
 .bookings {
     text-align: center;
     margin: 30px;
+}
+
+.card .coupon-card{
+  background-color: rgb(255, 255, 255);
+  color: rgb(59, 59, 59);
+  margin-top: 50px;
+}
+
+.card .coupon-card .coupon{
+  margin-top: 30px;
+  color: red;
 }
 
 @media (max-width: 991px) {
