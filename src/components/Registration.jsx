@@ -198,6 +198,7 @@ export function Registration({ isAdmin }) {
               type="tel"
               name="phoneNumber"
               placeholder={"PhoneNumber"}
+              defaultValue="+46"
               onChange={handleInputChange}
               isInvalid={formErrors.phoneNumber}
               required

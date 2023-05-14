@@ -9,7 +9,7 @@ export function Footer() {
             <column class="col">Phone: +46123456789</column>
           </row>
           <row class="row">
-            <column class="col">Email: info@example.com</column>
+            <column class="col">fullstackg10@gmail.com</column>
           </row>
         </column>
         <column class="col text-center">
