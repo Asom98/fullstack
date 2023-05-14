@@ -7,6 +7,7 @@ require("dotenv").config();
 const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
+const { isMatch } = require('lodash');
 
 router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
     const user = await userModel.findOne({_id: req.user._id})
@@ -78,6 +79,22 @@ router.post("/registerAdmin", authMiddleware.authenticateUser, async (req, res) 
     } catch(error) {
         console.log(error);
     }
+})
+
+router.post("/newPassword", authMiddleware.authenticateUser, async (req, res) => {
+  const user = await userModel.findById(req.user._id)
+
+  isMatch = await bcrypt.compare(req.body.password, user.password)
+  if (isMatch) {
+    await bcrypt.hash(req.body.password, 10)
+    .then(hashedPassword => {
+      user.password = hashedPassword
+      user.save()
+      res.sendStatus(200)
+    })
+  } else {
+    res.sendStatus(403)
+  }
 })
 
 router.post("/login", async (req, res) => {
