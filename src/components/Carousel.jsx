@@ -47,6 +47,7 @@ function CarouselComp() {
           className="d-block w-100"
           src="/src/components/Images/lina-verovaya-N4njM45mXFM-unsplash.jpg"
         />
+        
       </Carousel.Item>
     </Carousel>
   );
