@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 async function handleCredentialResponse(userData) {
+  const navigate = useNavigate();
   console.log('Encoded JWT', userData.credential);
   // decode jwt 
   const jwt = userData.credential;
@@ -15,6 +17,7 @@ async function handleCredentialResponse(userData) {
     email: payload.email,
     phoneNumber: payload.phone_number,
   };
+
   // register user with google credentials
   try {
     const response = await fetch("http://localhost:3000/users/register", {
@@ -26,6 +29,29 @@ async function handleCredentialResponse(userData) {
     });
     if (response.status === 201) {
       console.log("You have succesfuly registered!");
+    } else if (response.status === 400) {
+      console.log("User already exists!");
+      // login user with google credentials
+    } else {
+      console.log("Something went wrong!");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  // login user with google credentials
+  try {
+    const response = await fetch("http://localhost:3000/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ username: payload.name, password: payload.sub }),
+    });
+    if (response.ok) {
+      console.log("You have succesfuly logged in!");
+      navigate("/user")
     } else {
       console.log("Something went wrong!");
     }
