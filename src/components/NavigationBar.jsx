@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
+import { GoogleLogin } from "./GoogleLogin";
 
 function NavigationBar() {
 
@@ -69,6 +70,7 @@ function NavigationBar() {
   }
 
   return (
+    <>
     <Navbar bg="light" expand="md" sticky="top" className="navbar-custom" collapseOnSelect={true}>
       {showModal ? <ConfirmationModal sentance={"Your session has expired"} onClose={() => setShowModal(false)}/> : null}
       <Navbar.Brand className="brand-name">HKR Beauty Salon</Navbar.Brand>

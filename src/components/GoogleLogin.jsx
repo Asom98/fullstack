@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 async function handleCredentialResponse(userData) {
   console.log('Encoded JWT', userData.credential);
@@ -15,23 +15,28 @@ async function handleCredentialResponse(userData) {
     email: payload.email,
     phoneNumber: payload.phone_number,
   };
-  const response = await fetch("http://localhost:3000/users/register", {
-    method: "POST",
-    body: JSON.stringify(packet),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (response.status === 201) {
-    console.log("You have succesfuly registered!");
-  } else {
-    console.log("This user already exists");
+  // register user with google credentials
+  try {
+    const response = await fetch("http://localhost:3000/users/register", {
+      method: "POST",
+      body: JSON.stringify(packet),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 201) {
+      console.log("You have succesfuly registered!");
+    } else {
+      console.log("Something went wrong!");
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
 function initializeGoogleLogin() {
   google.accounts.id.initialize({
-    client_id: '1079428828720-dfo4k6av3jvepch0hmpums7a1agal8dl.apps.googleusercontent.com',   // belongs in .env file
+    client_id: '1079428828720-dfo4k6av3jvepch0hmpums7a1agal8dl.apps.googleusercontent.com',   // belongs in .env file but works for now
     callback: handleCredentialResponse,
   });
   google.accounts.id.renderButton(
@@ -63,4 +68,4 @@ function GoogleLogin() {
   )
 }
 
-export default GoogleLogin;
+export { GoogleLogin };
