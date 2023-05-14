@@ -127,35 +127,59 @@ export function ViewBookingsAccordion() {
                 className="bookings"
                 style={{ maxHeight: "400px", overflowY: "auto" }}
               >
-                {bookingList.slice(currentPage * perPage, (currentPage + 1) * perPage ).map((booking, index) => (
-                  <Row className="booking-row mb-4" key={index}>
-                    <Col>{userNames[index + currentPage * perPage]}</Col>
-                    <Col>{service[index + currentPage * perPage].name}</Col>
-                    {booking.useCoupon 
-                    ? <Col>{service[index + currentPage * perPage].price - 15}</Col> 
-                    : <Col>{service[index + currentPage * perPage].price}</Col>
-                    }
-                    <Col>
-                      {new Date(booking.startTime).toLocaleString("en-UK", {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                        timeZone: "UTC",
-                      })}
-                    </Col>
-                    <Col>
-                      <Button
-                        className="colored-btn"
-                        onClick={() => handleDelete(booking._id)}
-                      >
-                        Cancel booking
-                      </Button>
-                    </Col>
-                  </Row>
-                ))}
+                <Row className="member-row mb-4">
+                  <Col md={2} className="table-title">
+                    Customer
+                  </Col>
+                  <Col md={3} className="table-title">
+                    Service
+                  </Col>
+                  <Col md={2} className="table-title">
+                    Price
+                  </Col>
+                  <Col md={3} className="table-title">
+                    Date and time
+                  </Col>
+                  <Col md={2} className="table-title">
+                    Controls
+                  </Col>
+                </Row>
+                {bookingList
+                  .slice(currentPage * perPage, (currentPage + 1) * perPage)
+                  .map((booking, index) => (
+                    <Row className="booking-row mb-4" key={index}>
+                      <Col>{userNames[index + currentPage * perPage]}</Col>
+                      <Col>{service[index + currentPage * perPage].name}</Col>
+                      {booking.useCoupon ? (
+                        <Col>
+                          {service[index + currentPage * perPage].price - 15}
+                        </Col>
+                      ) : (
+                        <Col>
+                          {service[index + currentPage * perPage].price}
+                        </Col>
+                      )}
+                      <Col>
+                        {new Date(booking.startTime).toLocaleString("en-UK", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                          timeZone: "UTC",
+                        })}
+                      </Col>
+                      <Col>
+                        <Button
+                          className="colored-btn"
+                          onClick={() => handleDelete(booking._id)}
+                        >
+                          Cancel booking
+                        </Button>
+                      </Col>
+                    </Row>
+                  ))}
               </Container>
               {showModal && (
                 <ConfirmationModal

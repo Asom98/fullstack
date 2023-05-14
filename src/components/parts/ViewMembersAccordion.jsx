@@ -142,13 +142,27 @@ export function ViewMembersAccordion() {
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
           <Row className="member-row mb-4">
-            <Col md={2}>Name</Col>
-            <Col md={3}>Email</Col>
-            <Col md={2}>Phone Number</Col>
-            <Col md={1}>Coupon amount</Col>
-            <Col md={1}>Amount spent</Col>
-            <Col md={1}>Booking amount</Col>
-            <Col md={2}>Controls</Col>
+            <Col md={2} className="table-title">
+              Name
+            </Col>
+            <Col md={3} className="table-title">
+              Email
+            </Col>
+            <Col md={2} className="table-title">
+              Phone Number
+            </Col>
+            <Col md={1} className="table-title">
+              Coupon amount
+            </Col>
+            <Col md={1} className="table-title">
+              Amount spent
+            </Col>
+            <Col md={1} className="table-title">
+              Booking amount
+            </Col>
+            <Col md={2} className="table-title">
+              Controls
+            </Col>
           </Row>
           {memberList.map((member, index) => (
             <>
