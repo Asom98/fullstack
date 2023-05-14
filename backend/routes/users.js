@@ -82,20 +82,17 @@ router.post("/registerAdmin", authMiddleware.authenticateUser, async (req, res) 
 })
 
 router.post("/newPassword", authMiddleware.authenticateUser, async (req, res) => {
-  const user = await userModel.findById(req.user._id)
+  const user = await userModel.findById(req.user._id);
 
-  isMatch = await bcrypt.compare(req.body.password, user.password)
+  let isMatch = await bcrypt.compare(req.body.currentPassword, user.password);
   if (isMatch) {
-    await bcrypt.hash(req.body.password, 10)
-    .then(hashedPassword => {
-      user.password = hashedPassword
-      user.save()
-      res.sendStatus(200)
-    })
+    user.password = await bcrypt.hash(req.body.password, 10);
+    user.save();
+    res.sendStatus(200);
   } else {
-    res.sendStatus(403)
+    res.status(400).send("Incorrect password");
   }
-})
+});
 
 router.post("/login", async (req, res) => {
   let user = await userModel.findOne({ username: req.body.username });

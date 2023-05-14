@@ -18,6 +18,7 @@ function User() {
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [coupon, setCoupon] = useState("");
  
   const handleUpdateEmailClick = async () => {
     const response = await fetch("https://backend-saloon.onrender.com/admin/updateUser", {
