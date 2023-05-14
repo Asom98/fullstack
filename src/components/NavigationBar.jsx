@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./css/NavigationBar.css";
 import { Login } from "./LoginForm";
 import { ConfirmationModal } from "./parts/ConfirmationModal";
+import { GoogleLogin } from "./GoogleLogin";
 
 function NavigationBar() {
 
@@ -69,6 +70,7 @@ function NavigationBar() {
   }
 
   return (
+    <>
     <Navbar bg="light" expand="md" sticky="top" className="navbar-custom" collapseOnSelect={true}>
       {showModal ? <ConfirmationModal sentance={"Your session has expired"} onClose={() => setShowModal(false)}/> : null}
       <Navbar.Brand className="brand-name">HKR Beauty Salon</Navbar.Brand>
@@ -81,13 +83,16 @@ function NavigationBar() {
           <Nav.Link as={Link} to="/contactus"> Contact us </Nav.Link>
         </Nav>
         <Nav className="navbar-nav">
-          {!loggedIn ? (
-            <div>
+            {!loggedIn ? (
+              <div>
               <Button className="loginButton" variant="primary" onClick={handleLoginClick}>
                 Login
               </Button>
               <Button className="registerButton" variant="primary" as={Link} to="/registration">
                 Register
+                </Button>
+              <Button className="googleButton" variant="primary">
+                  <GoogleLogin />
               </Button>
             </div>
           ) : (
@@ -97,7 +102,8 @@ function NavigationBar() {
            </div>
           )}
         </Nav>
-      </Navbar.Collapse>
+        </Navbar.Collapse>
+      </Navbar>
       <Modal show={showLoginForm} onHide={handleLoginClose}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
@@ -106,7 +112,7 @@ function NavigationBar() {
           <Login onLoginSuccess={handleLoginSuccess} />
         </Modal.Body>
       </Modal>
-    </Navbar>
+    </>
   );
 }
 
