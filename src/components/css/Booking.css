@@ -86,3 +86,30 @@
     font-size: 16px;
     padding: 10px;
 }
+
+.information-part{
+    background-color: antiquewhite;
+    margin: 24px;
+    padding: 20px;
+}
+
+.information-body{
+    background-color: #98cb98;
+}
+
+.modal-footer{
+    background-color: #577C57 !important;
+}
+
+.submit-btn{
+    background: linear-gradient(to right, #839d83, #BCD1B3);
+    border: none !important;
+    color: black !important;
+    font-weight:600 !important;
+}
+
+.close-btn{
+    background: linear-gradient(to right, #778d77, #8c9c86);
+    color: black !important;
+    font-weight: 600 !important;
+}

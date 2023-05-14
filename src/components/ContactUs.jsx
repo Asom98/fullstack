@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import "./css/ContactUs.css"
 
-const email = 'info@example.com';
+const email = 'fullstackg10@gmail.com';
 const phone = '+46123456789';
 const address = 'Elmetorpsvägen 15, 291 39 Kristianstad';
 

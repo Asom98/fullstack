@@ -22,7 +22,7 @@ export function ViewBookingsAccordion() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const perPage = 5
+  const perPage = 5;
 
   useEffect(() => {
     (async () => {
@@ -111,8 +111,8 @@ export function ViewBookingsAccordion() {
   }*/
 
   const handlePageChange = (page) => {
-    setCurrentPage(page - 1)
-  }
+    setCurrentPage(page - 1);
+  };
 
   return (
     <Accordion.Item eventKey="2">
@@ -123,13 +123,6 @@ export function ViewBookingsAccordion() {
             <div className="spinner-border"></div>
           ) : (
             <>
-              <div>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button className="btn btn-secondary" key={page} onClick={() => handlePageChange(page)}>
-                    {page}
-                  </button>
-                ))}
-              </div>
               <Container
                 className="bookings"
                 style={{ maxHeight: "400px", overflowY: "auto" }}
@@ -170,6 +163,19 @@ export function ViewBookingsAccordion() {
                   onClose={() => setShowModal(false)}
                 />
               )}
+              <div>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      className="page-btn btn btn-secondary"
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
+              </div>
             </>
           )}
         </Accordion.Body>
