@@ -15,7 +15,7 @@ export function ViewBookingsAccordion() {
   const [bookingList, setBookingList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [registrationSentence, setRegistrationSentence] = useState("");
-  const [serviceNames, setServiceNames] = useState([]);
+  const [service, setService] = useState([]);
   const [userNames, setUserNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,12 +41,12 @@ export function ViewBookingsAccordion() {
               `http://localhost:3000/services/getServiceById/${booking.service_id}`
             )
           ).json();
-          return service.name;
+          return service;
         })
       );
       setTotalPages(Math.ceil(bookings.length / perPage));
       setBookingList(bookings);
-      setServiceNames(tempServiceList);
+      setService(tempServiceList);
     })();
   }, []);
 
@@ -137,7 +137,11 @@ export function ViewBookingsAccordion() {
                 {bookingList.slice(currentPage * perPage, (currentPage + 1) * perPage ).map((booking, index) => (
                   <Row className="booking-row mb-4" key={index}>
                     <Col>{userNames[index + currentPage * perPage]}</Col>
-                    <Col>{serviceNames[index + currentPage * perPage]}</Col>
+                    <Col>{service[index + currentPage * perPage].name}</Col>
+                    {booking.useCoupon 
+                    ? <Col>{service[index + currentPage * perPage].price - 15}</Col> 
+                    : <Col>{service[index + currentPage * perPage].price}</Col>
+                    }
                     <Col>
                       {new Date(booking.startTime).toLocaleString("en-UK", {
                         weekday: "long",
