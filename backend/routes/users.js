@@ -7,6 +7,7 @@ require("dotenv").config();
 const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
+const { isMatch } = require('lodash');
 
 router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
     const user = await userModel.findOne({_id: req.user._id})
@@ -80,6 +81,22 @@ router.post("/registerAdmin", authMiddleware.authenticateUser, async (req, res) 
     }
 })
 
+router.post("/newPassword", authMiddleware.authenticateUser, async (req, res) => {
+  const user = await userModel.findById(req.user._id)
+
+  isMatch = await bcrypt.compare(req.body.password, user.password)
+  if (isMatch) {
+    await bcrypt.hash(req.body.password, 10)
+    .then(hashedPassword => {
+      user.password = hashedPassword
+      user.save()
+      res.sendStatus(200)
+    })
+  } else {
+    res.sendStatus(403)
+  }
+})
+
 router.post("/login", async (req, res) => {
   let user = await userModel.findOne({ username: req.body.username });
   
@@ -94,7 +111,7 @@ router.post("/login", async (req, res) => {
         { _id: user._id, 
           role: user.role }, 
         process.env.ACCESS_TOKEN)
-        res.cookie("accessToken", accessToken, { maxAge: 86400000, secure: true,httpOnly: true, sameSite: "None"})
+        res.cookie("accessToken", accessToken, { maxAge: 86400000 })
       res.json({accessToken: accessToken, user: user})
     } else {
       res.status(401).json({ error: "Incorrect password" });
