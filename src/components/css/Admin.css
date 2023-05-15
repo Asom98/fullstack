@@ -47,3 +47,17 @@
 .confirmed{
   color: rgb(11, 80, 55);
 }
+
+.statistic-title{
+  font-weight: bold;
+  color:rgb(1, 133, 51);
+}
+
+.statistics-row{
+  background-color: rgba(253, 240, 188, 0.8) !important;
+  border-radius: 8px !important;
+}
+
+.statistic-container{
+  padding-left: 40px !important;
+}
