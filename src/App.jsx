@@ -21,6 +21,8 @@ function App() {
       <main className="App">
         <Routes>
           <Route element={<ProtectedRoute />}>
+            {" "}
+            {/* checks if they have an active token if not they will be redirected to the login screen */}
             <Route path="/user" element={<User />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/booking/:_id" element={<Booking />} />
