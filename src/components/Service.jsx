@@ -36,7 +36,7 @@ export const ServicePage = () => {
 
   function containerStyle(backgroundImageUrl) {
     return {
-      backgroundImage: `url(/src/components/Images/${backgroundImageUrl})`,
+      backgroundImage: `url(./Images/${backgroundImageUrl})`,
       height: "250px",
       width: "300px",
       backgroundSize: "cover",
@@ -59,7 +59,7 @@ export const ServicePage = () => {
                 <div className="d-flex">
                   <Card.Img
                     className="card-img w-50"
-                    src={`/src/components/Images/${service.img}`}
+                    src={containerStyle(service.img)}
                   />
                   <Card.Body>
                     <Card.Title className="card-serviceName">
