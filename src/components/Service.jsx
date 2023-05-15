@@ -36,7 +36,7 @@ export const ServicePage = () => {
 
   function containerStyle(backgroundImageUrl) {
     return {
-      backgroundImage: `url(./Images/${backgroundImageUrl})`,
+      backgroundImage: `url(/src/components/Images/${backgroundImageUrl})`,
       height: "250px",
       width: "300px",
       backgroundSize: "cover",
