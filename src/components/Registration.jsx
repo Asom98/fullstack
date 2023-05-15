@@ -37,7 +37,7 @@ export function Registration({ isAdmin }) {
       phoneNumber: formData.phoneNumber,
     };
     if (isAdmin) {
-      const response = await fetch("http://localhost:3000/admin/addAdmin", {
+      const response = await fetch("https://frontend-saloon2.onrender.com/admin/addAdmin", {
         method: "POST",
         body: JSON.stringify(packet),
         headers: {
@@ -52,7 +52,7 @@ export function Registration({ isAdmin }) {
         setShowModal(true);
       }
     } else {
-      const response = await fetch("http://localhost:3000/users/register", {
+      const response = await fetch("https://frontend-saloon2.onrender.com/users/register", {
         method: "POST",
         body: JSON.stringify(packet),
         headers: {

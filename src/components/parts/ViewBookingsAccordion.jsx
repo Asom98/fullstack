@@ -27,7 +27,7 @@ export function ViewBookingsAccordion() {
   useEffect(() => {
     (async () => {
       const bookings = await (
-        await fetch(`http://localhost:3000/bookings/getBookings`, {
+        await fetch(`https://frontend-saloon2.onrender.com/bookings/getBookings`, {
           method: "GET",
           headers: {},
           credentials: "include",
@@ -38,7 +38,7 @@ export function ViewBookingsAccordion() {
         bookings.map(async (booking) => {
           const service = await (
             await fetch(
-              `http://localhost:3000/services/getServiceById/${booking.service_id}`
+              `https://frontend-saloon2.onrender.com/services/getServiceById/${booking.service_id}`
             )
           ).json();
           return service;
@@ -56,7 +56,7 @@ export function ViewBookingsAccordion() {
         bookingList.map(async (booking) => {
           const user = await (
             await fetch(
-              `http://localhost:3000/users/getUserData/${booking.user_id}`
+              `https://frontend-saloon2.onrender.com/users/getUserData/${booking.user_id}`
             )
           ).json();
           return user.username;
@@ -73,7 +73,7 @@ export function ViewBookingsAccordion() {
     (async () => {
       const packet = { _id };
       let response = await fetch(
-        `http://localhost:3000/bookings/deleteBooking`,
+        `https://frontend-saloon2.onrender.com/bookings/deleteBooking`,
         {
           method: "DELETE",
           body: JSON.stringify(packet),
@@ -112,7 +112,7 @@ export function ViewBookingsAccordion() {
 
   const handleConfirmBooking = async (_id) => {
     const packet = { _id }
-    await fetch("http://localhost:3000/users/updateAmountSpent", {
+    await fetch("https://frontend-saloon2.onrender.com/users/updateAmountSpent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

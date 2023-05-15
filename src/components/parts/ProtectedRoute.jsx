@@ -11,7 +11,7 @@ const ProtectedRoute = () => {
   const { pathname } = location;
 
   useEffect(() => {
-    fetch("http://localhost:3000/checkAuth", {
+    fetch("https://frontend-saloon2.onrender.com/checkAuth", {
       headers: {
       },
       credentials: "include"
