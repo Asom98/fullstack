@@ -27,6 +27,9 @@ const bookingSchema = mongoose.Schema({
     }, 
     useCoupon: {
         type: Boolean
+    },
+    confirm: {
+        type: Boolean
     }
 })
 

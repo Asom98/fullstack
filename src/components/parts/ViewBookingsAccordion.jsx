@@ -110,6 +110,29 @@ export function ViewBookingsAccordion() {
     "__v": 0
   }*/
 
+  const handleConfirmBooking = async (_id) => {
+    const packet = { _id }
+    await fetch("http://localhost:3000/users/updateAmountSpent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(packet),
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("The booking has been confirmed");
+        setBookingList(bookingList.map(booking => {
+          if (booking._id === _id) {
+            return { ...booking, confirm: true };
+          }
+          return booking;
+        }))
+      }
+    })
+  }
+
   const handlePageChange = (page) => {
     setCurrentPage(page - 1);
   };
@@ -127,18 +150,21 @@ export function ViewBookingsAccordion() {
                 className="bookings"
                 style={{ maxHeight: "400px", overflowY: "auto" }}
               >
-                <Row className="member-row mb-4">
-                  <Col md={2} className="table-title">
+                <Row className="member-row mb-4 text-center">
+                  <Col md={2} className="table-title-book">
                     Customer
                   </Col>
-                  <Col md={3} className="table-title">
+                  <Col md={2} className="table-title">
                     Service
                   </Col>
-                  <Col md={2} className="table-title">
+                  <Col md={2} className="table-title-book">
                     Price
                   </Col>
-                  <Col md={3} className="table-title">
+                  <Col md={2} className="table-title">
                     Date and time
+                  </Col>
+                  <Col md={2} className="table-title">
+                    Confirm
                   </Col>
                   <Col md={2} className="table-title">
                     Controls
@@ -169,6 +195,17 @@ export function ViewBookingsAccordion() {
                           minute: "numeric",
                           timeZone: "UTC",
                         })}
+                      </Col>
+                      <Col>
+                      {booking.confirm ? 
+                          <p>CONFIRMED</p> :
+                          <Button
+                          className="colored-btn"
+                          onClick={() => {handleConfirmBooking(booking._id); booking.confirm = true}}
+                        >
+                          Confirm bookin
+                        </Button>}
+
                       </Col>
                       <Col>
                         <Button

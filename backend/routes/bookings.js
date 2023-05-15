@@ -44,42 +44,32 @@ router.get(
 );
 // delete booking but check time and return
 
-router.delete("/deleteBooking", authentication.authenticateUser, async (req, res) => {
-    try {
+router.delete("/deleteBooking", authentication.authenticateUser, async (req, res) => { /////////////
+  try {
+      const booking = await bookingModel.findById(req.body._id);
+      const user = await userModel.findById(booking.user_id)
       if (req.user.role == "admin") {
-        const booking = await bookingModel.findById(req.body._id);
         await bookingModel.findByIdAndDelete(req.body._id);
-        const user = await userModel.findById(booking.user_id)
-        const service = await serviceModel.findById(booking.service_id)
+
         if (booking.useCoupon) {
           user.couponAmount += 1
-          user.amountSpent -= service.price - 15
-          
-        } else {
-          user.amountSpent -= service.price
-        }
+        } 
+
         await user.save()
+
         return res.sendStatus(200);
       } else {
         const twentyFourHoursAgo = new Date();
         twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
 
-        const booking = await bookingModel.findById(req.body._id);
-        const user = await userModel.findById(booking.user_id)
-        const service = await serviceModel.findById(booking.service_id)
-
         if (booking.startTime < twentyFourHoursAgo) {
           return res.sendStatus(400);
-
         } else {
           await bookingModel.findByIdAndDelete(req.body._id);
           if (booking.useCoupon) {
             user.couponAmount += 1
-            user.amountSpent -= service.price - 15
-            
-          } else {
-            user.amountSpent -= service.price
-          }
+        }
+
           await user.save()
           return res.sendStatus(200);
         }
@@ -100,6 +90,7 @@ router.put("/updateBooking", async (req, res) => {
   }
 });
 
+
 router.post("/postBooking", authentication.authenticateUser, async (req, res) => {
     if (req.user.role == "admin") {
       return res.sendStatus(403)
@@ -119,37 +110,26 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               endTime: req.body.endTime,
               user_id: req.user._id,
               useCoupon: req.body.useCoupon,
+              confirm: false,
               status: true,
-            });
-            const booked = await newBooking.save();
-            res.sendStatus(200);
-            const currBooking = await bookingModel.findById(booked._id);
-            const currUser = await userModel.findById(currBooking.user_id);
-            const currService = await serviceModel.findById(
-              currBooking.service_id
-            );
+          });
 
-            const amountToPay = parseInt(currService.price);
+            const booking = await newBooking.save();
+            res.sendStatus(200);
+            const currBooking = await bookingModel.findById(booking._id);
+            const currUser = await userModel.findById(currBooking.user_id);
+
             currUser.bookingAmount += 1;
-            const couponWorthy = checkCoupon(currUser.amountSpent)
-            if (couponWorthy) {
-              currUser.amountSpent -= 500
-              currUser.couponAmount += 1
-            }
-            if (req.body.useCoupon && currUser.couponAmount <= 0) {
-              res.sendStatus(403)
-            } else if (req.body.useCoupon && currUser.couponAmount > 0) {
+
+            if (req.body.useCoupon) {
               currUser.couponAmount -= 1
-              currUser.amountSpent += amountToPay - 15;
-            } else {
-              currUser.amountSpent += amountToPay;
-            }
-            
+            } 
+
             await currUser.save();
 
             const valid = await isEmailValid(currUser.email);
-            if (booked && valid) {
-              confirmBooking(booked._id);
+            if (booking && valid) {
+              confirmBooking(booking, currUser);
             } else {
               await booked.findByIdAndDelete(booked._id);
               res.sendStatus(400);
@@ -158,39 +138,13 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
             res.sendStatus(400);
           }
         });
-      const booked = await newBooking.save();
-      res.sendStatus(200);
-      const currBooking = await bookingModel.findById(booked._id);
-      const currUser = await userModel.findById(currBooking.user_id);
-      const currService = await serviceModel.findById(currBooking.service_id);
-
-      const amountToPay = parseInt(currService.price);
-      currUser.amountSpent += amountToPay;
-      currUser.bookingAmount += 1;
-      const couponWorthy = await checkCoupon(currUser.amountSpent);
-      if (couponWorthy) {
-        currUser.amountSpent -= 500;
-        currUser.couponAmount += 1;
-      }
-      await currUser.save();
-
-      const valid = await isEmailValid(currUser.email);
-      if (booked && valid) {
-        confirmBooking(booked._id);
-      } else {
-        await booked.findByIdAndDelete(booked._id);
-        res.sendStatus(400);
-      }
     } catch (error) {
       // handle error
     }
   }
 );
 
-router.get(
-  "/getAvailableTimeSlots/:service_id/:date",
-  authentication.authenticateUser,
-  async (req, res) => {
+router.get("/getAvailableTimeSlots/:service_id/:date", authentication.authenticateUser, async (req, res) => {
     try {
       const service = await serviceModel.findOne({
         _id: req.params.service_id,
@@ -288,11 +242,3 @@ router.get("/getAmount", async (req, res) => {
   res.json(bookingCount);
 });
 module.exports = router;
-
-function checkCoupon(couponAmount) {
-  if (couponAmount >= 500) {
-    couponAmount -= 500;
-    return true;
-  }
-  return false;
-}
