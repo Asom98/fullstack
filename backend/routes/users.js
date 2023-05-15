@@ -7,7 +7,9 @@ require("dotenv").config();
 const adminModel = require("../models/admin");
 const authMiddleware = require("../middleware/auth");
 const userModel = require("../models/user");
-const { isMatch } = require('lodash');
+const bookingModel = require("../models/booking");
+const serviceModel = require("../models/service");
+const authentication = require("../middleware/auth")
 
 router.get("/getUserData", authMiddleware.authenticateUser, async (req, res) => {
     const user = await userModel.findOne({_id: req.user._id})
@@ -117,5 +119,46 @@ router.post("/login", async (req, res) => {
     res.sendStatus(404);
   }
 }); 
+
+router.post("/updateAmountSpent", [authentication.authenticateUser, authentication.checkRole("admin")], async (req, res) => {
+  try {
+    const booking = await bookingModel.findById(req.body._id);
+    const service = await serviceModel.findById(booking.service_id);
+    const user = await userModel.findById(booking.user_id);
+    if (!booking.confirm) {
+      console.log(booking.confirm);
+      let amountSpent = user.amountSpent; 
+      let servicePrice = service.price;
+      if (booking.useCoupon) {
+        amountSpent = amountSpent + Number(servicePrice) - 15; // Ensure numerical addition
+      } else {
+        amountSpent = amountSpent + Number(servicePrice); // Ensure numerical addition
+      }
+  
+      user.amountSpent = amountSpent; 
+      booking.confirm = true
+      
+      await user.save();
+      await booking.save()
+  
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(403)
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+function checkCoupon(couponAmount) {
+  if (couponAmount >= 500) {
+    couponAmount -= 500;
+    return true;
+  }
+  return false;
+}
 
 module.exports = router

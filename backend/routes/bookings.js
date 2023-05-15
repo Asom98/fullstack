@@ -53,17 +53,8 @@ router.delete("/deleteBooking", authentication.authenticateUser, async (req, res
         const service = await serviceModel.findById(booking.service_id)
         if (booking.useCoupon) {
           user.couponAmount += 1
-          user.amountSpent -= service.price - 15
-          
-        } else {
-          user.amountSpent -= service.price
-        }
+        } 
 
-        if (user.amountSpent < 0) {
-          user.amountSpent = 0
-        }
-
-        console.log("asd");
         await user.save()
 
         return res.sendStatus(200);
@@ -82,14 +73,6 @@ router.delete("/deleteBooking", authentication.authenticateUser, async (req, res
           await bookingModel.findByIdAndDelete(req.body._id);
           if (booking.useCoupon) {
             user.couponAmount += 1
-            user.amountSpent -= service.price - 15
-            
-          } else {
-            user.amountSpent -= service.price
-          }
-
-          if (user.amountSpent < 0) {
-            user.amountSpent = 0
           }
 
           await user.save()
@@ -112,6 +95,7 @@ router.put("/updateBooking", async (req, res) => {
   }
 });
 
+
 router.post("/postBooking", authentication.authenticateUser, async (req, res) => {
     if (req.user.role == "admin") {
       return res.sendStatus(403)
@@ -131,6 +115,7 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               endTime: req.body.endTime,
               user_id: req.user._id,
               useCoupon: req.body.useCoupon,
+              confirm: false,
               status: true,
             });
             const booked = await newBooking.save();
@@ -141,21 +126,11 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               currBooking.service_id
             );
 
-            const amountToPay = parseInt(currService.price);
             currUser.bookingAmount += 1;
-            const couponWorthy = checkCoupon(currUser.amountSpent)
-            if (couponWorthy) {
-              currUser.amountSpent -= 500
-              currUser.couponAmount += 1
-            }
-            if (req.body.useCoupon && currUser.couponAmount <= 0) {
-              res.sendStatus(403)
-            } else if (req.body.useCoupon && currUser.couponAmount > 0) {
+
+            if (req.body.useCoupon) {
               currUser.couponAmount -= 1
-              currUser.amountSpent += amountToPay - 15;
-            } else {
-              currUser.amountSpent += amountToPay;
-            }
+            } 
             
             await currUser.save();
 
@@ -174,16 +149,9 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
       res.sendStatus(200);
       const currBooking = await bookingModel.findById(booked._id);
       const currUser = await userModel.findById(currBooking.user_id);
-      const currService = await serviceModel.findById(currBooking.service_id);
 
-      const amountToPay = parseInt(currService.price);
-      currUser.amountSpent += amountToPay;
       currUser.bookingAmount += 1;
-      const couponWorthy = await checkCoupon(currUser.amountSpent);
-      if (couponWorthy) {
-        currUser.amountSpent -= 500;
-        currUser.couponAmount += 1;
-      }
+
       await currUser.save();
 
       const valid = await isEmailValid(currUser.email);
@@ -297,11 +265,3 @@ router.get("/getAmount", async (req, res) => {
   res.json(bookingCount);
 });
 module.exports = router;
-
-function checkCoupon(couponAmount) {
-  if (couponAmount >= 500) {
-    couponAmount -= 500;
-    return true;
-  }
-  return false;
-}
