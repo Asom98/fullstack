@@ -1,8 +1,72 @@
 .service-container {
-    background-image: url("/src/components/Images/ren-ran-bBiuSdck8tU-unsplash.jpg");
+    background-image: url("../Images/ren-ran-bBiuSdck8tU-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+}
+
+.Haircut-and-Styling{
+    background-image: url("../Images/adam-winger-FkAZqQJTbXM-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Beard-grooming{
+    background-image: url("../Images/allef-vinicius-IvQeAVeJULw-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Makeup {
+    background-image: url("../Images/candice-picard-1dwRuFgDr0o-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Tanning-services{
+    background-image: url("../Images/antonio-gabola-ZY3zSaIZRtI-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Manicures-and-pedicures {
+    background-image: url("../Images/giorgio-trovato-gb6gtiTZKB8-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Waxing-and-hair-removal{
+    background-image: url("../Images/kateryna-hliznitsova--1RC29zvakwg-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Massage-therapy {
+    background-image: url("../Images/alan-caishan-cU53ZFBr3lk-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
+}
+
+.Skincare-services {
+    background-image: url("../Images/raphael-lovaski-Pe9IXUuC6QU-unsplash.jpg");
+    height: 250px;
+    width: 300px;
+    background-size: cover;
+    background-position: "center";
 }
 
 .custom.card {
