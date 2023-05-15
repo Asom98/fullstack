@@ -187,10 +187,7 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
   }
 );
 
-router.get(
-  "/getAvailableTimeSlots/:service_id/:date",
-  authentication.authenticateUser,
-  async (req, res) => {
+router.get("/getAvailableTimeSlots/:service_id/:date", authentication.authenticateUser, async (req, res) => {
     try {
       const service = await serviceModel.findOne({
         _id: req.params.service_id,
