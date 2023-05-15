@@ -51,8 +51,8 @@ function GoogleLogin(onLogin) {
         body: JSON.stringify({ username: payload.name, password: payload.sub }),
       });
       if (response.ok) {
+        // onLogin()
         console.log("You have succesfuly logged in!");
-        onLogin()
       } else {
         console.log("Something went wrong!");
       }
