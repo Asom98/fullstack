@@ -255,26 +255,202 @@ Login route. Compares pasword input with encrypted password in database. Creates
 # Frontend
 The frontend is made using React. It uses components that can be imported to where they're needed.  
 ## Components  
-### _AboutPage.jsx_
-### _AdminPage.jsx_
-### _Booking.jsx_
-### _Carousel.jsx_
-### _ContactUs.jsx_
-### _GoogleLogin.jsx_
-### _LoginForm.jsx_
-### _NavigationBar.jsx_
-### _Registration.jsx_
-### _Service.jsx_
-### _User.jsx_
+
+### _AboutPage.jsx_  
+
+<details>
+ <summary>Click me!</summary>  
+ 
+
+Return the about page code.
+```
+function AboutPage()
+```
+</details>
+ 
+### _AdminPage.jsx_  
+
+<details>
+ <summary>Click Me!</summary>
+
+Finds the most loyal customer and displays them in a list using .map().
+```
+function AdminPage()
+  useEffect()
+    /statistic/getMostLoyal
+```
+</details>
+ 
+### _Booking.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+ 
+
+Handle the booking. 
+```
+function Booking()
+```
+
+Handles booking timeslots. Sets start and end times for the bookings. Displays the booking form.
+
+Set start and end times for bookings. Display the booking form.
+```
+function handleBooking()
+```
+
+Uses .map for timeslots. Goes through timeslots to see if they are available or not.
+```
+handleNewTimeSlots()
+```
+
+Handles fetching the timeslots.
+```
+function fetchTimeSlots()
+  /bookings/getAvailableTimeSlots/${_id}/${selectedDate}
+```
+
+Fetch the employees. Can be used for assigning an employee to a specific service.
+```
+function fetchEmployees()
+  /employees/getEmployees/${employee_ids.join(",")}
+```
+</details>
+ 
+### _Carousel.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Returns image carousel for the main page.
+```
+function CarouselComp()
+```
+</details>
+ 
+ 
+### _ContactUs.jsx_ 
+
+<details>
+ <summary>Click Me!</summary>  
+
+Handles contact page. Uses google maps API for displaying address location on map.
+```
+ContactUs()
+```
+</details>
+ 
+### _GoogleLogin.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Handles the user data returned from pressing google login button. Decoding the incoming JWT to allow for user credential storage in database.  
+Clicking the button fetches registration route. If the user already exists, clicking the button will fetch login route.
+```
+function handleCredentialResponse()
+  /users/register
+  /users/login
+```
+
+Initializes the google login functionality. Renders the google login button.
+```
+function initializeGoogleLogin()
+```
+
+Import API script before calling init function.
+```
+function GoogleLogin()
+```
+</details>
+
+### _LoginForm.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+ 
+Handle login submission. Checks if user is 'user' or 'admin'. Sets login status based on if submission is successful or not.
+```
+handleLoginSubmit()
+  /users/login
+```
+</details>
+ 
+### _NavigationBar.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Checks if accessToken cookie exists. Returns true or false.
+```
+function checkToken()
+```
+</details>
+
+### _Registration.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Handles registration form submission. Checks if person registering is 'user' or 'admin'.  
+Depending on user role, fetches the appropriate route.
+```
+function Registration()
+  /admin/addAdmin
+  /users/register
+```
+
+Validates form inputs. Checks for valid text formatting. Checks if both password inputs match.
+```
+validateForm()
+```
+</details>
+
+
+### _Service.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+```
+fetchServices()
+  /services/getServices
+```
+</details>
+
+### _User.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Lets the user change their email on the profile page.
+```
+handleUpdateEmailClick()
+  /admin/updateUser
+```
+
+Lets the user change their phone number on the profile page.
+```
+handleUpdatePhoneNumberClick()
+  /admin/updateUser
+```
+
+Get booking by user ID. If service ID response is ok, add the new booking.
+```
+handleUserBookings()
+  /bookings/getBookingsByUserId
+  /services/getServiceById/${booking.service_id}
+```
+</details>
 
 ### Backgrounds  
-Contains larger images used on the page as backgrounds etc.  
+Contains larger images used on the page as backgrounds.  
 
 ### CSS
 Contains CSS files for styling.  
 
 ### Images
-Contains smaller images used for services etc.  
+Contains smaller images used for components such as services.  
 
 ### Parts
 Contains smaller components such as forms, popup windows, footer, accordions.

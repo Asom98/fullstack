@@ -33,6 +33,8 @@ export function AboutPage() {
                 Creted, styled and made Booking page responsive
                 <br />
                 Creted, styled and made About page responsive
+                <br />
+                Creted, styled and made the Footer responsive
               </p>
             </Container>
           </Col>
@@ -76,27 +78,23 @@ export function AboutPage() {
           <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
               <p>
-                Booking system
+                Handled creating routes and the calendar for the booking system
                 <br />
-                Security
+                Handled the security and re-routing <br />
+                <span style={{ color: "green" }}>*</span> Used cookies in the
+                backend.
                 <br />
-                Database
+                Created and managed the Database in MongoDB <br />
+                Handled routes for login / finished registration <br />
+                Handled routes for adding/removing users
                 <br />
-                Created Booking backend 
+                Helped with bug fixing
                 <br />
-                Database Management 
+                Deployed the website
                 <br />
-                Adding/removing users 
+                Structured the repo
                 <br />
-                bug fixing 
-                <br />
-                Deployment of website 
-                <br />
-                Structure of the repo 
-                <br />
-                documentation 
-                <br />
-                Login / finished registration 
+                Contributed to the documentation
               </p>
             </Container>
           </Col>
@@ -124,7 +122,7 @@ export function AboutPage() {
                 <span style={{ color: "green" }}>*</span> Service table data
                 management <br />
                 Assisting with render deployment <br />
-                Facebook login feature
+                Google login feature
               </p>
             </Container>
           </Col>
