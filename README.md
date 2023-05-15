@@ -223,7 +223,9 @@ Update customer booking.
 </details>
  
 ### _users.js_  
-
+<details>
+ <summary>User routes</summary>  
+ 
 Get user data. Checks if role is user or admin. Uses auth middleware.
 ```
 /getUserData
@@ -248,5 +250,6 @@ Login route. Compares pasword input with encrypted password in database. Creates
 ```
 /login
 ```
+</details>
 
 
