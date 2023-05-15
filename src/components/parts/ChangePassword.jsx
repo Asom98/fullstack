@@ -15,7 +15,7 @@ function ChangePassword(props) {
   }, []);
 
   const fetchUserData = async () => {
-    const response = await fetch(`http://localhost:3000/users/getUserData`, {
+    const response = await fetch(`https://backend-saloon.onrender.com/users/getUserData`, {
       method: "GET",
       headers: {},
       credentials: "include",
