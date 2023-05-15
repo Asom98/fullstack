@@ -258,12 +258,20 @@ The frontend is made using React. It uses components that can be imported to whe
 
 ### _AboutPage.jsx_  
 
+<details>
+ <summary>Click me!</summary>  
+ 
+
 Return the about page code.
 ```
 function AboutPage()
 ```
-
+</details>
+ 
 ### _AdminPage.jsx_  
+
+<details>
+ <summary>Click Me!</summary>
 
 Finds the most loyal customer and displays them in a list using .map().
 ```
@@ -271,6 +279,8 @@ function AdminPage()
   useEffect()
     /statistic/getMostLoyal
 ```
+</details>
+ 
 ### _Booking.jsx_  
 
 Handles the booking. 
