@@ -16,7 +16,8 @@ import { ViewAdminsAccordion } from "./parts/ViewAdminsAccordion";
 
 export function AdminPage() {
   const [loyalList, setLoyalList] = useState([]);
-  const [monthlyList, setMonthlyList] = useState([]);
+  const [memberAmount, setMemberAmount] = useState([]);
+  const [monthlyList, setMonthlyList] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -24,6 +25,12 @@ export function AdminPage() {
         await fetch(`https://backend-saloon.onrender.com/statistic/getMostLoyal`)
       ).json();
       setLoyalList(loyal);
+    })();
+    (async () => {
+      let memberAmount = await (
+        await fetch(`http://localhost:3000/statistic/getUsersCount`)
+      ).json();
+      setMemberAmount(memberAmount);
     })();
     (async () => {
       let loyal = await (
@@ -35,25 +42,29 @@ export function AdminPage() {
 
   return (
     <Container className={"admin-full"}>
-      <h3>Admin Page!</h3>
+      <h2>Admin Page!</h2>
       <Container className="statistics-row mb-4">
-        <Row className="loyal-title">Most loyal member/s</Row>
-        <Row>
-          {loyalList.map((member, index) => (
-            <Col md={2} key={index}>
-              <div className="loyal-list-item">{member.username}</div>
-            </Col>
-          ))}
-        </Row>
-        <Row>
-          <Row className="monthly-title">Employee/s of the month</Row>
-          <Row>
-            {monthlyList.map((employee, index) => (
-              <Col md={2} key={index}>
-                <div className="loyal-list-item">{employee.username}</div>
+        <Row className="loyal-title">
+          <Col md={8} className="statistic-container">
+            <Row className="statistic-title">Most loyal member/s</Row>
+            <Row>
+              {loyalList.map((member, index) => (
+                <Row key={index}>
+                  <Col md={2} className="loyal-list-item text-center">
+                    {member.username}
+                  </Col>
+                </Row>
+              ))}
+            </Row>
+          </Col>
+          <Col md={4} className="statistic-container">
+            <Row className="statistic-title">Amount of members</Row>
+            <Row>
+              <Col md={4} className="member-amount text-center">
+                {memberAmount}
               </Col>
-            ))}
-          </Row>
+            </Row>
+          </Col>
         </Row>
       </Container>
       <Accordion defaultActiveKey={null}>
