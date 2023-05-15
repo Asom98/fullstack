@@ -129,12 +129,7 @@ function NavigationBar() {
               </div>
             ) : (
               <div className="d-flex justify-content-center nav-loggedin">
-                <img
-                  className="user-icon"
-                  src="./src/components/Images/icons8-male-user-48.png"
-                  alt="User Icon"
-                  onClick={handleUserIconClick}
-                />
+                <div className="user-icon" onClick={handleUserIconClick} />
                 <Button
                   className="ml-3 logoutButton"
                   variant="primary"
