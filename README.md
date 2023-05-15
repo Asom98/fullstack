@@ -224,4 +224,29 @@ Update customer booking.
  
 ### _users.js_  
 
+Get user data. Checks if role is user or admin. Uses auth middleware.
+```
+/getUserData
+```
+
+Get user data by ID.
+```
+/getUserData/:_id
+```
+
+Register a new user. Uses bcrypt for password encryption. Returns error if user already exists.
+```
+/register
+```
+
+Register a new admin. Uses bcrypt for password encryption. Returns error if admin already exists.
+```
+/registerAdmin
+```
+
+Login route. Compares pasword input with encrypted password in database. Creates accessToken cookie.
+```
+/login
+```
+
 
