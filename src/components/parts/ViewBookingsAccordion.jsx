@@ -127,20 +127,20 @@ export function ViewBookingsAccordion() {
                 className="bookings"
                 style={{ maxHeight: "400px", overflowY: "auto" }}
               >
-                <Row className="member-row mb-4">
-                  <Col md={2} className="table-title">
+                <Row className="member-row mb-4 text-center">
+                  <Col md={2} className="table-title-book">
                     Customer
                   </Col>
-                  <Col md={3} className="table-title">
+                  <Col md={3} className="table-title-book">
                     Service
                   </Col>
-                  <Col md={2} className="table-title">
+                  <Col md={2} className="table-title-book">
                     Price
                   </Col>
-                  <Col md={3} className="table-title">
-                    Date and time
+                  <Col md={3} className="table-title-book">
+                    Date & time
                   </Col>
-                  <Col md={2} className="table-title">
+                  <Col md={2} className="table-title-book">
                     Controls
                   </Col>
                 </Row>

@@ -67,3 +67,8 @@ button[type="submit"]:hover {
   color: red;
   background-color: #ffe6e6;
 }
+
+.googleButton{
+  border: none !important;
+  background: transparent !important;
+}
