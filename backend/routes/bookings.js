@@ -44,13 +44,13 @@ router.get(
 );
 // delete booking but check time and return
 
-router.delete("/deleteBooking", authentication.authenticateUser, async (req, res) => {
-    try {
+router.delete("/deleteBooking", authentication.authenticateUser, async (req, res) => { /////////////
+  try {
+      const booking = await bookingModel.findById(req.body._id);
+      const user = await userModel.findById(booking.user_id)
       if (req.user.role == "admin") {
-        const booking = await bookingModel.findById(req.body._id);
         await bookingModel.findByIdAndDelete(req.body._id);
-        const user = await userModel.findById(booking.user_id)
-        const service = await serviceModel.findById(booking.service_id)
+
         if (booking.useCoupon) {
           user.couponAmount += 1
         } 
@@ -62,18 +62,13 @@ router.delete("/deleteBooking", authentication.authenticateUser, async (req, res
         const twentyFourHoursAgo = new Date();
         twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() + 24);
 
-        const booking = await bookingModel.findById(req.body._id);
-        const user = await userModel.findById(booking.user_id)
-        const service = await serviceModel.findById(booking.service_id)
-
         if (booking.startTime < twentyFourHoursAgo) {
           return res.sendStatus(400);
-
         } else {
           await bookingModel.findByIdAndDelete(req.body._id);
           if (booking.useCoupon) {
             user.couponAmount += 1
-          }
+        }
 
           await user.save()
           return res.sendStatus(200);
@@ -117,26 +112,24 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
               useCoupon: req.body.useCoupon,
               confirm: false,
               status: true,
-            });
-            const booked = await newBooking.save();
+          });
+
+            const booking = await newBooking.save();
             res.sendStatus(200);
-            const currBooking = await bookingModel.findById(booked._id);
+            const currBooking = await bookingModel.findById(booking._id);
             const currUser = await userModel.findById(currBooking.user_id);
-            const currService = await serviceModel.findById(
-              currBooking.service_id
-            );
 
             currUser.bookingAmount += 1;
 
             if (req.body.useCoupon) {
               currUser.couponAmount -= 1
             } 
-            
+
             await currUser.save();
 
             const valid = await isEmailValid(currUser.email);
-            if (booked && valid) {
-              confirmBooking(booked._id);
+            if (booking && valid) {
+              confirmBooking(booking, currUser);
             } else {
               await booked.findByIdAndDelete(booked._id);
               res.sendStatus(400);
@@ -145,22 +138,6 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
             res.sendStatus(400);
           }
         });
-      const booked = await newBooking.save();
-      res.sendStatus(200);
-      const currBooking = await bookingModel.findById(booked._id);
-      const currUser = await userModel.findById(currBooking.user_id);
-
-      currUser.bookingAmount += 1;
-
-      await currUser.save();
-
-      const valid = await isEmailValid(currUser.email);
-      if (booked && valid) {
-        confirmBooking(booked._id);
-      } else {
-        await booked.findByIdAndDelete(booked._id);
-        res.sendStatus(400);
-      }
     } catch (error) {
       // handle error
     }
