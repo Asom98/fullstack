@@ -194,6 +194,31 @@ Create a new service. This is a helper route that can be used in a route.rest fi
 
 ### _statistic.js_  
 
+Get total amount of users.
+```
+/getUsersCount
+```
+
+Get total amount of bookings.
+```
+/getBookingsCount
+```
+
+Get user with most bookings.
+```
+/getMostLoyal
+```
+
+Update customer coupon status.
+```
+/updateUserCoupon
+```
+
+Update customer booking.
+```
+/updateUserBooking
+```
+ 
 ### _users.js_  
 
 
