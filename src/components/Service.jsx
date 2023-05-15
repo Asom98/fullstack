@@ -40,6 +40,7 @@ export const ServicePage = () => {
       height: "250px",
       width: "300px",
       backgroundSize: "cover",
+      backgroundPosition: "center",
     };
   }
 
