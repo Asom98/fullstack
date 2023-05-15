@@ -9,6 +9,7 @@ function ChangePassword(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   useEffect(() => {
     fetchUserData();
