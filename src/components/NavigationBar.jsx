@@ -28,7 +28,7 @@ function NavigationBar() {
   };
 
   const handleUserIconClick = () => {
-    fetch("https://frontend-saloon2.onrender.com/users/getUserData", {
+    fetch("https://backend-saloon.onrender.com/users/getUserData", {
       method: "GET",
       credentials: "include",
     })
