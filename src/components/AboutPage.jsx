@@ -81,6 +81,22 @@ export function AboutPage() {
                 Security
                 <br />
                 Database
+                <br />
+                Created Booking backend 
+                <br />
+                Database Management 
+                <br />
+                Adding/removing users 
+                <br />
+                bug fixing 
+                <br />
+                Deployment of website 
+                <br />
+                Structure of the repo 
+                <br />
+                documentation 
+                <br />
+                Login / finished registration 
               </p>
             </Container>
           </Col>
