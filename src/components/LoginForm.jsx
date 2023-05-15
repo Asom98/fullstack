@@ -62,7 +62,10 @@ export const Login = (props) => {
       setErrorMessage("Something went wrong. Please try again later.");
     }
   };
-
+  const handleGoogleLogin = () => {
+    props.onLoginSuccess()
+    console.log("hello ");
+  }
   return (
     <div className="login-form-container">
       {showModal ? <ErrorPopup onClose={() => setShowModal(false)} /> : null}
@@ -89,7 +92,7 @@ export const Login = (props) => {
         />
         <button type="submit">Log In</button>
         <Button className="googleButton" variant="primary">
-          <GoogleLogin onLogin={props.onLoginSuccess} />
+          <GoogleLogin onLogin={handleGoogleLogin} />
         </Button>
       </form>
       {loginStatus !== null && (
