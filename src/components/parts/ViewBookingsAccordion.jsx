@@ -112,7 +112,7 @@ export function ViewBookingsAccordion() {
 
   const handleConfirmBooking = async (_id) => {
     const packet = { _id }
-    await fetch("http://localhost:3000/users/updateAmountSpent", {
+    await fetch("https://frontend-saloon2.onrender.com/users/updateAmountSpent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
