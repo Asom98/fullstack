@@ -28,7 +28,7 @@ export function AdminPage() {
     })();
     (async () => {
       let memberAmount = await (
-        await fetch(`http://localhost:3000/statistic/getUsersCount`)
+        await fetch(`https://backend-saloon.onrender.com/statistic/getUsersCount`)
       ).json();
       setMemberAmount(memberAmount);
     })();
