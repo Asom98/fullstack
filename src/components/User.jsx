@@ -131,6 +131,7 @@ function User() {
 
       if (response.ok) {
         const updatedBookings = bookings.filter((booking) => booking._id !== bookingToDelete);
+        await fetchUserData()
         setBookings(updatedBookings);
       } else {
         setSentence("I'm sorry, you are unable to delete bookings within 24 hours of the scheduled time. Please contact us directly to make any necessary changes. Thank you for your understanding.");
@@ -213,7 +214,7 @@ return (
                       <td>{booking.service ? booking.service.name : "unknown"}</td>
                       <td>{booking.bookingDate}</td>
                       <td>{booking.bookingTime}</td>
-                      <td>${booking.price}</td>
+                      {booking.useCoupon ? <td>${booking.price - 15}</td> : <td>${booking.price}</td>}
                       <td>
                         <Button variant="danger" size="sm" onClick={()=> handleDeleteBooking(booking._id)}>Cancel booking</Button>
                       </td>
@@ -244,6 +245,7 @@ return (
                 <br/> To redeem this offer,simply show the coupon to our receptionist during your next appointment
                 <br/> or use it with the next online booking.
                 <br/> The coupon can only be used once.</p>
+
                 <h4>You have spent: $<span id="amount-spent">{userInfo.amountSpent}</span></h4>
                 <h6>Spend ${500-userInfo.amountSpent} more to recieve the next coupon.</h6>
                 <h4 className="coupon">You have: <span id="coupon-amount">{userInfo.couponAmount}</span> coupon to use</h4>
