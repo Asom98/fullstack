@@ -10,19 +10,19 @@
 }
   
 .pic1 {
-    background-image: url("/src/components/Images/allef-vinicius-IvQeAVeJULw-unsplash.jpg");
+    background-image: url("../Images/allef-vinicius-IvQeAVeJULw-unsplash.jpg");
 }
   
 .pic2 {
-    background-image: url("/src/components/Images/raphael-lovaski-Pe9IXUuC6QU-unsplash.jpg");
+    background-image: url("../Images/raphael-lovaski-Pe9IXUuC6QU-unsplash.jpg");
 }
 
 .pic3 {
-    background-image: url("/src/components/Images/stefan-schauberger-Tper6bHeSUo-unsplash.jpg");
+    background-image: url("../components/Images/stefan-schauberger-Tper6bHeSUo-unsplash.jpg");
 }
   
 .pic4 {
-    background-image: url("/src/components/Images/hayley-kim-design-sRSRuxkOuzI-unsplash.jpg");
+    background-image: url("../components/Images/hayley-kim-design-sRSRuxkOuzI-unsplash.jpg");
 }
 
 .carousel-text {
