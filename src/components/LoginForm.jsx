@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
 import "./css/LoginForm.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { ErrorPopup } from "./parts/ErrorPopup";
+
 import { GoogleLogin } from "./GoogleLogin";
 
 export const Login = (props) => {
-  const { showPopup } = useParams();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
-  const [showModal, setShowModal] = useState(showPopup === "true");
   const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
@@ -65,7 +63,6 @@ export const Login = (props) => {
 
   return (
     <div className="login-form-container">
-      {showModal ? <ErrorPopup onClose={() => setShowModal(false)} /> : null}
       <form onSubmit={handleLoginSubmit}>
         <label htmlFor="username">Username</label>
         <input
