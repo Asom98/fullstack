@@ -63,14 +63,8 @@ export const Login = (props) => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    if (data.user.role === "admin") {
-      navigate("/admin");
-    } else if (data.user.role === "user") {
-      navigate("/user");
-    }
-    
-    props.onLoginSuccess();
+  function handleGoogleLogin() {
+    navigate("/user")
     console.log("hello ");
   }
 
@@ -100,7 +94,7 @@ export const Login = (props) => {
         />
         <button type="submit">Log In</button>
         <Button className="googleButton" variant="primary">
-          <GoogleLogin onLogin={handleGoogleLogin} />
+          <GoogleLogin onLogin={handleGoogleLogin()} />
         </Button>
       </form>
       {loginStatus !== null && (
