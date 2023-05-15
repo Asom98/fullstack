@@ -31,6 +31,15 @@ export const ServicePage = () => {
     navigate(`/booking/${service._id}`);
   };
 
+  function containerStyle(backgroundImageUrl) {
+    return {
+      backgroundImage: `url(/src/components/Images/${backgroundImageUrl})`,
+      height: "250px",
+      width: "300px",
+      backgroundSize: "cover",
+    };
+  }
+
   return (
     <div className=" service-container d-flex flex-column justify-content-center align-items-center">
       <div className="d-flex justify-content-center fs-1 fst-italic font-monospace text-white mt-5">
@@ -44,7 +53,7 @@ export const ServicePage = () => {
           <div key={service._id} className="custom card">
             <Card className="custom">
               <div className="d-flex">
-                <Card.Img className="card-img w-50" src={`/src/components/Images/${service.img}`} />
+                <div style={containerStyle(service.img)}></div>
                 <Card.Body>
                 <Card.Title className="card-serviceName">{service.name}</Card.Title>
                 <Card.Text className="card-description">{service.description}</Card.Text>

@@ -1,54 +1,52 @@
+.carousel-item {
+    height: 500px; /* Adjust the height as needed */
+}
 
-.carousel-item-with-text {
-    position: relative;
-}
-  
-.carousel-item-with-text .carousel-image {
+.carousel-image {
     width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
 }
   
-.carousel-item-with-text .carousel-text {
+.pic1 {
+    background-image: url("/src/components/Images/allef-vinicius-IvQeAVeJULw-unsplash.jpg");
+}
+  
+.pic2 {
+    background-image: url("/src/components/Images/raphael-lovaski-Pe9IXUuC6QU-unsplash.jpg");
+}
+
+.pic3 {
+    background-image: url("/src/components/Images/stefan-schauberger-Tper6bHeSUo-unsplash.jpg");
+}
+  
+.pic4 {
+    background-image: url("/src/components/Images/hayley-kim-design-sRSRuxkOuzI-unsplash.jpg");
+}
+
+.carousel-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    opacity: 1.0;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
-    width: 80%;
-}
-  
-.carousel-item-with-text h5 {
-    color: rgba(0, 0, 0, 0.847);
-    font-size: 2.5rem;
-    font-style: italic;
-  }
-  
-.carousel-item-with-text p {
-    color: rgba(0, 0, 0, 0.737);
-    font-size: 1.1rem;
-    font-style: italic;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.85);
+    width: 490px;
 }
 
-.carousel-item-with-text .register-button {
-    background-color: rgba(0, 0, 0, 0.659);
-    border-color: rgba(0, 0, 0, 0.262);
-    border-radius: 10px;
-    padding: 5px 10px;
-    font-size: 1rem;
-    transition: all 0.3s ease-in-out;
-    position: absolute;
-    bottom: 15px;
-    right: 25px;
+.carousel-text .register-button {
+    background-color: rgb(74, 72, 72);
+    color: white;
+    border: none;
+    margin: 10px;
+}
 
+.carousel-text .register-button:hover {
+    background-color: rgb(40, 39, 39);
+    color: white;
+    border: none;
+    margin: 10px;
 }
   
-.carousel-item-with-text .register-button:hover {
-    background-color:  rgba(0, 0, 0, 0.659);
-    border-color: rgba(0, 0, 0, 0.262);
-    transform: scale(1.1);
-    cursor: pointer;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-}
