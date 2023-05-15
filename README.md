@@ -151,37 +151,46 @@ Get booking amount for all services.
 </details>  
 
 ### _employees.js_  
+
+<details>
+ <summary>Employee Routes</summary>  
  
 Get employee by ID.  
 ```
  /getEmployees/:ids
 ```
-
+</details>
 
 ### _mail.js_  
+<details>
+ <summary>Mail Routes</summary>
  
 Confirm a booking by sending an email to the customer.  
 ```
  function confirmBooking()
 ```
+</details>
 
-
+ 
 ### _services.js_  
+<details>
+ <summary>Service routes</summary>
 
 Get all services.
 ```
  /getServices
 ```
+ 
 Get a service by it's ID.
 ```
  /getServiceById/:_id
 ```
-
+ 
 Create a new service. This is a helper route that can be used in a route.rest file.
 ```
  /createService
 ```
-
+</details>
 
 ### _statistic.js_  
 
