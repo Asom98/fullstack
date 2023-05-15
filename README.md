@@ -252,4 +252,34 @@ Login route. Compares pasword input with encrypted password in database. Creates
 ```
 </details>
 
+# Frontend
+The frontend is made using React. It uses components that can be imported to where they're needed.  
+## Components  
+### _AboutPage.jsx_
+### _AdminPage.jsx_
+### _Booking.jsx_
+### _Carousel.jsx_
+### _ContactUs.jsx_
+### _GoogleLogin.jsx_
+### _LoginForm.jsx_
+### _NavigationBar.jsx_
+### _Registration.jsx_
+### _Service.jsx_
+### _User.jsx_
+
+### Backgrounds  
+Contains larger images used on the page as backgrounds etc.  
+
+### CSS
+Contains CSS files for styling.  
+
+### Images
+Contains smaller images used for services etc.  
+
+### Parts
+Contains smaller components such as forms, popup windows, footer, accordions.
+
+
+
+
 
