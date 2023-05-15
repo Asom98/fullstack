@@ -90,7 +90,6 @@ router.put("/updateBooking", async (req, res) => {
   }
 });
 
-
 router.post("/postBooking", authentication.authenticateUser, async (req, res) => {
     if (req.user.role == "admin") {
       return res.sendStatus(403)
