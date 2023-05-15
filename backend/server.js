@@ -36,7 +36,7 @@ app.use("/services", serviceRoutes);
 app.use("/statistic", statisticRoutes);
 
 app.get("/", (req, res) => {
-  res.json("WELCOME TO THE SALOON");
+  res.json("asdasdasd");
 });
 
 app.get("/checkAuth", authentication.authenticateUser,(req, res) => {
