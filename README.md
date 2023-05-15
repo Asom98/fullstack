@@ -47,6 +47,60 @@ _employee.js_
 _service.js_  
 _user.js_  
 
+## Routes
+Contains the REST api routes.  
 
+_admin.js_  
+
+Get users from userModel.
+```
+/getUsers
+```
+
+Get admins from adminModel.
+```
+/getAdmins
+```
+
+Get users by ID.
+```
+/getUsersById
+```
+
+Add a new user.
+```
+/addUser
+```
+
+Add a new admin to the database.
+```
+/addAdmin
+```
+
+Change user data.
+```
+/updateUser
+```
+
+Remove a user.
+```
+/removeUser
+```
+
+Update admin data.
+```
+/updateAdmin
+```
+
+Remote admin from database.
+```
+/removeAdmin
+```
+_bookings.js_  
+_employees.js_  
+_mail.js_  
+_services.js_  
+_statistic.js_  
+_users.js_  
 
 
