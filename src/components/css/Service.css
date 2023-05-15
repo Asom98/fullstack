@@ -1,12 +1,12 @@
 .service-container {
-    background-image: url("../Images/ren-ran-bBiuSdck8tU-unsplash.jpg");
+    background-image: url("../Backgrounds/ren-ran-bBiuSdck8tU-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
 
 .Haircut-and-Styling{
-    background-image: url("../Images/adam-winger-FkAZqQJTbXM-unsplash.jpg");
+    background-image: url("../Backgrounds/adam-winger-FkAZqQJTbXM-unsplash.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
