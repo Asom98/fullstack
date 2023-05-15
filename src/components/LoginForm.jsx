@@ -62,7 +62,7 @@ export const Login = (props) => {
       setErrorMessage("Something went wrong. Please try again later.");
     }
   };
-
+  
   function handleGoogleLogin() {
     navigate("/user")
     console.log("hello ");
@@ -93,7 +93,7 @@ export const Login = (props) => {
           required
         />
         <button type="submit">Log In</button>
-        <Button className="googleButton" variant="primary">
+        <Button className="googleButton" variant="primary" >
           <GoogleLogin onLogin={handleGoogleLogin()} />
         </Button>
       </form>
