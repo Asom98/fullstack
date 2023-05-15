@@ -18,7 +18,6 @@ function User() {
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [coupon, setCoupon] = useState("");
  
   const handleUpdateEmailClick = async () => {
     const response = await fetch("https://backend-saloon.onrender.com/admin/updateUser", {
@@ -116,7 +115,7 @@ function User() {
     setBookingToDelete(_id);
     setShowConfirmationModal(true);
   };
-asdsd
+
   const handleConfirmDeleteBooking = async () => {
     if (bookingToDelete) {
       const packet = { _id: bookingToDelete };
