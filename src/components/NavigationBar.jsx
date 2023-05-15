@@ -23,6 +23,7 @@ function NavigationBar() {
   };
 
   const handleLoginSuccess = () => {
+    console.log("hello");
     setLoggedIn(true);
     setShowLoginForm(false);
   };

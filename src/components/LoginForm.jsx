@@ -89,7 +89,7 @@ export const Login = (props) => {
         />
         <button type="submit">Log In</button>
         <Button className="googleButton" variant="primary">
-          <GoogleLogin onLogin={props.onLoginSuccess()} />
+          <GoogleLogin onLogin={props.onLoginSuccess} />
         </Button>
       </form>
       {loginStatus !== null && (

@@ -39,7 +39,7 @@ function GoogleLogin(onLogin) {
     } catch (error) {
       console.log(error);
     }
-  
+
     // login user with google credentials
     try {
       const response = await fetch("https://backend-saloon.onrender.com/users/login", {
