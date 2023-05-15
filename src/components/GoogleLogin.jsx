@@ -52,6 +52,7 @@ function GoogleLogin(onLogin) {
       });
       if (response.ok) {
         console.log("You have succesfuly logged in!");
+        console.log("asdasd");
         onLogin()
       } else {
         console.log("Something went wrong!");

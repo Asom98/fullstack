@@ -62,10 +62,18 @@ export const Login = (props) => {
       setErrorMessage("Something went wrong. Please try again later.");
     }
   };
+
   const handleGoogleLogin = () => {
-    props.onLoginSuccess()
+    if (data.user.role === "admin") {
+      navigate("/admin");
+    } else if (data.user.role === "user") {
+      navigate("/user");
+    }
+    
+    props.onLoginSuccess();
     console.log("hello ");
   }
+
   return (
     <div className="login-form-container">
       {showModal ? <ErrorPopup onClose={() => setShowModal(false)} /> : null}
