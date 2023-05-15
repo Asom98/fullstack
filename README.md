@@ -193,7 +193,9 @@ Create a new service. This is a helper route that can be used in a route.rest fi
 </details>
 
 ### _statistic.js_  
-
+<details>
+ <summary>Statistics routes</summary>  
+ 
 Get total amount of users.
 ```
 /getUsersCount
@@ -218,6 +220,7 @@ Update customer booking.
 ```
 /updateUserBooking
 ```
+</details>
  
 ### _users.js_  
 
