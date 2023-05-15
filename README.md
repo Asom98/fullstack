@@ -102,7 +102,7 @@ Remote admin from database.
 
 ### _bookings.js_  
 <details>
-<summary> Booking routes </summary>
+<summary> Booking routes </summary>  
 
 Get all bookings.
 ```
@@ -119,7 +119,7 @@ Get bookings for a specific user, using user ID. Uses auth middleware.
 /getBookingsByUserId
 ```
 
-Delete a booking. Contains functionality for managing discount coupons upon booking removal. Will not allow removal of a booking for a timeslot that is less than 24 hours away. 
+Delete a booking. Contains functionality for managing discount coupons upon booking removal. Will not allow removal of a booking for a timeslot that is less than 24 hours away.
 ```
 /deleteBooking
 ```
@@ -134,7 +134,7 @@ Adds a new user or admin booking. Also calculates amount of bookings for the use
 /postBooking
 ```
 
-Get available timeslots for booking. 
+Get available timeslots for booking.
 ```
 /getAvailableTimeSlots/:service_id/:date
 ```
@@ -146,33 +146,110 @@ Get booking amount for chosen service.
 
 Get booking amount for all services.
 ```
-/getAmount
+ /getAmount
 ```
-</details>
+</details>  
 
 ### _employees.js_  
+
 <details>
-<summary> Employee routes </summary>  
+ <summary>Employee Routes</summary>  
+ 
+Get employee by ID.  
+```
+ /getEmployees/:ids
+```
 </details>
 
 ### _mail.js_  
 <details>
-<summary> Email routes </summary>
+ <summary>Mail Routes</summary>
+ 
+Confirm a booking by sending an email to the customer.  
+```
+ function confirmBooking()
+```
 </details>
 
+ 
 ### _services.js_  
 <details>
-<summary> Service routes </summary>
+ <summary>Service routes</summary>
+
+Get all services.
+```
+ /getServices
+```
+ 
+Get a service by it's ID.
+```
+ /getServiceById/:_id
+```
+ 
+Create a new service. This is a helper route that can be used in a route.rest file.
+```
+ /createService
+```
 </details>
 
 ### _statistic.js_  
 <details>
-<summary> Statistics routes </summary>
-</details>
+ <summary>Statistics routes</summary>  
+ 
+Get total amount of users.
+```
+/getUsersCount
+```
 
+Get total amount of bookings.
+```
+/getBookingsCount
+```
+
+Get user with most bookings.
+```
+/getMostLoyal
+```
+
+Update customer coupon status.
+```
+/updateUserCoupon
+```
+
+Update customer booking.
+```
+/updateUserBooking
+```
+</details>
+ 
 ### _users.js_  
 <details>
-<summary> User routes </summary>
+ <summary>User routes</summary>  
+ 
+Get user data. Checks if role is user or admin. Uses auth middleware.
+```
+/getUserData
+```
+
+Get user data by ID.
+```
+/getUserData/:_id
+```
+
+Register a new user. Uses bcrypt for password encryption. Returns error if user already exists.
+```
+/register
+```
+
+Register a new admin. Uses bcrypt for password encryption. Returns error if admin already exists.
+```
+/registerAdmin
+```
+
+Login route. Compares pasword input with encrypted password in database. Creates accessToken cookie.
+```
+/login
+```
 </details>
 
 
