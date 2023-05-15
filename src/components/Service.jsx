@@ -58,7 +58,7 @@ export const ServicePage = () => {
           <div key={service._id} className="custom card">
             <Card className="custom">
               <div className="d-flex">
-                <div className="service-img" style={containerStyle(service.img)}></div>
+                <div className="service-img" style={containerStyle(`${service.img}`)}></div>
                 <Card.Body>
                 <Card.Title className="card-serviceName">{service.name}</Card.Title>
                 <Card.Text className="card-description">{service.description}</Card.Text>
