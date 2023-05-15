@@ -40,6 +40,7 @@ export const ServicePage = () => {
       height: "250px",
       width: "300px",
       backgroundSize: "cover",
+      backgroundPosition: "center",
     };
   }
 
@@ -50,40 +51,26 @@ export const ServicePage = () => {
       </div>
       <div className="card-columns mt-4 custom-card-columns">
 
-        {isLoading ? (
-          <div className="spinner-border text-primary"></div>
-        ) : (
-          servicesData.map((service) => (
-            <div key={service._id} className="custom card">
-              <Card className="custom">
-                <div className="d-flex">
-                  <Card.Img
-                    className="card-img w-50"
-                    src={containerStyle(service.img)}
-                  />
-                  <Card.Body>
-                    <Card.Title className="card-serviceName">
-                      {service.name}
-                    </Card.Title>
-                    <Card.Text className="card-description">
-                      {service.description}
-                    </Card.Text>
-                    <Card.Text className="card-text duration">
-                      Duration: {service.duration}min
-                    </Card.Text>
-                    <Card.Text className="card-text price">
-                      Price: ${service.price}
-                    </Card.Text>
-                    <Button onClick={() => handleBookClick(service)}>
-                      Book Now
-                    </Button>
-                  </Card.Body>
-                </div>
-              </Card>
-            </div>
-          ))
-        )}
-
+        { isLoading ? (
+              <div className="spinner-border text-primary"></div>
+            ) : (
+        servicesData.map((service) => (
+          <div key={service._id} className="custom card">
+            <Card className="custom">
+              <div className="d-flex">
+                <div className="service-img" style={containerStyle(service.img)}></div>
+                <Card.Body>
+                <Card.Title className="card-serviceName">{service.name}</Card.Title>
+                <Card.Text className="card-description">{service.description}</Card.Text>
+                <Card.Text className="card-text duration">Duration: {service.duration}min</Card.Text>
+                <Card.Text className="card-text price">Price: ${service.price}</Card.Text>
+                <Button onClick={() => handleBookClick(service)}>Book Now</Button>
+                </Card.Body>
+              </div>
+            </Card>
+          </div>
+        )))
+      }
       </div>
       {showModal && (
         <ConfirmationModal

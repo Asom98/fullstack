@@ -135,22 +135,22 @@ export function ViewAdminsAccordion() {
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
           <Row className="admin-row mb-4">
-            <Col md={3} className="table-title">
+            <Col md={3} className="table-title d-lg-block d-none">
               Name
             </Col>
-            <Col md={3} className="table-title">
+            <Col md={3} className="table-title d-lg-block d-none">
               Email
             </Col>
-            <Col md={3} className="table-title">
+            <Col md={3} className="table-title d-lg-block d-none">
               Phone Number
             </Col>
-            <Col md={3} className="table-title">
+            <Col md={3} className="table-title d-lg-block d-none">
               Controls
             </Col>
           </Row>
           {adminList.map((admin, index) => (
             <Row className="admin-row mb-4" key={index}>
-              <Col md={3} className="info-section">
+              <Col sm={12} lg={3} className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="name"
@@ -161,7 +161,7 @@ export function ViewAdminsAccordion() {
                   admin.username
                 )}
               </Col>
-              <Col md={3} className="info-section">
+              <Col sm={12} lg={3} className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="email"
@@ -172,7 +172,7 @@ export function ViewAdminsAccordion() {
                   admin.email
                 )}
               </Col>
-              <Col md={2} className="info-section">
+              <Col sm={12} lg={2} className="info-section">
                 {admin.isEditable ? (
                   <Form.Control
                     name="phoneNumber"
@@ -184,7 +184,7 @@ export function ViewAdminsAccordion() {
                 )}
               </Col>
 
-              <Col md={2} className="info-section">
+              <Col sm={12} lg={2} className="info-section">
                 <Button
                   className="colored-btn"
                   onClick={() => handleDelete(admin._id)}
@@ -192,7 +192,7 @@ export function ViewAdminsAccordion() {
                   Delete admin
                 </Button>
               </Col>
-              <Col md={2} className="info-section">
+              <Col sm={12} lg={2} className="info-section">
                 {admin.isEditable ? (
                   <Button
                     className="colored-btn"

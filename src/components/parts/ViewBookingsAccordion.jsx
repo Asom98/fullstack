@@ -97,19 +97,6 @@ export function ViewBookingsAccordion() {
     })();
   };
 
-  /*{
-    "_id": "644fc306d2e036b3637de91a",
-    "service_id": "644c378a049948fffb0a19d7",
-    "employee_id": "644a83d1f0a732d4a429ab87",
-    "user_id": "64482117371250416b683ec6",
-    "startTime": "2023-12-12T08:00:00.000Z",
-    "endTime": "2023-12-12T09:00:00.000Z",
-    "contact_email": "asd@asd.com",
-    "status": true,
-    "count": 1,
-    "__v": 0
-  }*/
-
   const handleConfirmBooking = async (_id) => {
     const packet = { _id }
     await fetch("https://backend-saloon.onrender.com/users/updateAmountSpent", {
@@ -119,19 +106,20 @@ export function ViewBookingsAccordion() {
       },
       credentials: "include",
       body: JSON.stringify(packet),
-    })
-    .then(response => {
+    }).then((response) => {
       if (response.ok) {
         console.log("The booking has been confirmed");
-        setBookingList(bookingList.map(booking => {
-          if (booking._id === _id) {
-            return { ...booking, confirm: true };
-          }
-          return booking;
-        }))
+        setBookingList(
+          bookingList.map((booking) => {
+            if (booking._id === _id) {
+              return { ...booking, confirm: true };
+            }
+            return booking;
+          })
+        );
       }
-    })
-  }
+    });
+  };
 
   const handlePageChange = (page) => {
     setCurrentPage(page - 1);
@@ -151,22 +139,22 @@ export function ViewBookingsAccordion() {
                 style={{ maxHeight: "400px", overflowY: "auto" }}
               >
                 <Row className="member-row mb-4 text-center">
-                  <Col md={2} className="table-title-book">
+                  <Col md={2} className="table-title-book d-md-block d-none">
                     Customer
                   </Col>
-                  <Col md={2} className="table-title">
+                  <Col md={2} className="table-title d-md-block d-none">
                     Service
                   </Col>
-                  <Col md={2} className="table-title-book">
+                  <Col md={1} className="table-title-book d-md-block d-none">
                     Price
                   </Col>
-                  <Col md={2} className="table-title">
+                  <Col md={3} className="table-title d-md-block d-none">
                     Date and time
                   </Col>
-                  <Col md={2} className="table-title">
-                    Confirm
+                  <Col md={2} className="table-title d-md-block d-none">
+                    Confirm booking
                   </Col>
-                  <Col md={2} className="table-title">
+                  <Col md={2} className="table-title d-md-block d-none">
                     Controls
                   </Col>
                 </Row>
@@ -174,18 +162,22 @@ export function ViewBookingsAccordion() {
                   .slice(currentPage * perPage, (currentPage + 1) * perPage)
                   .map((booking, index) => (
                     <Row className="booking-row mb-4" key={index}>
-                      <Col>{userNames[index + currentPage * perPage]}</Col>
-                      <Col>{service[index + currentPage * perPage].name}</Col>
+                      <Col md={2}>
+                        {userNames[index + currentPage * perPage]}
+                      </Col>
+                      <Col md={2}>
+                        {service[index + currentPage * perPage].name}
+                      </Col>
                       {booking.useCoupon ? (
-                        <Col>
+                        <Col md={1}>
                           {service[index + currentPage * perPage].price - 15}
                         </Col>
                       ) : (
-                        <Col>
+                        <Col md={1}>
                           {service[index + currentPage * perPage].price}
                         </Col>
                       )}
-                      <Col>
+                      <Col md={3}>
                         {new Date(booking.startTime).toLocaleString("en-UK", {
                           weekday: "long",
                           year: "numeric",
@@ -196,18 +188,22 @@ export function ViewBookingsAccordion() {
                           timeZone: "UTC",
                         })}
                       </Col>
-                      <Col>
-                      {booking.confirm ? 
-                          <p>CONFIRMED</p> :
+                      <Col className="confirmed" md={2}>
+                        {booking.confirm ? (
+                          <p>CONFIRMED</p>
+                        ) : (
                           <Button
-                          className="colored-btn"
-                          onClick={() => {handleConfirmBooking(booking._id); booking.confirm = true}}
-                        >
-                          Confirm bookin
-                        </Button>}
-
+                            className="colored-btn"
+                            onClick={() => {
+                              handleConfirmBooking(booking._id);
+                              booking.confirm = true;
+                            }}
+                          >
+                            Confirm bookin
+                          </Button>
+                        )}
                       </Col>
-                      <Col>
+                      <Col md={2}>
                         <Button
                           className="colored-btn"
                           onClick={() => handleDelete(booking._id)}

@@ -142,32 +142,32 @@ export function ViewMembersAccordion() {
           style={{ maxHeight: "400px", overflowY: "auto" }}
         >
           <Row className="member-row mb-4">
-            <Col md={2} className="table-title">
+            <Col md={2} className="table-title d-xl-block d-none">
               Name
             </Col>
-            <Col md={3} className="table-title">
+            <Col md={3} className="table-title d-xl-block d-none">
               Email
             </Col>
-            <Col md={2} className="table-title">
+            <Col md={2} className="table-title d-xl-block d-none">
               Phone Number
             </Col>
-            <Col md={1} className="table-title">
+            <Col md={1} className="table-title d-xl-block d-none">
               Coupon amount
             </Col>
-            <Col md={1} className="table-title">
+            <Col md={1} className="table-title d-xl-block d-none">
               Amount spent
             </Col>
-            <Col md={1} className="table-title">
+            <Col md={1} className="table-title d-xl-block d-none">
               Booking amount
             </Col>
-            <Col md={2} className="table-title">
+            <Col md={2} className="table-title d-xl-block d-none">
               Controls
             </Col>
           </Row>
           {memberList.map((member, index) => (
             <>
               <Row className="member-row mb-4" key={index}>
-                <Col className="info-section" md={2}>
+                <Col className="info-section" sm={12} xl={2}>
                   {member.isEditable ? (
                     <Form.Control
                       name="name"
@@ -178,7 +178,7 @@ export function ViewMembersAccordion() {
                     member.username
                   )}
                 </Col>
-                <Col className="info-section" md={3}>
+                <Col className="info-section" sm={12} xl={3}>
                   {member.isEditable ? (
                     <Form.Control
                       name="email"
@@ -189,7 +189,7 @@ export function ViewMembersAccordion() {
                     member.email
                   )}
                 </Col>
-                <Col className="info-section" md={2}>
+                <Col className="info-section" sm={12} xl={2}>
                   {member.isEditable ? (
                     <Form.Control
                       name="phoneNumber"
@@ -200,7 +200,7 @@ export function ViewMembersAccordion() {
                     member.phoneNumber
                   )}
                 </Col>
-                <Col className="info-section" md={1}>
+                <Col className="info-section" sm={12} xl={1}>
                   {member.isEditable ? (
                     <Form.Control
                       name="couponAmount"
@@ -211,13 +211,13 @@ export function ViewMembersAccordion() {
                     member.couponAmount
                   )}
                 </Col>
-                <Col className="info-section" md={1}>
+                <Col className="info-section" sm={12} xl={1}>
                   {member.amountSpent}
                 </Col>
-                <Col className="info-section" md={1}>
+                <Col className="info-section" sm={12} xl={1}>
                   {member.bookingAmount}
                 </Col>
-                <Col className="info-section" md={1}>
+                <Col className="info-section" sm={12} xl={1}>
                   {member.isEditable ? (
                     <Button
                       className="colored-btn"
@@ -234,7 +234,7 @@ export function ViewMembersAccordion() {
                     </Button>
                   )}
                 </Col>
-                <Col className="info-section" md={1}>
+                <Col className="info-section" sm={12} xl={1}>
                   <Button
                     className="colored-btn"
                     onClick={() => handleDelete(index, member._id)}
