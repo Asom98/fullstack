@@ -116,8 +116,7 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
 
             const booking = await newBooking.save();
             res.sendStatus(200);
-            const currBooking = await bookingModel.findById(booking._id);
-            const currUser = await userModel.findById(currBooking.user_id);
+            const currUser = await userModel.findById(booking.user_id);
 
             currUser.bookingAmount += 1;
 
