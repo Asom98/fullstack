@@ -365,10 +365,83 @@ function GoogleLogin()
 </details>
 
 ### _LoginForm.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+ 
+Handle login submission. Checks if user is 'user' or 'admin'. Sets login status based on if submission is successful or not.
+```
+handleLoginSubmit()
+  /users/login
+```
+</details>
+ 
 ### _NavigationBar.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Checks if accessToken cookie exists. Returns true or false.
+```
+function checkToken()
+```
+</details>
+
 ### _Registration.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Handles registration form submission. Checks if person registering is 'user' or 'admin'.  
+Depending on user role, fetches the appropriate route.
+```
+function Registration()
+  /admin/addAdmin
+  /users/register
+```
+
+Validates form inputs. Checks for valid text formatting. Checks if both password inputs match.
+```
+validateForm()
+```
+</details>
+
+
 ### _Service.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+```
+fetchServices()
+  /services/getServices
+```
+</details>
+
 ### _User.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
+
+Lets the user change their email on the profile page.
+```
+handleUpdateEmailClick()
+  /admin/updateUser
+```
+
+Lets the user change their phone number on the profile page.
+```
+handleUpdatePhoneNumberClick()
+  /admin/updateUser
+```
+
+Get booking by user ID. If service ID response is ok, add the new booking.
+```
+handleUserBookings()
+  /bookings/getBookingsByUserId
+  /services/getServiceById/${booking.service_id}
+```
+</details>
 
 ### Backgrounds  
 Contains larger images used on the page as backgrounds.  
