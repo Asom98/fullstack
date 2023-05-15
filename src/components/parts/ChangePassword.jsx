@@ -43,7 +43,7 @@ function ChangePassword(props) {
     setPasswordError(false);
     setPasswordsMatch(true);
     props.onClose();
-    setSuccessMessage("");
+    setSuccessMessage(false);
   };
 
   return (
