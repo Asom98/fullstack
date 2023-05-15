@@ -58,7 +58,14 @@ router.delete("/deleteBooking", authentication.authenticateUser, async (req, res
         } else {
           user.amountSpent -= service.price
         }
+
+        if (user.amountSpent < 0) {
+          user.amountSpent = 0
+        }
+
+        console.log("asd");
         await user.save()
+
         return res.sendStatus(200);
       } else {
         const twentyFourHoursAgo = new Date();
@@ -80,6 +87,11 @@ router.delete("/deleteBooking", authentication.authenticateUser, async (req, res
           } else {
             user.amountSpent -= service.price
           }
+
+          if (user.amountSpent < 0) {
+            user.amountSpent = 0
+          }
+
           await user.save()
           return res.sendStatus(200);
         }

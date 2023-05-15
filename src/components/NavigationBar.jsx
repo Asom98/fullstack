@@ -92,7 +92,7 @@ function NavigationBar() {
                 Register
                 </Button>
               <Button className="googleButton" variant="primary">
-                  <GoogleLogin />
+                  <GoogleLogin onLoginSuccess={handleLoginSuccess}/>
               </Button>
             </div>
           ) : (

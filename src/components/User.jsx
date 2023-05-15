@@ -245,9 +245,8 @@ return (
                 <br/> To redeem this offer,simply show the coupon to our receptionist during your next appointment
                 <br/> or use it with the next online booking.
                 <br/> The coupon can only be used once.</p>
-                {userInfo.amountSpent >= 0
-                ? <><h4>You have spent: $<span id="amount-spent">{userInfo.amountSpent}</span></h4></> 
-                : <h4>You have spent: $<span id="amount-spent">0</span></h4>}
+
+                <h4>You have spent: $<span id="amount-spent">{userInfo.amountSpent}</span></h4>
                 <h6>Spend ${500-userInfo.amountSpent} more to recieve the next coupon.</h6>
                 <h4 className="coupon">You have: <span id="coupon-amount">{userInfo.couponAmount}</span> coupon to use</h4>
               </div>
