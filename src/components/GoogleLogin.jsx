@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 
-function GoogleLogin(onLoginSuccess) {
+function GoogleLogin(onLogin) {
   async function handleCredentialResponse(userData) {
 
     console.log('Encoded JWT', userData.credential);
@@ -52,7 +52,7 @@ function GoogleLogin(onLoginSuccess) {
       });
       if (response.ok) {
         console.log("You have succesfuly logged in!");
-        onLoginSuccess()
+        onLogin()
       } else {
         console.log("Something went wrong!");
       }
