@@ -60,12 +60,7 @@ export function ViewBookingsAccordion() {
               `https://backend-saloon.onrender.com/users/getUserData/${booking.user_id}`
             )
           ).json();
-            if (user.status === 200 && user.length > 0) {
-              return user.username;
-            } else if (user.status === 200 && user.length == 0) {
-              setIsLoading(false)
-              return user.username;
-            }
+            return user.username;
         })
       );
       setUserNames(tempUserNames);
