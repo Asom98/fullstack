@@ -131,6 +131,7 @@ function User() {
 
       if (response.ok) {
         const updatedBookings = bookings.filter((booking) => booking._id !== bookingToDelete);
+        await fetchUserData()
         setBookings(updatedBookings);
       } else {
         setSentence("I'm sorry, you are unable to delete bookings within 24 hours of the scheduled time. Please contact us directly to make any necessary changes. Thank you for your understanding.");
@@ -213,7 +214,7 @@ return (
                       <td>{booking.service ? booking.service.name : "unknown"}</td>
                       <td>{booking.bookingDate}</td>
                       <td>{booking.bookingTime}</td>
-                      <td>${booking.price}</td>
+                      {booking.useCoupon ? <td>${booking.price - 15}</td> : <td>${booking.price}</td>}
                       <td>
                         <Button variant="danger" size="sm" onClick={()=> handleDeleteBooking(booking._id)}>Cancel booking</Button>
                       </td>
