@@ -283,7 +283,11 @@ function AdminPage()
  
 ### _Booking.jsx_  
 
-Handles the booking. 
+<details>
+ <summary>Click Me!</summary>  
+ 
+
+Handle the booking. 
 ```
 function Booking()
 ```
@@ -311,22 +315,35 @@ Fetch the employees. Can be used for assigning an employee to a specific service
 function fetchEmployees()
   /employees/getEmployees/${employee_ids.join(",")}
 ```
-
+</details>
+ 
 ### _Carousel.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
 
 Returns image carousel for the main page.
 ```
 function CarouselComp()
 ```
+</details>
+ 
+ 
+### _ContactUs.jsx_ 
 
-### _ContactUs.jsx_  
+<details>
+ <summary>Click Me!</summary>  
 
 Handles contact page. Uses google maps API for displaying address location on map.
 ```
 ContactUs()
 ```
-
+</details>
+ 
 ### _GoogleLogin.jsx_  
+
+<details>
+ <summary>Click Me!</summary>  
 
 Handles the user data returned from pressing google login button. Decoding the incoming JWT to allow for user credential storage in database.  
 Clicking the button fetches registration route. If the user already exists, clicking the button will fetch login route.
@@ -345,6 +362,7 @@ Import API script before calling init function.
 ```
 function GoogleLogin()
 ```
+</details>
 
 ### _LoginForm.jsx_  
 ### _NavigationBar.jsx_  
