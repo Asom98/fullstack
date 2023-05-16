@@ -56,11 +56,17 @@
 @media (max-width: 650px) {
   .frame {
     font-size: 12px;
-    height: 450px;
   }
   .carousel {
-    max-width: 95%;
-    max-height: 70%;
+    max-width: 100%;
+    max-height: 100%;
     margin: 50px auto;
+  }
+
+  .frame .welcome-text {
+    margin: 15px;
+    color: rgba(255, 255, 255, 0.867);
+    font-size: 20px; 
+    font-style: italic;
   }
 }
