@@ -136,15 +136,16 @@ router.post("/updateAmountSpent", [authentication.authenticateUser, authenticati
         amountSpent = amountSpent + Number(servicePrice); // Ensure numerical addition
       }
   
-      user.amountSpent = amountSpent; 
       booking.confirm = true
-      
-      if(user.amountSpent >= 500){
+      console.log(am);
+      if(amountSpent >= 500){
         user.couponAmount += 1
-        user.amountSpent -= 500
+        amountSpent -= 500
       }
+      
+      user.amountSpent = amountSpent; 
 
-      await user.save();
+      await user.save(); 
       await booking.save()
   
       res.sendStatus(200);
