@@ -34,10 +34,10 @@
 
 .navbar-nav .btn-primary {
     border-radius: 50px;
-    background-color: #ffffff;
+    background-color: #f0f4e9d3;
     border: none;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-    color: #afaaaad3;
+    color: #000000d3;
     font-size: 14px;
     font-weight: 500;
     transition: all 0.3s ease-in-out;
@@ -87,7 +87,6 @@
 }
 
 .navbar-nav .logoutButton {
-    margin-top: 10px;
     height: 35px;
 }
 

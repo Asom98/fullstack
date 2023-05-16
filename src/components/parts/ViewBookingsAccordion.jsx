@@ -200,7 +200,7 @@ export function ViewBookingsAccordion() {
                               booking.confirm = true;
                             }}
                           >
-                            Confirm bookin
+                            Confirm booking
                           </Button>
                         )}
                       </Col>

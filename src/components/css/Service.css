@@ -1,12 +1,5 @@
-.service-container {
-    background-image: url("../Backgrounds/ren-ran-bBiuSdck8tU-unsplash.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
 .Haircut-and-Styling{
-    background-image: url("../Backgrounds/adam-winger-FkAZqQJTbXM-unsplash.jpg");
+    background-image: url("../Images/Hair.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -14,7 +7,7 @@
 }
 
 .Beard-grooming{
-    background-image: url("../Backgrounds/allef-vinicius-IvQeAVeJULw-unsplash.jpg");
+    background-image: url("../Images/Beard.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -22,7 +15,7 @@
 }
 
 .Makeup {
-    background-image: url("../Backgrounds/candice-picard-1dwRuFgDr0o-unsplash.jpg");
+    background-image: url("../Images/Makeup.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -30,7 +23,7 @@
 }
 
 .Tanning-services{
-    background-image: url("../Backgrounds/antonio-gabola-ZY3zSaIZRtI-unsplash.jpg");
+    background-image: url("../Images/Tanning.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -38,7 +31,7 @@
 }
 
 .Manicures-and-pedicures {
-    background-image: url("../Backgrounds/giorgio-trovato-gb6gtiTZKB8-unsplash.jpg");
+    background-image: url("../Images/Nails.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -46,7 +39,7 @@
 }
 
 .Waxing-and-hair-removal{
-    background-image: url("../Backgrounds/kateryna-hliznitsova--1RC29zvakwg-unsplash.jpg");
+    background-image: url("../Images/Wax.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -54,7 +47,7 @@
 }
 
 .Massage-therapy {
-    background-image: url("../Backgrounds/alan-caishan-cU53ZFBr3lk-unsplash.jpg");
+    background-image: url("../Images/Massage.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
@@ -62,7 +55,7 @@
 }
 
 .Skincare-services {
-    background-image: url("../Backgrounds/raphael-lovaski-Pe9IXUuC6QU-unsplash.jpg");
+    background-image: url("../Images/Skin.jpg");
     height: 250px;
     width: 300px;
     background-size: cover;
