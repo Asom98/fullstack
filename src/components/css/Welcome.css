@@ -28,6 +28,11 @@
   color: rgba(255, 255, 255, 0.867);
   font-size: 28px; 
   font-style: italic;
+  overflow-y: auto;
+}
+
+.overflow-text{
+  overflow-x: auto !important;
 }
 
 .carousel {

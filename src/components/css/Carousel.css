@@ -25,6 +25,10 @@
     background-image: url("../Images/hayley-kim-design-sRSRuxkOuzI-unsplash.jpg");
 }
 
+.overflow-text {
+    overflow-x: auto !important;
+}
+
 .carousel-text {
     position: absolute;
     top: 50%;
