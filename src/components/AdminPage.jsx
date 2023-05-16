@@ -32,12 +32,15 @@ export function AdminPage() {
       ).json();
       setMemberAmount(memberAmount);
     })();
+
     (async () => {
       let loyal = await (
         await fetch(`https://backend-saloon.onrender.com/statistic/getMostLoyal`)
       ).json();
+      
       setLoyalList(loyal);
     })();
+
   }, []);
 
   return (
