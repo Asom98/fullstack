@@ -137,7 +137,7 @@ router.post("/updateAmountSpent", [authentication.authenticateUser, authenticati
       }
   
       booking.confirm = true
-      console.log(am);
+
       if(amountSpent >= 500){
         user.couponAmount += 1
         amountSpent -= 500
