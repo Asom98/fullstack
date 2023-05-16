@@ -139,7 +139,7 @@ router.post("/updateAmountSpent", [authentication.authenticateUser, authenticati
       user.amountSpent = amountSpent; 
       booking.confirm = true
       
-      if(checkCoupon(user.amountSpent)){
+      if(user.amountSpent >= 500){
         user.couponAmount += 1
         user.amountSpent -= 500
       }
