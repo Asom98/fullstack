@@ -123,6 +123,10 @@ router.post("/postBooking", authentication.authenticateUser, async (req, res) =>
             let amount = parseInt(currService.price)
             currUser.bookingAmount += 1;
             currUser.amountSpent += amount;
+            if(currUser.amountSpent >= 500){
+              currUser.couponAmount += 1
+              currUser.amountSpent -= 500;
+            }
 
             if (req.body.useCoupon) {
               currUser.couponAmount -= 1
