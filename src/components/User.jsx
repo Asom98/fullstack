@@ -54,17 +54,6 @@ function User() {
   };
 
   const handleUserBookings = async () => {
-    const response = await fetch(
-      `http://localhost:3000/bookings/getBookingsByUserId`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      }
-    );
-
     const response = await fetch(`https://backend-saloon.onrender.com/bookings/getBookingsByUserId`, {
       method: "GET",
       headers: {
