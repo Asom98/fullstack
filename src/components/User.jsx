@@ -26,6 +26,7 @@ function User() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         id: userInfo._id,
         email: userInfo.email,
@@ -42,6 +43,7 @@ function User() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         id: userInfo._id,
         phoneNumber: userInfo.phoneNumber,
