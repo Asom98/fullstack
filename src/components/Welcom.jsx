@@ -27,9 +27,9 @@ export const Welcom = () => {
           inner beauty!
         </p>
       </Container>
-      <div className="carousel">
+      <Container className="carousel">
         <CarouselComp />
-      </div>
+      </Container>
     </div>
   );
 };

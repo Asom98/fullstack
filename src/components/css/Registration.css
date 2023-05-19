@@ -25,7 +25,7 @@
 }
 
 #formPhoneNumber, #formName, #formPassword, #formRepeatPassword, #formEmail{
-  width: 400px;
+  max-width: 400px;
   margin-bottom: 30px;
   padding-right: 0px !important;
   margin-left: 0px !important;
