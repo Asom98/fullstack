@@ -110,7 +110,7 @@ router.post("/login", async (req, res) => {
         { _id: user._id, 
           role: user.role }, 
         process.env.ACCESS_TOKEN)
-        res.cookie("accessToken", accessToken, { maxAge: 86400000, secure: true, httpOnly: true})
+        res.cookie("accessToken", accessToken, { maxAge: 86400000, secure: true, httpOnly: true, sameSite: "none"})
       res.json({accessToken: accessToken, user: user})
     } else {
       res.status(401).json({ error: "Incorrect password" });
