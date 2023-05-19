@@ -15,7 +15,7 @@ export function AboutPage() {
           <Col xs={12} md={8}>
             <Container className="about-info rounded-circle">
               <p>
-                Creted, styled and made Admin page responsive
+                Created, styled and made Admin page responsive
                 <br /> <span style={{ color: "green" }}>*</span> Made Admin
                 control the users on the frontend
                 <br />
@@ -25,16 +25,16 @@ export function AboutPage() {
                 <span style={{ color: "green" }}>*</span> Made Admin control the
                 bookings on the frontend
                 <br />
-                Creted, styled and made Registration page responsive
+                Created, styled and made Registration page responsive
                 <br />
                 <span style={{ color: "green" }}>*</span> Creted checking for
                 the registration fileds
                 <br />
-                Creted, styled and made Booking page responsive
+                Created, styled and made Booking page responsive
                 <br />
-                Creted, styled and made About page responsive
+                Created, styled and made About page responsive
                 <br />
-                Creted, styled and made the Footer responsive
+                Created, styled and made the Footer responsive
               </p>
             </Container>
           </Col>

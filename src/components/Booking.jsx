@@ -1,4 +1,13 @@
 import { useEffect, useState } from "react";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Card,
+  Accordion,
+} from "react-bootstrap";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
@@ -29,31 +38,31 @@ export function Booking() {
   const [employees, setEmployees] = useState([]);
   const [selectedDate, setSelectedDate] = useState(tomorrow);
   const [isLoading, setIsLoading] = useState(true);
-  const [showBookingForm, setShowBookingForm] = useState(false)
-  const [startTime, setStartTime] = useState(null)
-  const [endTime, setEndTime] = useState(null)
-  const [error, setError] = useState(false)
-  
-  function handleBooking(start,end) {
-    setStartTime(start)
-    setEndTime(end)
-    setShowBookingForm(true)
-  } 
-  
-  const handleNewTimeSlots = (newTimeSlots) => {
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [error, setError] = useState(false);
 
+  function handleBooking(start, end) {
+    setStartTime(start);
+    setEndTime(end);
+    setShowBookingForm(true);
+  }
+
+  const handleNewTimeSlots = (newTimeSlots) => {
     const updatedTimeSlots = timeSlots.map((timeSlot) => {
-      if (timeSlot.start === newTimeSlots.start && timeSlot.end === newTimeSlots.end) {
+      if (
+        timeSlot.start === newTimeSlots.start &&
+        timeSlot.end === newTimeSlots.end
+      ) {
         return { ...timeSlot, isAvailable: false };
       } else {
         return timeSlot;
       }
-    })
+    });
 
-    setTimeSlots(updatedTimeSlots)
-
-  }
-
+    setTimeSlots(updatedTimeSlots);
+  };
 
   useEffect(() => {
     async function fetchTimeSlots() {
@@ -73,12 +82,12 @@ export function Booking() {
           setTimeSlots(result.timeSlots);
           setService(result.service);
           setIsLoading(false);
-          setError(false)
+          setError(false);
           return;
         } else if (response.status === 400) {
           setTimeSlots([]);
           setService([]);
-          setError(true)
+          setError(true);
           setIsLoading(false);
           return;
         } else {
@@ -117,7 +126,7 @@ export function Booking() {
     }
     fetchEmployees();
   }, [service]);
-  
+
   const isDateDisabled = (date) => {
     return date < new Date();
   };
@@ -133,14 +142,14 @@ export function Booking() {
   };
 
   return (
-    <div className="booking-div justify-content-center">
-      <row class="service-name">
-        <column xs={12} md={4}>
+    <Container className="booking-div">
+      <Row class="service-name justify-content-center">
+        <Col xs={12}>
           <h3 class="service-name-text text-center">{service.name}</h3>
-        </column>
-      </row>
-      <row class="section-row justify-content-center">
-        <column>
+        </Col>
+      </Row>
+      <Row class="section-row justify-content-center">
+        <Col>
           <Calendar
             className={"calendar"}
             onChange={setSelectedDate}
@@ -156,27 +165,30 @@ export function Booking() {
               )
             }
           />
-        </column>
-      </row>
-      <row className="section-row justify-content-center">
-        <column>
-          <div class="employee-item">
-            <p>
+        </Col>
+      </Row>
+      <Row className="section-row justify-content-center">
+        <Col>
+          <Container className="employee-item">
+            <p class="employee-name">
               <strong>Employee:</strong> &nbsp;
               {employees.length > 0 ? employees[0].name : null}
             </p>
-          </div>
-          {showBookingForm ? <BookingForm 
-            start={startTime} 
-            end={endTime} 
-            service={service} 
-            employee={employees[0]} 
-            onClose={() => setShowBookingForm(false)} onTimeSlotsChange={handleNewTimeSlots}/>  
-          : null}
+          </Container>
+          {showBookingForm ? (
+            <BookingForm
+              start={startTime}
+              end={endTime}
+              service={service}
+              employee={employees[0]}
+              onClose={() => setShowBookingForm(false)}
+              onTimeSlotsChange={handleNewTimeSlots}
+            />
+          ) : null}
           <table class="time-table">
             <thead></thead>
             {isLoading ? (
-              <div className="spinner-border text-primary"></div>
+              <Container className="spinner-border text-primary"></Container>
             ) : (
               <tbody class="table-body justify-content-center">
                 {timeSlots.length > 0 ? (
@@ -237,16 +249,18 @@ export function Booking() {
                 ) : (
                   <tr>
                     <td>
-                    <div class="alert alert-danger" role="alert"> No available Time Slots </div>
-
+                      <Container class="alert alert-danger" role="alert">
+                        {" "}
+                        No available Time Slots{" "}
+                      </Container>
                     </td>
                   </tr>
                 )}
               </tbody>
             )}
           </table>
-        </column>
-      </row>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }

@@ -118,9 +118,7 @@
       margin: 10px 0;
     }
     
-    .user-icon {
-      margin: 10px 0;
-    }
+    
 }
 
 @media (max-width: 1280px) {
@@ -146,9 +144,7 @@
       margin-left: 20px;
     }
     
-    .user-icon {
-      margin: 10px 0;
-    }
+    
 
     .navbar-nav .nav-link {
         margin-right: 30px;
