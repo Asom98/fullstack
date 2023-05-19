@@ -142,9 +142,9 @@ export function Booking() {
   };
 
   return (
-    <Container className="booking-div justify-content-center">
-      <Row class="service-name">
-        <Col xs={12} md={4}>
+    <Container className="booking-div">
+      <Row class="service-name justify-content-center">
+        <Col xs={12}>
           <h3 class="service-name-text text-center">{service.name}</h3>
         </Col>
       </Row>
@@ -169,8 +169,8 @@ export function Booking() {
       </Row>
       <Row className="section-row justify-content-center">
         <Col>
-          <Container class="employee-item">
-            <p>
+          <Container className="employee-item">
+            <p class="employee-name">
               <strong>Employee:</strong> &nbsp;
               {employees.length > 0 ? employees[0].name : null}
             </p>

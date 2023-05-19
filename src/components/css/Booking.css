@@ -36,15 +36,16 @@
     background-image: url("../backgrounds/Time-booking.png") !important;
 }
 
-@media screen and (min-width: 900px) {
-    .booking-div {
-        margin-left: 100px;
-        margin-right: 100px;
-    }
+
+
+.booking-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .calendar {
-    margin-right: 60px;
     background-color: rgba(255, 241, 194, 0.9) !important;
 }
 
@@ -77,15 +78,13 @@
     border: 2px solid #5a3204 !important;
 }
 
-.employee-item{
-    display: inline-block;
-    background-color: rgba(255,
-        241,
-        194, 0.97) !important;
+.employee-name{
+    background-color: rgba(255, 241, 194, 0.97) !important;
     border-radius: 7px;
     font-size: 16px;
     padding: 10px;
 }
+
 
 .information-part{
     background-color: antiquewhite;
